@@ -114,6 +114,43 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 3 Preview Section */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-primary/20 rounded-full text-primary text-sm font-semibold mb-4 animate-pulse">
+              Coming Soon
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              Book of CZ: Part 3
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              The Awakening: A New Perspective on Memes
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              Witness CZ's transformative journey as $GIGGLE donates over $10M USD to his 
+              company Giggle Academy, fundamentally shifting his perspective on meme coins. 
+              From skeptic to believer, discover how the power of community-driven projects 
+              changed everything. This is the story CZ himself is writing in the Book of CZ.
+            </p>
+
+            {/* Part 3 Stats Preview */}
+            <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">TBD</div>
+                <div className="text-sm text-muted-foreground">Pages</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">$10M+</div>
+                <div className="text-sm text-muted-foreground">Donated</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold text-primary mb-2">1</div>
+                <div className="text-sm text-muted-foreground">Revolution</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a
