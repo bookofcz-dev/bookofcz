@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, BookOpen, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { bookContent } from "@/lib/bookContent";
+import { BookPage } from "@/lib/bookContent";
 import { useNavigate } from "react-router-dom";
 
-export const Book = () => {
+interface BookProps {
+  content: BookPage[];
+  title?: string;
+}
+
+export const Book = ({ content, title = "Book of CZ" }: BookProps) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const totalPages = bookContent.length;
+  const totalPages = content.length;
   const leftPage = currentPage;
   const rightPage = currentPage + 1;
 
@@ -67,15 +72,15 @@ export const Book = () => {
                   {leftPage < totalPages && (
                     <>
                       <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
-                        {bookContent[leftPage].title}
+                        {content[leftPage].title}
                       </h2>
-                      {bookContent[leftPage].chapter && (
+                      {content[leftPage].chapter && (
                         <div className="text-xs md:text-sm text-accent font-semibold mb-2">
-                          {bookContent[leftPage].chapter}
+                          {content[leftPage].chapter}
                         </div>
                       )}
                       <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
-                        {bookContent[leftPage].content}
+                        {content[leftPage].content}
                       </div>
                     </>
                   )}
@@ -93,15 +98,15 @@ export const Book = () => {
                   {rightPage < totalPages && (
                     <>
                       <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
-                        {bookContent[rightPage].title}
+                        {content[rightPage].title}
                       </h2>
-                      {bookContent[rightPage].chapter && (
+                      {content[rightPage].chapter && (
                         <div className="text-xs md:text-sm text-accent font-semibold mb-2">
-                          {bookContent[rightPage].chapter}
+                          {content[rightPage].chapter}
                         </div>
                       )}
                       <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
-                        {bookContent[rightPage].content}
+                        {content[rightPage].content}
                       </div>
                     </>
                   )}
@@ -145,10 +150,10 @@ export const Book = () => {
 
         {/* Chapter Navigation */}
         <div className="mt-4 md:mt-8 flex flex-wrap justify-center gap-1 md:gap-2 px-2">
-          {bookContent
+          {content
             .filter((page) => page.chapter)
             .map((page, idx) => {
-              const pageIndex = bookContent.indexOf(page);
+              const pageIndex = content.indexOf(page);
               return (
                 <Button
                   key={idx}
