@@ -9,7 +9,7 @@ export const bookContent2: BookPage[] = [
   {
     title: "The Return",
     chapter: "Chapter 1: Reflection",
-    content: `September 29, 2024. The day CZ walked out of FCI Lompoc II, a low-security federal prison in California. Four months behind bars—not for theft, not for fraud, but for technical violations in building the world's largest cryptocurrency exchange.
+    content: `September 29, 2025. The day CZ walked out of FCI Lompoc II, a low-security federal prison in California. Four months behind bars—not for theft, not for fraud, but for technical violations in building the world's largest cryptocurrency exchange.
 
 The man who emerged was different from the one who entered. Not broken, but transformed. Prison had given him something precious: time to think, away from the noise of markets, the constant demands of running Binance, the endless scrutiny.`,
   },
@@ -74,7 +74,7 @@ The speculation would always exist. The memes would come and go. But underneath,
   {
     title: "The Market Awakens",
     chapter: "Chapter 2: BNB Season",
-    content: `Late 2024. Something was stirring in crypto. Bitcoin was pushing toward new highs. Ethereum was solid. But something else was happening on BSC.
+    content: `Late 2025. Something was stirring in crypto. Bitcoin was pushing toward new highs. Ethereum was solid. But something else was happening on BSC.
 
 Projects were launching. Communities were growing. Volume was increasing. Not the artificial pump-and-dump cycles of previous years, but sustained, organic growth.
 
@@ -162,7 +162,7 @@ CZ's vision from years ago—a fast, cheap, accessible blockchain for everyone�
     chapter: "Chapter 3: The BOCZ Movement",
     content: `Every great crypto cycle has its cultural artifacts. 2017 had ICOs and Lambos. 2021 had DeFi Summer and NFT apes. 
 
-2024 would have something different. Not just speculation, but storytelling. And the story everyone wanted to tell was CZ's.
+2025 would have something different. Not just speculation, but storytelling. And the story everyone wanted to tell was CZ's.
 
 From McDonald's to billions. From immigrant to innovator. From prison to renewed purpose. It was the ultimate underdog story, crypto-style.
 
