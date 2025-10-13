@@ -19,7 +19,7 @@ const Index = () => {
         <div className="mb-8 flex justify-center">
           <div className="relative">
             <div className="absolute inset-0 bg-primary blur-2xl opacity-50 animate-pulse" />
-            <img src={logo} alt="Book of CZ Logo" className="w-64 h-64 relative" />
+            <img src={logo} alt="Book of CZ Logo" className="w-96 h-96 relative" />
           </div>
         </div>
 
