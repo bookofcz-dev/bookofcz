@@ -124,7 +124,7 @@ const Index = () => {
               Book of CZ: Part 3
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-              The Awakening: A New Perspective on Memes
+              The Awakening: CZ's new take on Memes
             </p>
             <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
               Witness CZ's transformative journey as $GIGGLE donates over $10M USD to his 
