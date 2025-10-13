@@ -46,7 +46,7 @@ const Index = () => {
           className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/50"
         >
           <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-          Open the Book
+          Open Book of CZ Part 1
           <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
         </Button>
 
