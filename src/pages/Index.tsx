@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Sparkles } from "lucide-react";
+import { X } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const Index = () => {
@@ -63,6 +64,19 @@ const Index = () => {
             <div className="text-4xl font-bold text-primary mb-2">1</div>
             <div className="text-sm text-muted-foreground">Legend</div>
           </div>
+        </div>
+
+        {/* Social Link */}
+        <div className="mt-12 flex justify-center">
+          <a
+            href="https://x.com/BOCZ_BookOfCZ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+          >
+            <X className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            <span>Follow us on X</span>
+          </a>
         </div>
       </div>
     </div>
