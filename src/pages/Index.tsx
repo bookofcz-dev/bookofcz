@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Sparkles } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -14,11 +15,11 @@ const Index = () => {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        {/* Book icon with glow effect */}
+        {/* Book logo with glow effect */}
         <div className="mb-8 flex justify-center">
           <div className="relative">
             <div className="absolute inset-0 bg-primary blur-2xl opacity-50 animate-pulse" />
-            <BookOpen className="w-32 h-32 text-primary relative" strokeWidth={1.5} />
+            <img src={logo} alt="Book of CZ Logo" className="w-64 h-64 relative" />
           </div>
         </div>
 
