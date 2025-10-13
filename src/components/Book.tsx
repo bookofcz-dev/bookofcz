@@ -31,8 +31,8 @@ export const Book = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 relative">
-      <div className="absolute top-4 left-4 z-20">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-2 md:p-4 relative">
+      <div className="absolute top-2 left-2 md:top-4 md:left-4 z-20">
         <Button
           variant="outline"
           size="sm"
@@ -40,13 +40,13 @@ export const Book = () => {
           className="gap-2"
         >
           <Home className="w-4 h-4" />
-          Back to Cover
+          <span className="hidden sm:inline">Back to Cover</span>
         </Button>
       </div>
 
-      <div className="w-full max-w-7xl">
+      <div className="w-full max-w-7xl mt-12 md:mt-0">
         {/* Book Container */}
-        <div className="relative perspective-[2000px]">
+        <div className="relative md:perspective-[2000px]">
           <div
             className={`book-container ${isOpen ? "open" : ""} mx-auto transition-transform duration-700`}
             style={{
@@ -54,27 +54,27 @@ export const Book = () => {
               transform: isOpen ? "rotateY(0deg)" : "rotateY(-5deg)",
             }}
           >
-            {/* Book Spine Shadow */}
-            <div className="absolute left-1/2 top-0 w-12 h-full bg-gradient-to-r from-black/60 to-transparent -translate-x-1/2 z-10 pointer-events-none" />
+            {/* Book Spine Shadow - Desktop Only */}
+            <div className="hidden md:block absolute left-1/2 top-0 w-12 h-full bg-gradient-to-r from-black/60 to-transparent -translate-x-1/2 z-10 pointer-events-none" />
 
             {/* Left Page */}
-            <div className="book-page left-page bg-card border-r border-border shadow-2xl">
-              <div className="p-8 h-full flex flex-col">
-                <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
-                  <div className="page-number text-muted-foreground text-sm mb-4">
+            <div className="book-page left-page bg-card border-r md:border-r border-border shadow-2xl">
+              <div className="p-4 md:p-8 h-full flex flex-col">
+                <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar">
+                  <div className="page-number text-muted-foreground text-xs md:text-sm mb-2 md:mb-4">
                     Page {leftPage + 1}
                   </div>
                   {leftPage < totalPages && (
                     <>
-                      <h2 className="text-2xl font-bold text-primary mb-4">
+                      <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
                         {bookContent[leftPage].title}
                       </h2>
                       {bookContent[leftPage].chapter && (
-                        <div className="text-sm text-accent font-semibold mb-2">
+                        <div className="text-xs md:text-sm text-accent font-semibold mb-2">
                           {bookContent[leftPage].chapter}
                         </div>
                       )}
-                      <div className="text-foreground leading-relaxed whitespace-pre-line">
+                      <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
                         {bookContent[leftPage].content}
                       </div>
                     </>
@@ -84,23 +84,23 @@ export const Book = () => {
             </div>
 
             {/* Right Page */}
-            <div className="book-page right-page bg-card border-l border-border shadow-2xl">
-              <div className="p-8 h-full flex flex-col">
-                <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
-                  <div className="page-number text-muted-foreground text-sm mb-4">
+            <div className="book-page right-page bg-card border-l md:border-l border-border shadow-2xl">
+              <div className="p-4 md:p-8 h-full flex flex-col">
+                <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar">
+                  <div className="page-number text-muted-foreground text-xs md:text-sm mb-2 md:mb-4">
                     Page {rightPage + 1}
                   </div>
                   {rightPage < totalPages && (
                     <>
-                      <h2 className="text-2xl font-bold text-primary mb-4">
+                      <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
                         {bookContent[rightPage].title}
                       </h2>
                       {bookContent[rightPage].chapter && (
-                        <div className="text-sm text-accent font-semibold mb-2">
+                        <div className="text-xs md:text-sm text-accent font-semibold mb-2">
                           {bookContent[rightPage].chapter}
                         </div>
                       )}
-                      <div className="text-foreground leading-relaxed whitespace-pre-line">
+                      <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
                         {bookContent[rightPage].content}
                       </div>
                     </>
@@ -112,21 +112,21 @@ export const Book = () => {
         </div>
 
         {/* Navigation Controls */}
-        <div className="flex justify-center items-center gap-6 mt-8">
+        <div className="flex justify-center items-center gap-2 md:gap-6 mt-4 md:mt-8">
           <Button
             onClick={prevPage}
             disabled={currentPage === 0}
             variant="outline"
-            size="lg"
-            className="gap-2"
+            size="sm"
+            className="gap-1 md:gap-2"
           >
-            <ChevronLeft className="w-5 h-5" />
-            Previous
+            <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
+            <span className="hidden sm:inline">Previous</span>
           </Button>
 
-          <div className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-primary" />
-            <span className="text-foreground font-medium">
+          <div className="flex items-center gap-1 md:gap-2">
+            <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-primary" />
+            <span className="text-xs md:text-base text-foreground font-medium">
               {currentPage + 1}-{Math.min(currentPage + 2, totalPages)} of {totalPages}
             </span>
           </div>
@@ -135,16 +135,16 @@ export const Book = () => {
             onClick={nextPage}
             disabled={currentPage >= totalPages - 2}
             variant="outline"
-            size="lg"
-            className="gap-2"
+            size="sm"
+            className="gap-1 md:gap-2"
           >
-            Next
-            <ChevronRight className="w-5 h-5" />
+            <span className="hidden sm:inline">Next</span>
+            <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
           </Button>
         </div>
 
         {/* Chapter Navigation */}
-        <div className="mt-8 flex flex-wrap justify-center gap-2">
+        <div className="mt-4 md:mt-8 flex flex-wrap justify-center gap-1 md:gap-2 px-2">
           {bookContent
             .filter((page) => page.chapter)
             .map((page, idx) => {
@@ -155,7 +155,7 @@ export const Book = () => {
                   onClick={() => goToPage(pageIndex)}
                   variant={currentPage === pageIndex ? "default" : "outline"}
                   size="sm"
-                  className="text-xs"
+                  className="text-[10px] md:text-xs px-2 py-1"
                 >
                   {page.chapter}
                 </Button>
@@ -166,29 +166,65 @@ export const Book = () => {
 
       <style>{`
         .book-page {
-          width: 45%;
-          height: 700px;
-          position: absolute;
-          top: 0;
           background: linear-gradient(to bottom, hsl(var(--card)), hsl(var(--card)));
           transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .left-page {
-          left: 0;
-          border-radius: 0.75rem 0 0 0.75rem;
+        /* Mobile: Stack pages vertically */
+        @media (max-width: 768px) {
+          .book-page {
+            width: 100%;
+            min-height: 500px;
+            height: auto;
+            position: relative;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+          }
+
+          .left-page {
+            display: block;
+          }
+
+          .right-page {
+            display: block;
+          }
+
+          .book-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          }
         }
 
-        .right-page {
-          right: 0;
-          border-radius: 0 0.75rem 0.75rem 0;
-        }
+        /* Desktop: Side by side pages */
+        @media (min-width: 769px) {
+          .book-page {
+            width: 45%;
+            height: 700px;
+            position: absolute;
+            top: 0;
+          }
 
-        .book-container {
-          position: relative;
-          width: 90%;
-          height: 700px;
-          margin: 0 auto;
+          .left-page {
+            left: 0;
+            border-radius: 0.75rem 0 0 0.75rem;
+          }
+
+          .right-page {
+            right: 0;
+            border-radius: 0 0.75rem 0.75rem 0;
+          }
+
+          .book-container {
+            position: relative;
+            width: 90%;
+            height: 700px;
+            margin: 0 auto;
+          }
         }
 
         .custom-scrollbar::-webkit-scrollbar {
