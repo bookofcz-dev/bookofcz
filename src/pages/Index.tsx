@@ -66,6 +66,42 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 2 Preview Section */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-accent/20 rounded-full text-accent text-sm font-semibold mb-4 animate-pulse">
+              Coming Soon
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
+              Book of CZ: Part 2
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              The Return & Resurgence
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
+              Witness the triumphant return of CZ and the rebirth of Binance Season. 
+              From adversity to ascendancy, experience the resurgence that echoes the 
+              legendary bull run of 2021. The story continues...
+            </p>
+          </div>
+
+          {/* Part 2 Stats Preview */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">2025</div>
+              <div className="text-sm text-muted-foreground">The Return</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">∞</div>
+              <div className="text-sm text-muted-foreground">Possibilities</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">1</div>
+              <div className="text-sm text-muted-foreground">Comeback</div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a
