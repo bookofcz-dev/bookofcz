@@ -76,97 +76,155 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Part 2 Preview Section */}
+        {/* Parts 2 & 3 in Same Row */}
         <div className="mt-24 pt-16 border-t border-border/50">
-          <div className="mb-8">
-            <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
-              Now Available
-            </div>
-            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
-              Book of CZ: Part 2
-            </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-              The Return & Resurgence
-            </p>
-            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
-              Witness the triumphant return of CZ and the rebirth of Binance Season. 
-              From adversity to ascendancy, experience the resurgence that echoes the 
-              legendary bull run of 2021. The story continues...
-            </p>
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Part 2 */}
+            <div className="mb-8">
+              <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
+                Now Available
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
+                Book of CZ: Part 2
+              </h2>
+              <p className="text-lg md:text-xl text-muted-foreground mb-4">
+                The Return & Resurgence
+              </p>
+              <p className="text-base text-foreground/80 mb-8">
+                Witness the triumphant return of CZ and the rebirth of Binance Season. 
+                From adversity to ascendancy, experience the resurgence that echoes the 
+                legendary bull run of 2021. The story continues...
+              </p>
 
-            {/* CTA Buttons for Part 2 */}
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button
-                onClick={() => navigate("/book2")}
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
-              >
-                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                Read Part 2
-                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              </Button>
-              <Button
-                onClick={() => navigate("/book2-cn")}
-                size="lg"
-                variant="outline"
-                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
-              >
-                中文版
-              </Button>
-            </div>
-          </div>
+              {/* CTA Buttons for Part 2 */}
+              <div className="flex flex-wrap gap-4 justify-center mb-8">
+                <Button
+                  onClick={() => navigate("/book2")}
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
+                >
+                  <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                  Read Part 2
+                  <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </Button>
+                <Button
+                  onClick={() => navigate("/book2-cn")}
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+                >
+                  中文版
+                </Button>
+              </div>
 
-          {/* Part 2 Stats */}
-          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent mb-2">44</div>
-              <div className="text-sm text-muted-foreground">Pages</div>
+              {/* Part 2 Stats */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">44</div>
+                  <div className="text-xs text-muted-foreground">Pages</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">4</div>
+                  <div className="text-xs text-muted-foreground">Chapters</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">1</div>
+                  <div className="text-xs text-muted-foreground">Movement</div>
+                </div>
+              </div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent mb-2">4</div>
-              <div className="text-sm text-muted-foreground">Chapters</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-accent mb-2">1</div>
-              <div className="text-sm text-muted-foreground">Movement</div>
+
+            {/* Part 3 */}
+            <div className="mb-8">
+              <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
+                Now Available
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                Book of CZ: Part 3
+              </h2>
+              <p className="text-lg md:text-xl text-muted-foreground mb-4">
+                The Awakening: CZ's new take on Memes
+              </p>
+              <p className="text-base text-foreground/80 mb-8">
+                Witness CZ's transformative journey as $GIGGLE donates over $10M USD to his 
+                company Giggle Academy, fundamentally shifting his perspective on meme coins. 
+                From skeptic to believer, discover how the power of community-driven projects 
+                changed everything. This is the story CZ himself is writing in the Book of CZ.
+              </p>
+
+              {/* CTA Buttons for Part 3 */}
+              <div className="flex flex-wrap gap-4 justify-center mb-8">
+                <Button
+                  onClick={() => navigate("/book3")}
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
+                >
+                  <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                  Read Part 3
+                  <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                </Button>
+                <Button
+                  onClick={() => navigate("/book3-cn")}
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+                >
+                  中文版
+                </Button>
+              </div>
+
+              {/* Part 3 Stats */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">44</div>
+                  <div className="text-xs text-muted-foreground">Pages</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">$10M+</div>
+                  <div className="text-xs text-muted-foreground">Donated</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-accent mb-2">1</div>
+                  <div className="text-xs text-muted-foreground">Revolution</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Part 3 Preview Section */}
+        {/* Part 4 Preview Section */}
         <div className="mt-24 pt-16 border-t border-border/50">
           <div className="mb-8">
-            <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
-              Now Available
+            <div className="inline-block px-4 py-2 bg-primary rounded-full text-primary-foreground text-sm font-semibold mb-4 animate-pulse">
+              Preview Available
             </div>
             <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Book of CZ: Part 3
+              44 Words of Wisdom from CZ
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4">
-              The Awakening: CZ's new take on Memes
+              Inspiring Quotes from the Crypto Legend
             </p>
             <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
-              Witness CZ's transformative journey as $GIGGLE donates over $10M USD to his 
-              company Giggle Academy, fundamentally shifting his perspective on meme coins. 
-              From skeptic to believer, discover how the power of community-driven projects 
-              changed everything. This is the story CZ himself is writing in the Book of CZ.
+              A collection of 44 inspiring quotes coming from CZ himself that can help people 
+              in their journey to crypto. Discover the wisdom, philosophy, and mindset that 
+              built a revolution and inspired millions worldwide.
             </p>
 
-            {/* CTA Buttons for Part 3 */}
-            <div className="flex flex-wrap gap-4 justify-center mb-12">
+            {/* CTA Buttons for Part 4 */}
+            <div className="flex flex-wrap gap-4 justify-center">
               <Button
-                onClick={() => navigate("/book3")}
+                onClick={() => navigate("/book4")}
                 size="lg"
-                variant="outline"
-                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/50"
               >
                 <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                Read Part 3
+                Read the Wisdom
                 <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
               </Button>
               <Button
-                onClick={() => navigate("/book3-cn")}
+                onClick={() => navigate("/book4-cn")}
                 size="lg"
                 variant="outline"
                 className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
@@ -174,21 +232,21 @@ const Index = () => {
                 中文版
               </Button>
             </div>
+          </div>
 
-            {/* Part 3 Stats */}
-            <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-accent mb-2">44</div>
-                <div className="text-sm text-muted-foreground">Pages</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-accent mb-2">$10M+</div>
-                <div className="text-sm text-muted-foreground">Donated</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-accent mb-2">1</div>
-                <div className="text-sm text-muted-foreground">Revolution</div>
-              </div>
+          {/* Part 4 Stats */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-primary mb-2">44</div>
+              <div className="text-sm text-muted-foreground">Quotes</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-primary mb-2">∞</div>
+              <div className="text-sm text-muted-foreground">Wisdom</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-primary mb-2">1</div>
+              <div className="text-sm text-muted-foreground">Legend</div>
             </div>
           </div>
         </div>
