@@ -39,16 +39,26 @@ const Index = () => {
           An interactive 100-page chronicle of ambition, innovation, and resilience.
         </p>
 
-        {/* CTA Button */}
-        <Button
-          onClick={() => navigate("/book")}
-          size="lg"
-          className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/50"
-        >
-          <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-          Open Book of CZ Part 1
-          <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        </Button>
+        {/* CTA Buttons */}
+        <div className="flex flex-wrap gap-4 justify-center">
+          <Button
+            onClick={() => navigate("/book")}
+            size="lg"
+            className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/50"
+          >
+            <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+            Open Book of CZ Part 1
+            <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+          </Button>
+          <Button
+            onClick={() => navigate("/book-cn")}
+            size="lg"
+            variant="outline"
+            className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+          >
+            中文版
+          </Button>
+        </div>
 
         {/* Stats */}
         <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
@@ -84,17 +94,27 @@ const Index = () => {
               legendary bull run of 2021. The story continues...
             </p>
 
-            {/* CTA Button for Part 2 */}
-            <Button
-              onClick={() => navigate("/book2")}
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
-            >
-              <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              Read Part 2
-              <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
-            </Button>
+            {/* CTA Buttons for Part 2 */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button
+                onClick={() => navigate("/book2")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                Read Part 2
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+              <Button
+                onClick={() => navigate("/book2-cn")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                中文版
+              </Button>
+            </div>
           </div>
 
           {/* Part 2 Stats */}
