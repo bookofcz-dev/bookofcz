@@ -78,75 +78,75 @@ const Index = () => {
 
         {/* Parts 2 & 3 in Same Row */}
         <div className="mt-24 pt-16 border-t border-border/50">
-          <div className="grid md:grid-cols-2 gap-16">
+          <div className="grid md:grid-cols-2 gap-12">
             {/* Part 2 */}
-            <div className="mb-8 p-6">
-              <div className="inline-block px-6 py-3 bg-accent rounded-full text-accent-foreground text-base font-semibold mb-6 animate-pulse">
+            <div className="mb-8">
+              <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
                 Now Available
               </div>
-              <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
                 Book of CZ: Part 2
               </h2>
-              <p className="text-2xl md:text-3xl text-muted-foreground mb-6">
+              <p className="text-lg md:text-xl text-muted-foreground mb-4">
                 The Return & Resurgence
               </p>
-              <p className="text-lg text-foreground/80 mb-10 leading-relaxed">
+              <p className="text-base text-foreground/80 mb-8">
                 Witness the triumphant return of CZ and the rebirth of Binance Season. 
                 From adversity to ascendancy, experience the resurgence that echoes the 
                 legendary bull run of 2021. The story continues...
               </p>
 
               {/* CTA Buttons for Part 2 */}
-              <div className="flex flex-col gap-4 mb-10">
+              <div className="flex flex-wrap gap-4 justify-center mb-8">
                 <Button
                   onClick={() => navigate("/book2")}
                   size="lg"
                   variant="outline"
-                  className="text-xl px-10 py-8 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
+                  className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
                 >
-                  <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                  <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                   Read Part 2
-                  <BookOpen className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </Button>
                 <Button
                   onClick={() => navigate("/book2-cn")}
                   size="lg"
                   variant="outline"
-                  className="text-xl px-10 py-8 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+                  className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   中文版
                 </Button>
               </div>
 
               {/* Part 2 Stats */}
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-accent mb-2">44</div>
-                  <div className="text-sm text-muted-foreground">Pages</div>
+                  <div className="text-3xl font-bold text-accent mb-2">44</div>
+                  <div className="text-xs text-muted-foreground">Pages</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-accent mb-2">4</div>
-                  <div className="text-sm text-muted-foreground">Chapters</div>
+                  <div className="text-3xl font-bold text-accent mb-2">4</div>
+                  <div className="text-xs text-muted-foreground">Chapters</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-accent mb-2">1</div>
-                  <div className="text-sm text-muted-foreground">Movement</div>
+                  <div className="text-3xl font-bold text-accent mb-2">1</div>
+                  <div className="text-xs text-muted-foreground">Movement</div>
                 </div>
               </div>
             </div>
 
             {/* Part 3 */}
-            <div className="mb-8 p-6">
-              <div className="inline-block px-6 py-3 bg-accent rounded-full text-accent-foreground text-base font-semibold mb-6 animate-pulse">
+            <div className="mb-8">
+              <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
                 Now Available
               </div>
-              <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                 Book of CZ: Part 3
               </h2>
-              <p className="text-2xl md:text-3xl text-muted-foreground mb-6">
+              <p className="text-lg md:text-xl text-muted-foreground mb-4">
                 The Awakening: CZ's new take on Memes
               </p>
-              <p className="text-lg text-foreground/80 mb-10 leading-relaxed">
+              <p className="text-base text-foreground/80 mb-8">
                 Witness CZ's transformative journey as $GIGGLE donates over $10M USD to his 
                 company Giggle Academy, fundamentally shifting his perspective on meme coins. 
                 From skeptic to believer, discover how the power of community-driven projects 
@@ -154,40 +154,40 @@ const Index = () => {
               </p>
 
               {/* CTA Buttons for Part 3 */}
-              <div className="flex flex-col gap-4 mb-10">
+              <div className="flex flex-wrap gap-4 justify-center mb-8">
                 <Button
                   onClick={() => navigate("/book3")}
                   size="lg"
                   variant="outline"
-                  className="text-xl px-10 py-8 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
+                  className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
                 >
-                  <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                  <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                   Read Part 3
-                  <BookOpen className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </Button>
                 <Button
                   onClick={() => navigate("/book3-cn")}
                   size="lg"
                   variant="outline"
-                  className="text-xl px-10 py-8 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+                  className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   中文版
                 </Button>
               </div>
 
               {/* Part 3 Stats */}
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-accent mb-2">44</div>
-                  <div className="text-sm text-muted-foreground">Pages</div>
+                  <div className="text-3xl font-bold text-accent mb-2">44</div>
+                  <div className="text-xs text-muted-foreground">Pages</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-accent mb-2">$10M+</div>
-                  <div className="text-sm text-muted-foreground">Donated</div>
+                  <div className="text-3xl font-bold text-accent mb-2">$10M+</div>
+                  <div className="text-xs text-muted-foreground">Donated</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-accent mb-2">1</div>
-                  <div className="text-sm text-muted-foreground">Revolution</div>
+                  <div className="text-3xl font-bold text-accent mb-2">1</div>
+                  <div className="text-xs text-muted-foreground">Revolution</div>
                 </div>
               </div>
             </div>
@@ -201,7 +201,7 @@ const Index = () => {
               Preview Available
             </div>
             <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Book of CZ: 44 Words of Wisdom from CZ
+              Book of CZ: 44 Words of Wisdom
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4">
               Inspiring Quotes from the Crypto Legend
