@@ -137,8 +137,8 @@ const Index = () => {
         {/* Part 3 Preview Section */}
         <div className="mt-24 pt-16 border-t border-border/50">
           <div className="mb-8">
-            <div className="inline-block px-4 py-2 bg-primary/20 rounded-full text-primary text-sm font-semibold mb-4 animate-pulse">
-              Coming Soon
+            <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
+              Now Available
             </div>
             <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
               Book of CZ: Part 3
@@ -153,18 +153,40 @@ const Index = () => {
               changed everything. This is the story CZ himself is writing in the Book of CZ.
             </p>
 
-            {/* Part 3 Stats Preview */}
+            {/* CTA Buttons for Part 3 */}
+            <div className="flex flex-wrap gap-4 justify-center mb-12">
+              <Button
+                onClick={() => navigate("/book3")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                Read Part 3
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+              <Button
+                onClick={() => navigate("/book3-cn")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                中文版
+              </Button>
+            </div>
+
+            {/* Part 3 Stats */}
             <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">TBD</div>
+                <div className="text-4xl font-bold text-accent mb-2">44</div>
                 <div className="text-sm text-muted-foreground">Pages</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">$10M+</div>
+                <div className="text-4xl font-bold text-accent mb-2">$10M+</div>
                 <div className="text-sm text-muted-foreground">Donated</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">1</div>
+                <div className="text-4xl font-bold text-accent mb-2">1</div>
                 <div className="text-sm text-muted-foreground">Revolution</div>
               </div>
             </div>

@@ -6,8 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import BookPage from "./pages/BookPage";
 import BookPage2 from "./pages/BookPage2";
+import BookPage3 from "./pages/BookPage3";
 import BookPageCN from "./pages/BookPageCN";
 import BookPage2CN from "./pages/BookPage2CN";
+import BookPage3CN from "./pages/BookPage3CN";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,8 +24,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/book" element={<BookPage />} />
           <Route path="/book2" element={<BookPage2 />} />
+          <Route path="/book3" element={<BookPage3 />} />
           <Route path="/book-cn" element={<BookPageCN />} />
           <Route path="/book2-cn" element={<BookPage2CN />} />
+          <Route path="/book3-cn" element={<BookPage3CN />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
