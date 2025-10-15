@@ -250,6 +250,64 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 5 Preview Section */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
+              Now Available
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
+              Book of CZ: Part 5
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              The Uncharted Romance of CZ and Yi He
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              Discover the untold story of CZ and Yi He's partnership—both personal and professional. 
+              From their first meeting to building Binance together, witness how their shared vision 
+              and mutual respect created the world's largest crypto exchange. Experience the BSC 
+              journey reaching new ATHs in October 2025. A love story of innovation, trust, and triumph.
+            </p>
+
+            {/* CTA Buttons for Part 5 */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button
+                onClick={() => navigate("/book5")}
+                size="lg"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-accent/50"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                Read Their Story
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+              <Button
+                onClick={() => navigate("/book5-cn")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                中文版
+              </Button>
+            </div>
+          </div>
+
+          {/* Part 5 Stats */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">44</div>
+              <div className="text-sm text-muted-foreground">Pages</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">ATH</div>
+              <div className="text-sm text-muted-foreground">Oct 2025</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">2</div>
+              <div className="text-sm text-muted-foreground">Legends</div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a
