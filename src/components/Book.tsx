@@ -7,25 +7,31 @@ import { useNavigate } from "react-router-dom";
 interface BookProps {
   content: BookPage[];
   title?: string;
+  coverImage?: string;
 }
 
-export const Book = ({ content, title = "Book of CZ" }: BookProps) => {
-  const [currentPage, setCurrentPage] = useState(0);
+export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) => {
+  const [currentPage, setCurrentPage] = useState(coverImage ? -1 : 0);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const totalPages = content.length;
+  const showCover = coverImage && currentPage === -1;
   const leftPage = currentPage;
   const rightPage = currentPage + 1;
 
   const nextPage = () => {
-    if (currentPage < totalPages - 2) {
+    if (showCover) {
+      setCurrentPage(0);
+    } else if (currentPage < totalPages - 2) {
       setCurrentPage(currentPage + 2);
     }
   };
 
   const prevPage = () => {
-    if (currentPage > 0) {
+    if (currentPage === 0 && coverImage) {
+      setCurrentPage(-1);
+    } else if (currentPage > 0) {
       setCurrentPage(currentPage - 2);
     }
   };
@@ -62,56 +68,75 @@ export const Book = ({ content, title = "Book of CZ" }: BookProps) => {
             {/* Book Spine Shadow - Desktop Only */}
             <div className="hidden md:block absolute left-1/2 top-0 w-12 h-full bg-gradient-to-r from-black/60 to-transparent -translate-x-1/2 z-10 pointer-events-none" />
 
-            {/* Left Page */}
+            {/* Cover or Left Page */}
             <div className="book-page left-page bg-card border-r md:border-r border-border shadow-2xl">
-              <div className="p-4 md:p-8 h-full flex flex-col">
-                <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar">
-                  <div className="page-number text-muted-foreground text-xs md:text-sm mb-2 md:mb-4">
-                    Page {leftPage + 1}
-                  </div>
-                  {leftPage < totalPages && (
-                    <>
-                      <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
-                        {content[leftPage].title}
-                      </h2>
-                      {content[leftPage].chapter && (
-                        <div className="text-xs md:text-sm text-accent font-semibold mb-2">
-                          {content[leftPage].chapter}
-                        </div>
-                      )}
-                      <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
-                        {content[leftPage].content}
-                      </div>
-                    </>
-                  )}
+              {showCover ? (
+                <div className="h-full flex items-center justify-center p-4">
+                  <img 
+                    src={coverImage} 
+                    alt="Book Cover" 
+                    className="w-full h-full object-contain"
+                  />
                 </div>
-              </div>
+              ) : (
+                <div className="p-4 md:p-8 h-full flex flex-col">
+                  <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar">
+                    <div className="page-number text-muted-foreground text-xs md:text-sm mb-2 md:mb-4">
+                      Page {leftPage + 1}
+                    </div>
+                    {leftPage < totalPages && (
+                      <>
+                        <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
+                          {content[leftPage].title}
+                        </h2>
+                        {content[leftPage].chapter && (
+                          <div className="text-xs md:text-sm text-accent font-semibold mb-2">
+                            {content[leftPage].chapter}
+                          </div>
+                        )}
+                        <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
+                          {content[leftPage].content}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Right Page */}
             <div className="book-page right-page bg-card border-l md:border-l border-border shadow-2xl">
-              <div className="p-4 md:p-8 h-full flex flex-col">
-                <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar">
-                  <div className="page-number text-muted-foreground text-xs md:text-sm mb-2 md:mb-4">
-                    Page {rightPage + 1}
+              {showCover ? (
+                <div className="h-full flex items-center justify-center p-8 text-center">
+                  <div>
+                    <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4">{title}</h1>
+                    <p className="text-muted-foreground">Click next to start reading</p>
                   </div>
-                  {rightPage < totalPages && (
-                    <>
-                      <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
-                        {content[rightPage].title}
-                      </h2>
-                      {content[rightPage].chapter && (
-                        <div className="text-xs md:text-sm text-accent font-semibold mb-2">
-                          {content[rightPage].chapter}
-                        </div>
-                      )}
-                      <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
-                        {content[rightPage].content}
-                      </div>
-                    </>
-                  )}
                 </div>
-              </div>
+              ) : (
+                <div className="p-4 md:p-8 h-full flex flex-col">
+                  <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar">
+                    <div className="page-number text-muted-foreground text-xs md:text-sm mb-2 md:mb-4">
+                      Page {rightPage + 1}
+                    </div>
+                    {rightPage < totalPages && (
+                      <>
+                        <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
+                          {content[rightPage].title}
+                        </h2>
+                        {content[rightPage].chapter && (
+                          <div className="text-xs md:text-sm text-accent font-semibold mb-2">
+                            {content[rightPage].chapter}
+                          </div>
+                        )}
+                        <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
+                          {content[rightPage].content}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -120,7 +145,7 @@ export const Book = ({ content, title = "Book of CZ" }: BookProps) => {
         <div className="flex justify-center items-center gap-2 md:gap-6 mt-4 md:mt-8">
           <Button
             onClick={prevPage}
-            disabled={currentPage === 0}
+            disabled={currentPage === -1 || (currentPage === 0 && !coverImage)}
             variant="outline"
             size="sm"
             className="gap-1 md:gap-2"
@@ -132,13 +157,13 @@ export const Book = ({ content, title = "Book of CZ" }: BookProps) => {
           <div className="flex items-center gap-1 md:gap-2">
             <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-primary" />
             <span className="text-xs md:text-base text-foreground font-medium">
-              {currentPage + 1}-{Math.min(currentPage + 2, totalPages)} of {totalPages}
+              {showCover ? "Cover" : `${currentPage + 1}-${Math.min(currentPage + 2, totalPages)} of ${totalPages}`}
             </span>
           </div>
 
           <Button
             onClick={nextPage}
-            disabled={currentPage >= totalPages - 2}
+            disabled={!showCover && currentPage >= totalPages - 2}
             variant="outline"
             size="sm"
             className="gap-1 md:gap-2"
