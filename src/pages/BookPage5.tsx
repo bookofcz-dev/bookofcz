@@ -4,12 +4,13 @@ import { bookContent } from "@/lib/bookContent5";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Info, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import bookCover from "@/assets/book5-cover.png";
 
 const BookPage5 = () => {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
 
   if (!showDisclaimer) {
-    return <Book content={bookContent} title="Book of CZ: The Partnership" />;
+    return <Book content={bookContent} title="Book of CZ: The Partnership" coverImage={bookCover} />;
   }
 
   return (
@@ -33,7 +34,7 @@ const BookPage5 = () => {
         </Alert>
       </div>
       <div className="pt-20">
-        <Book content={bookContent} title="Book of CZ: The Partnership" />
+        <Book content={bookContent} title="Book of CZ: The Partnership" coverImage={bookCover} />
       </div>
     </>
   );

@@ -16,7 +16,20 @@ Before Binance, Yi He worked at OKCoin, one of China's early cryptocurrency exch
     title: "Professional Partnership",
     content: `Yi He and CZ formed a professional partnership that would prove transformational for the cryptocurrency industry. Their complementary skills—CZ's technical expertise and Yi He's marketing acumen—created a strong foundation for building a global exchange.
 
-They are also life partners and have children together, though they maintain privacy regarding their personal life.`
+Beyond professional collaboration, they are life partners. Yi He has publicly confirmed their relationship in interviews, noting they have children together while maintaining privacy about their family life.`
+  },
+  {
+    title: "More Than Business",
+    chapter: "Chapter 1.5: Personal Connection",
+    content: `In a 2023 Bloomberg interview, Yi He addressed their relationship publicly, stating: "I brought CZ into the crypto world." She emphasized their partnership is both professional and personal, distinguishing it from other crypto relationships.
+
+"We are partners and we have children together," Yi He confirmed, while noting they keep family matters private to protect their children and maintain work-life boundaries.`
+  },
+  {
+    title: "Building Together",
+    content: `Their dual role as business partners and life partners created unique dynamics. Understanding each other's strengths deeply, they could divide responsibilities naturally—CZ focusing on technology and product, Yi He on marketing and community.
+
+This arrangement allowed Binance to move with unusual speed and coherence during its crucial early growth phase, as major decisions could be aligned quickly between co-founders who shared both professional and personal bonds.`
   },
   {
     title: "Founding Binance",
@@ -145,7 +158,13 @@ CZ and Yi He's vision of accessible cryptocurrency infrastructure had reached gl
     chapter: "Chapter 10: The Partnership",
     content: `The success of Binance and BNB Chain demonstrates the effectiveness of CZ and Yi He's complementary leadership. Technical excellence combined with marketing expertise and cultural fluency.
 
-Their professional partnership, spanning exchange operations, blockchain infrastructure, and ecosystem development, created lasting impact on the cryptocurrency industry.`
+Their professional partnership, spanning exchange operations, blockchain infrastructure, and ecosystem development, created lasting impact on the cryptocurrency industry. Their personal relationship added depth to this collaboration.`
+  },
+  {
+    title: "Life Partners, Business Partners",
+    content: `Yi He has spoken about the unique nature of building a company with one's life partner. "We understand each other completely," she noted in interviews, referring to both their shared vision for cryptocurrency and their personal connection.
+
+This dual partnership—rarely discussed publicly but acknowledged when asked—shaped Binance's culture and decision-making in ways both visible and subtle. They built not just a company, but a shared legacy.`
   },
   {
     title: "Yi He's Impact",
