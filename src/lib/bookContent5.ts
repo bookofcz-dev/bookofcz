@@ -6,292 +6,278 @@ export interface BookPage {
 
 export const bookContent: BookPage[] = [
   {
-    title: "The Beginning",
-    chapter: "Chapter 1",
-    content: `In the bustling tech scene of Shanghai, 2013, two ambitious souls crossed paths. CZ, a seasoned developer with dreams of revolutionizing finance, met Yi He, a brilliant marketing strategist with a vision for the future.
+    title: "The Co-Founders",
+    chapter: "Chapter 1: Origins",
+    content: `CZ (Changpeng Zhao) and Yi He are the co-founders of Binance, the world's largest cryptocurrency exchange. Yi He serves as Chief Marketing Officer and Head of Binance Labs.
 
-Their first conversation lasted hours, discussing blockchain technology, market dynamics, and the potential to change the world. Neither knew that this meeting would spark both a professional partnership and a deep personal connection.`
+Before Binance, Yi He worked at OKCoin, one of China's early cryptocurrency exchanges, where she gained experience in crypto marketing and community building. CZ had previously worked at Blockchain.info and OKCoin, developing expertise in trading systems.`
   },
   {
-    title: "Shared Vision",
-    content: `Yi He saw in CZ not just a technical genius, but a kindred spirit. They both believed that cryptocurrency could democratize finance and empower people globally.
+    title: "Professional Partnership",
+    content: `Yi He and CZ formed a professional partnership that would prove transformational for the cryptocurrency industry. Their complementary skills—CZ's technical expertise and Yi He's marketing acumen—created a strong foundation for building a global exchange.
 
-"We don't just build exchanges," Yi He would say. "We build bridges to financial freedom."
-
-CZ nodded in agreement. Their shared vision became the foundation of something extraordinary.`
+They are also life partners and have children together, though they maintain privacy regarding their personal life.`
   },
   {
-    title: "The Early Days",
-    chapter: "Chapter 2",
-    content: `Working late nights in a small office, CZ and Yi He laid the groundwork for what would become Binance. Coffee cups piled up, whiteboards filled with ideas, and their bond grew stronger with each challenge overcome.
+    title: "Founding Binance",
+    chapter: "Chapter 2: Building the Exchange",
+    content: `In July 2017, Binance officially launched. The timing coincided with the ICO boom, and Binance quickly gained traction by offering a wide range of cryptocurrency trading pairs and competitive fees.
 
-Yi He's expertise in community building complemented CZ's technical prowess perfectly. They were a team in every sense of the word.`
+CZ led the technical development while Yi He focused on marketing, community building, and strategic partnerships across Asian and global markets.`
   },
   {
-    title: "Building Trust",
-    content: `Trust became their cornerstone. In an industry filled with uncertainty, CZ and Yi He's unwavering faith in each other created a solid foundation.
+    title: "Rapid Growth",
+    content: `Within months of launching, Binance became one of the fastest-growing cryptocurrency exchanges. The platform's focus on user experience, low fees, and wide asset selection attracted traders worldwide.
 
-"Your integrity is your brand," Yi He often reminded the team. CZ lived by this principle, ensuring every decision reflected their shared values.`
+Yi He's marketing strategies and community engagement helped Binance build a loyal global user base across multiple languages and regions.`
   },
   {
-    title: "The Launch",
-    chapter: "Chapter 3",
-    content: `July 2017 marked a turning point. Binance launched to the world. CZ and Yi He stood side by side, watching as their dream became reality.
+    title: "Global Expansion",
+    chapter: "Chapter 3: Scaling Worldwide",
+    content: `Binance adopted a borderless approach, serving users globally without being tied to a single jurisdiction. This strategy allowed rapid expansion but would later present regulatory challenges.
 
-The response was overwhelming. Within months, Binance became one of the fastest-growing exchanges. But success didn't change them—it only strengthened their resolve.`
+The exchange established regional presences and localized services while maintaining unified global operations under CZ and Yi He's leadership.`
   },
   {
-    title: "Weathering Storms",
-    content: `Their relationship was tested through regulatory challenges, market crashes, and security threats. Each crisis brought them closer.
+    title: "Navigating Challenges",
+    content: `As Binance grew, it faced increasing regulatory scrutiny worldwide. The leadership team worked to address compliance requirements while maintaining service to users.
 
-Yi He's calm wisdom balanced CZ's decisive action. Together, they navigated every storm, emerging stronger each time.`
+CZ and Yi He's partnership proved crucial during challenging periods, combining technical problem-solving with strategic communication to stakeholders.`
   },
   {
     title: "Cultural Bridge",
-    chapter: "Chapter 4",
-    content: `Yi He's deep understanding of both Eastern and Western markets helped Binance become truly global. She taught CZ the nuances of different cultures, while he showed her the universal language of code.
+    content: `Yi He's deep understanding of both Eastern and Western markets helped Binance become truly global. Her multilingual capabilities and cultural fluency aided in expanding Binance across Asia, Europe, and the Americas.
 
-Their partnership transcended borders, creating a platform that welcomed everyone.`
+This cross-cultural expertise became one of Binance's competitive advantages in the global cryptocurrency market.`
   },
   {
-    title: "The Vision Expands",
-    content: `As Binance grew, so did their dreams. They envisioned not just an exchange, but an entire ecosystem. Smart chains, DeFi platforms, educational initiatives—each new project reflected their shared commitment to innovation.
+    title: "Ecosystem Vision",
+    content: `Beyond just an exchange, CZ and Yi He envisioned a comprehensive cryptocurrency ecosystem. This vision led to multiple initiatives including Binance Labs (investment arm), Binance Academy (education), and eventually Binance Smart Chain.
 
-Yi He's strategic mind helped map the path forward, while CZ's execution made it reality.`
+Yi He took particular leadership over Binance Labs, supporting blockchain startups and fostering ecosystem development.`
   },
   {
-    title: "BSC is Born",
-    chapter: "Chapter 5",
-    content: `In 2020, Binance Smart Chain (BSC) launched. This wasn't just another blockchain—it was their love letter to the community. Fast, affordable, and accessible.
+    title: "Binance Smart Chain Launch",
+    chapter: "Chapter 4: BSC Era",
+    content: `In September 2020, Binance Smart Chain (BSC) launched as a parallel blockchain to Binance Chain. BSC enabled smart contracts and offered fast, low-cost transactions, positioning itself as an alternative to Ethereum.
 
-Yi He championed the developer community, while CZ ensured the technical infrastructure was flawless. BSC quickly became a haven for innovation.`
+The launch represented a major strategic expansion beyond exchange operations into blockchain infrastructure.`
   },
   {
-    title: "Community First",
-    content: `"Our users are our family," Yi He would say at every town hall. This philosophy, shared deeply by CZ, shaped every decision.
+    title: "DeFi on BSC",
+    content: `BSC quickly became a hub for decentralized finance (DeFi) applications. Projects like PancakeSwap, Venus Protocol, and numerous others launched on BSC, attracted by low transaction costs and EVM compatibility.
 
-They listened, adapted, and grew with their community. This genuine care set Binance apart in a crowded market.`
+Yi He championed developer relations and ecosystem funding, while CZ ensured technical infrastructure could handle rapid growth.`
   },
   {
-    title: "Personal Sacrifice",
-    chapter: "Chapter 6",
-    content: `Building an empire required sacrifice. Long hours, constant travel, intense pressure. Through it all, CZ and Yi He supported each other.
+    title: "The 2021 Bull Market",
+    chapter: "Chapter 5: Peak Performance",
+    content: `The 2021 cryptocurrency bull market brought unprecedented volume to Binance. The platform handled massive trading activity while BSC saw explosive growth in DeFi protocols and NFT projects.
 
-Their personal relationship, though rarely public, was the quiet strength behind Binance's success. In private moments, they were simply two people who understood each other completely.`
+This period tested Binance's infrastructure and demonstrated the scalability of systems built by CZ's technical team.`
   },
   {
-    title: "Mutual Respect",
-    content: `CZ never made a major decision without consulting Yi He. Her insights were invaluable, her judgment sound. She, in turn, trusted his technical vision implicitly.
+    title: "Regulatory Headwinds",
+    content: `2021 also brought increased regulatory pressure from multiple jurisdictions. Binance faced restrictions and investigations in several countries regarding licensing and compliance.
 
-This mutual respect became legendary in the crypto world, inspiring other partnerships and teams.`
+CZ and the leadership team, including Yi He, worked to address regulatory concerns while maintaining operations for users worldwide.`
   },
   {
-    title: "The 2021 Bull Run",
-    chapter: "Chapter 7",
-    content: `As markets soared in 2021, Binance's infrastructure was tested like never before. CZ worked around the clock to ensure stability, while Yi He managed the explosive growth of their user base.
+    title: "Bear Market Resilience",
+    chapter: "Chapter 6: Testing Times",
+    content: `The 2022 bear market saw multiple cryptocurrency platforms collapse, including major exchanges and lending platforms. Binance maintained solvency and continued operations.
 
-They barely slept, but they never wavered. Their dedication to users came first, always.`
+The exchange provided proof of reserves and acquired some struggling platforms, demonstrating financial strength during industry turbulence.`
   },
   {
-    title: "Facing Adversity",
-    content: `When regulatory pressures intensified globally, some doubted Binance's future. But not CZ and Yi He. They faced each challenge head-on, with transparency and determination.
+    title: "Continued Development",
+    content: `Throughout the bear market, development on BSC and Binance products continued. New features, security enhancements, and compliance measures were implemented.
 
-"We will comply, we will adapt, but we will never compromise our mission," CZ declared, with Yi He standing firmly beside him.`
+Yi He's Binance Labs continued investing in promising blockchain projects, maintaining ecosystem development despite adverse market conditions.`
   },
   {
-    title: "Innovation Continues",
-    chapter: "Chapter 8",
-    content: `Even during difficult times, innovation never stopped. New products, features, and services launched regularly. Yi He's marketing genius ensured each launch reached the right audience.
+    title: "Leadership Evolution",
+    chapter: "Chapter 7: Adaptation",
+    content: `As Binance matured, its leadership structure evolved to address regulatory requirements and operational scale. Compliance and legal teams expanded significantly.
 
-CZ's product vision kept Binance ahead of competitors. Together, they were unstoppable.`
+CZ and Yi He adapted their roles, focusing increasingly on strategic direction, regulatory engagement, and long-term vision.`
   },
   {
-    title: "The Quiet Moments",
-    content: `Between board meetings and strategy sessions, there were quiet moments. Shared meals, brief conversations about non-work topics, reminders that they were human.
+    title: "BNB Chain Evolution",
+    content: `Binance Smart Chain rebranded to BNB Chain as part of broader ecosystem development. The chain continued technical upgrades to improve performance and security.
 
-These moments, though rare, recharged them both. Their connection ran deeper than business—it was a genuine partnership of souls.`
+The ecosystem expanded beyond DeFi into gaming, NFTs, and various Web3 applications, supported by grants and incubation programs.`
   },
   {
-    title: "Building BSC Ecosystem",
-    chapter: "Chapter 9",
-    content: `Yi He took special interest in nurturing the BSC ecosystem. She personally engaged with developers, funded promising projects, and created incubators.
+    title: "2024 Recovery",
+    chapter: "Chapter 8: Resurgence",
+    content: `As cryptocurrency markets recovered in 2024, Binance and BNB Chain saw renewed activity. Regulatory clarity improved in some jurisdictions, enabling more compliant operations.
 
-Her passion for community-building transformed BSC from a blockchain into a movement. CZ provided the technical support to make her vision scalable.`
+The platform's survival through the bear market positioned it strongly for renewed growth.`
   },
   {
-    title: "DeFi Revolution",
-    content: `As DeFi exploded on BSC, CZ and Yi He watched their creation enable financial freedom for millions. Projects like PancakeSwap, Venus, and countless others flourished.
+    title: "Institutional Adoption",
+    content: `Growing institutional interest in cryptocurrency benefited established platforms like Binance. Enhanced compliance measures and proof of reserves helped attract institutional clients.
 
-"This is what we dreamed of," Yi He said, watching TVL metrics climb. CZ smiled, knowing their hard work was changing lives.`
+Yi He's strategic partnerships and CZ's technical infrastructure created pathways for institutional participation.`
   },
   {
-    title: "2022 Challenges",
-    chapter: "Chapter 10",
-    content: `The bear market of 2022 tested everyone. Multiple platforms collapsed, trust eroded. But Binance stood strong, thanks to the foundation CZ and Yi He had built.
+    title: "October 2025 Achievement",
+    chapter: "Chapter 9: New Heights",
+    content: `In October 2025, BNB reached new all-time highs around $1,330-$1,350, making it the third-largest cryptocurrency by market capitalization, surpassing XRP.
 
-Their conservative approach, transparency, and proof of reserves reassured users. They had prepared for this.`
+BNB Chain saw record activity with over $6 billion in 24-hour DEX volume and strong ecosystem metrics across DeFi, gaming, and NFT sectors.`
   },
   {
-    title: "Leading Through Crisis",
-    content: `While others panicked, CZ and Yi He led with calm confidence. They acquired struggling platforms, protected users, and maintained operations flawlessly.
+    title: "Ecosystem Metrics",
+    content: `The October 2025 surge reflected genuine ecosystem growth. Daily active addresses, transaction volume, and total value locked (TVL) across BNB Chain protocols all reached new peaks.
 
-"Bear markets separate builders from speculators," Yi He reminded the team. They were definitely builders.`
+This growth validated years of ecosystem development and infrastructure investment led by the Binance team.`
   },
   {
-    title: "Personal Growth",
-    chapter: "Chapter 11",
-    content: `Through years of building together, both CZ and Yi He evolved. CZ became more diplomatic, learning from Yi He's emotional intelligence. She became more technically savvy, absorbing knowledge from his expertise.
+    title: "Market Leadership",
+    content: `With BNB's market cap exceeding $180 billion, Binance solidified its position as a major force in cryptocurrency. The platform continued serving millions of users across numerous countries.
 
-They made each other better, professionally and personally.`
+CZ and Yi He's vision of accessible cryptocurrency infrastructure had reached global scale.`
   },
   {
-    title: "The Vision for 2025",
-    content: `As 2023 rolled into 2024, CZ and Yi He began planning for 2025. They envisioned BSC as the leading smart chain, Binance as the most trusted platform, and crypto mainstream.
+    title: "Complementary Strengths",
+    chapter: "Chapter 10: The Partnership",
+    content: `The success of Binance and BNB Chain demonstrates the effectiveness of CZ and Yi He's complementary leadership. Technical excellence combined with marketing expertise and cultural fluency.
 
-Their strategy was bold but achievable. They had done the impossible before—they could do it again.`
+Their professional partnership, spanning exchange operations, blockchain infrastructure, and ecosystem development, created lasting impact on the cryptocurrency industry.`
   },
   {
-    title: "Scaling New Heights",
-    chapter: "Chapter 12",
-    content: `Early 2025 brought renewed optimism to crypto markets. Regulatory clarity improved, institutional adoption accelerated, and retail interest surged.
+    title: "Yi He's Impact",
+    content: `Yi He's contributions to Binance extend across multiple domains: marketing, community building, investor relations, and ecosystem development through Binance Labs.
 
-CZ and Yi He positioned Binance perfectly for this moment. Every decision they had made, every sacrifice, led to this.`
+Her leadership of Binance Labs has supported numerous blockchain projects, contributing to broader industry development beyond Binance itself.`
   },
   {
-    title: "BSC Renaissance",
-    content: `BSC experienced a renaissance in 2025. New innovative projects launched daily. TVL reached unprecedented levels. Gas fees remained low while throughput increased.
+    title: "CZ's Technical Vision",
+    content: `CZ's technical leadership drove Binance's core infrastructure, trading systems, and blockchain development. His product vision shaped the evolution from exchange to comprehensive ecosystem.
 
-Yi He's years of ecosystem development paid off spectacularly. CZ's technical upgrades ensured the chain could handle explosive growth.`
+The technical foundations built under his direction enabled Binance to handle massive scale and rapid innovation.`
   },
   {
-    title: "October 2025",
-    chapter: "Chapter 13",
-    content: `October 2025 will be remembered in crypto history. BSC reached new all-time highs across every metric. Active addresses, transaction volume, total value locked—all surged simultaneously.
+    title: "Organizational Culture",
+    content: `Binance developed a distinctive organizational culture emphasizing execution speed, user focus, and global perspective. The company's decentralized structure reflected cryptocurrency principles.
 
-CZ and Yi He watched the charts together, barely believing what they were witnessing. Their baby had grown up.`
+This culture, shaped by founding leadership, attracted talent and enabled rapid response to market opportunities and challenges.`
   },
   {
-    title: "The ATH Moment",
-    content: `When BSC's TVL hit the new ATH, the entire team erupted in celebration. But CZ and Yi He simply exchanged a knowing look—one that said "we knew we could do it."
+    title: "Community Focus",
+    chapter: "Chapter 11: User-Centric Approach",
+    content: `Throughout its growth, Binance maintained emphasis on serving its user community. Features like Binance Academy (education), customer support in 40+ languages, and community-driven initiatives reflected this focus.
 
-Years of relentless work, unwavering belief, and partnership had led to this triumphant moment.`
+Yi He's community engagement and CZ's product development both prioritized user needs and feedback.`
   },
   {
-    title: "Recognition",
-    content: `The crypto world recognized what CZ and Yi He had built. Media coverage exploded. Institutions took notice. But the praise didn't change them.
+    title: "Innovation Pipeline",
+    content: `Binance continuously launched new products and services: futures trading, options, staking, lending, NFT marketplace, and various other features expanding beyond spot trading.
 
-"This isn't the end," Yi He said. "It's just the beginning." CZ nodded in agreement. They still had so much more to build.`
+This innovation velocity, driven by CZ's product vision and Yi He's market insights, kept Binance competitive in a rapidly evolving industry.`
   },
   {
-    title: "Behind the Success",
-    chapter: "Chapter 14",
-    content: `What made their partnership work? Many wondered. The answer was simple: complementary strengths, shared values, and genuine respect.
+    title: "Regulatory Journey",
+    content: `Binance's regulatory approach evolved significantly over time. Initial rapid global expansion gave way to more structured compliance as regulations matured.
 
-CZ brought technical excellence and strategic vision. Yi He brought market understanding and community magic. Together, they created something neither could have built alone.`
+The leadership team invested heavily in compliance infrastructure, legal expertise, and regulatory engagement across jurisdictions.`
   },
   {
-    title: "The Personal Bond",
-    content: `Beyond business metrics and market caps, CZ and Yi He shared something rare: a deep understanding. They communicated in glances, finished each other's sentences, and trusted implicitly.
+    title: "Educational Initiatives",
+    content: `Binance Academy and other educational programs reflected commitment to cryptocurrency adoption. Providing free education helped onboard new users to cryptocurrency.
 
-This bond, forged through years of building together, was Binance's true secret weapon.`
+These initiatives aligned with the broader mission of making cryptocurrency accessible globally, a goal shared by CZ and Yi He.`
   },
   {
-    title: "Leading by Example",
-    content: `Their relationship set the tone for Binance's entire culture. Collaboration over competition. Respect over hierarchy. Results over ego.
+    title: "Investment in Ecosystem",
+    chapter: "Chapter 12: Building the Future",
+    content: `Binance Labs, under Yi He's leadership, invested in hundreds of blockchain projects across infrastructure, DeFi, NFTs, gaming, and other sectors.
 
-Employees witnessed how CZ and Yi He worked together and emulated it. The whole organization became stronger.`
+These investments supported ecosystem development while positioning Binance at the center of blockchain innovation.`
   },
   {
-    title: "Innovation Never Stops",
-    chapter: "Chapter 15",
-    content: `Even at the height of success, CZ and Yi He continued innovating. New features, new partnerships, new ways to serve users.
+    title: "Cross-Chain Vision",
+    content: `BNB Chain development included cross-chain bridges and interoperability features, recognizing that the future includes multiple blockchains working together.
 
-"The moment we stop improving is the moment we start declining," CZ often said. Yi He ensured they never stopped.`
+This technical direction reflected understanding that no single blockchain would dominate all use cases.`
+  },
+  {
+    title: "Proof of Reserves",
+    content: `Following industry turmoil in 2022, Binance implemented regular proof of reserves audits, demonstrating transparency about holding customer assets.
+
+This transparency helped rebuild trust during a period when several platforms failed due to mismanagement of customer funds.`
+  },
+  {
+    title: "Security Measures",
+    content: `Binance invested heavily in security infrastructure, including the SAFU (Secure Asset Fund for Users) emergency insurance fund and multiple security layers protecting user accounts.
+
+Despite its scale, Binance maintained strong security practices, crucial for maintaining user trust.`
+  },
+  {
+    title: "Global Impact",
+    chapter: "Chapter 13: Industry Influence",
+    content: `Beyond its direct operations, Binance significantly influenced the broader cryptocurrency industry through its scale, innovations, and ecosystem investments.
+
+Many industry standards and practices were shaped by Binance's approaches to trading, security, and user experience.`
+  },
+  {
+    title: "Market Making",
+    content: `Binance's liquidity provision and market making operations improved trading conditions across the cryptocurrency market, benefiting traders on all platforms.
+
+The exchange's volume and depth made it a crucial piece of cryptocurrency market infrastructure.`
+  },
+  {
+    title: "Charitable Initiatives",
+    content: `Binance Charity Foundation conducted various philanthropic activities, including disaster relief and blockchain-for-good programs.
+
+These initiatives reflected a vision of cryptocurrency's potential for positive social impact beyond financial applications.`
   },
   {
     title: "Looking Forward",
-    content: `As they stood at the pinnacle of success in October 2025, CZ and Yi He were already planning the next chapter. More countries to serve. More people to help. More barriers to break.
+    content: `As of late 2025, Binance and BNB Chain continue evolving. Regulatory compliance, technical innovation, and ecosystem development remain key priorities.
 
-Their journey together was far from over. In fact, the best was yet to come.`
+CZ and Yi He's partnership continues guiding strategic direction as cryptocurrency moves toward mainstream adoption.`
   },
   {
-    title: "The Legacy",
-    chapter: "Chapter 16",
-    content: `What will history say about CZ and Yi He? That they revolutionized finance? Built a crypto empire? Changed millions of lives?
+    title: "Industry Maturation",
+    chapter: "Chapter 14: Future Outlook",
+    content: `The cryptocurrency industry is maturing, with clearer regulations, institutional participation, and real-world applications emerging.
 
-All true. But perhaps their greatest legacy is showing that genuine partnership, built on trust and shared values, can achieve the impossible.`
+Binance's journey from 2017 startup to global platform reflects and contributes to this broader industry maturation.`
   },
   {
-    title: "Lessons Learned",
-    content: `Through their journey, several lessons emerged:
+    title: "Technical Roadmap",
+    content: `BNB Chain's technical development continues with upgrades improving scalability, security, and functionality. Layer-2 solutions and other enhancements are in development.
 
-Trust your partner completely. Complement each other's weaknesses. Share the same core values. Never compromise on principles. Always put users first. Stay humble through success. Support each other through failure.
-
-These lessons guided them from a small Shanghai office to global dominance.`
+These technical improvements aim to support even greater adoption and more sophisticated applications.`
   },
   {
-    title: "The Human Element",
-    content: `In an industry obsessed with technology, CZ and Yi He never forgot the human element. Behind every transaction was a person seeking financial freedom.
+    title: "Partnership Model",
+    content: `The CZ and Yi He partnership demonstrates how complementary skills and shared vision can build successful organizations in emerging industries.
 
-This empathy, this connection to their users' dreams, made Binance more than just a platform. It became a movement.`
+Their professional collaboration, combining technical depth with marketing expertise and cultural fluency, created synergies crucial to Binance's success.`
   },
   {
-    title: "Gratitude",
-    chapter: "Chapter 17",
-    content: `In interviews, both CZ and Yi He consistently expressed gratitude. To their team. To their community. To each other.
+    title: "Lessons in Building",
+    content: `Key lessons from Binance's growth include: importance of execution speed, value of user focus, necessity of adapting to regulations, benefits of ecosystem thinking, and power of complementary leadership.
 
-"I couldn't have done this without Yi He," CZ said publicly. "And I wouldn't have wanted to."
-
-Yi He echoed similar sentiments, praising CZ's vision and execution.`
+These principles guided Binance from startup to industry leader.`
   },
   {
-    title: "The Romance of Building",
-    content: `Theirs was a romance not just of hearts, but of minds and missions. Building Binance together was their shared adventure, their combined masterpiece.
-
-Late nights coding and strategizing. Early mornings preparing for launches. Every moment was part of their shared story.`
-  },
-  {
-    title: "Inspiration to Others",
-    content: `Their partnership inspired countless others in crypto and beyond. Couples building together. Co-founders supporting each other. Teams embracing collaboration.
-
-The "CZ and Yi He model" became shorthand for successful partnership in the industry.`
-  },
-  {
-    title: "October 2025 Celebration",
-    chapter: "Chapter 18",
-    content: `The team gathered to celebrate BSC's new ATH. Champagne flowed. Music played. But CZ and Yi He slipped away early, seeking a quiet moment together.
-
-They stood looking at the city lights, reflecting on their incredible journey. No words were needed. They both knew.`
-  },
-  {
-    title: "The Future Together",
-    content: `What does the future hold for CZ and Yi He? More innovation, certainly. More challenges to overcome. More heights to reach.
-
-But whatever comes, they'll face it together. As partners. As builders. As two people who changed the world.`
-  },
-  {
-    title: "Final Thoughts",
-    content: `This is not just a story about building a crypto exchange or a blockchain. It's a story about what two people can achieve when they trust each other completely.
-
-CZ and Yi He's uncharted romance—professional and personal—rewrote the rules of what's possible.`
-  },
-  {
-    title: "The Message",
-    content: `To aspiring entrepreneurs, their message is clear: Find a partner who complements you. Build something meaningful together. Never compromise your values. Stay humble. Work hard. And maybe, just maybe, you'll change the world too.`
-  },
-  {
-    title: "October 2025 ATH",
+    title: "October 2025 Milestone",
     chapter: "Epilogue",
-    content: `BSC's October 2025 all-time high wasn't just a number on a chart. It represented millions of people accessing DeFi. Thousands of developers building dreams. Hundreds of projects launching successfully.
+    content: `BNB's October 2025 all-time high and BNB Chain's record metrics represent significant achievements. Market capitalization exceeding $180 billion, record DEX volume, and thriving ecosystem activity validate years of development.
 
-It represented CZ and Yi He's vision finally realized at scale.`
+This milestone reflects both market conditions and fundamental strength of the Binance ecosystem.`
   },
   {
-    title: "Forever Building",
-    content: `As this chapter closes, another begins. CZ and Yi He continue building, innovating, and leading. Their partnership, forged in Shanghai years ago, remains as strong as ever.
+    title: "The Journey Continues",
+    content: `As of late 2025, Binance continues operating as a major cryptocurrency platform serving millions globally. BNB Chain hosts thousands of projects across DeFi, gaming, NFTs, and other sectors.
 
-The uncharted romance of CZ and Yi He continues. And the crypto world is better for it.
+CZ and Yi He's professional partnership continues shaping the platform's evolution as cryptocurrency enters its next phase of development and adoption.
 
-October 2025 - A New All-Time High in More Ways Than One.`
+The story of Binance and BNB Chain is still being written.`
   }
 ];
