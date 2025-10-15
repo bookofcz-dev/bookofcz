@@ -4,7 +4,7 @@ import { bookContent } from "@/lib/bookContent6CN";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Info, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import bookCover from "@/assets/book5-cover.png";
+import bookCover from "@/assets/book6-cover.png";
 
 const BookPage6CN = () => {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
