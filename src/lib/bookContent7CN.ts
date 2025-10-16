@@ -5,6 +5,9 @@ import selfie4 from "@/assets/selfie4.jpg";
 import selfie5 from "@/assets/selfie5.jpg";
 import selfie6 from "@/assets/selfie6.jpg";
 import selfie7 from "@/assets/selfie7.jpg";
+import selfie8 from "@/assets/selfie8.jpg";
+import selfie9 from "@/assets/selfie9.jpg";
+import selfie10 from "@/assets/selfie10.jpg";
 
 export interface BookPage {
   title: string;
@@ -28,92 +31,93 @@ export const bookContent: BookPage[] = [
   },
   {
     chapter: "自拍 1",
-    title: "币安大会",
+    title: "Demo Day的狗狗币氛围",
     image: selfie1,
-    link: "https://x.com/TheBTCVerse/status/1965047744030191852",
-    content: `在币安会议活动上与CZ的自拍。
+    content: `在BNB Chain Demo Day上，CZ与穿着狗狗币帽衫的社区成员的有趣时刻。
 
-明亮的黄色币安品牌为这个在重大加密会议上捕捉的充满活力的时刻奠定了基调。
-
-发布者：@TheBTCVerse`
+黄色的"BNB CHAIN DEMO DAY"背景完美地衬托出这次有趣的互动，展示了CZ对模因文化和社区创造力的欣赏。`
   },
   {
     chapter: "自拍 2",
-    title: "虚拟会面",
+    title: "下一代建设者",
     image: selfie2,
-    link: "https://x.com/Abrlien/status/1917564407883653387",
-    content: `在虚拟会议期间CZ出现在屏幕上的创意自拍。
+    content: `CZ在BNB Chain活动上与一位年轻开发者合影。
 
-即使在数字时代，粉丝们也能找到独特的方式来捕捉与CZ的联系。
-
-发布者：@Abrlien`
+这张照片代表了区块链的未来——年轻、充满热情的建设者与行业领袖建立联系，共同塑造明天的去中心化世界。`
   },
   {
     chapter: "自拍 3",
-    title: "总统会面",
+    title: "Demo Day优雅时刻",
     image: selfie3,
-    link: "https://x.com/cz_binance/status/1544818369362141184",
-    content: `CZ在正式外交场合与总统的合影。
+    content: `在BNB Chain Demo Day上，CZ与穿着优雅服装的社区成员的时尚时刻。
 
-这张照片记录了重要的高层联系以及加密货币在政府层面日益增长的认可。
-
-发布者：@cz_binance`
+休闲而专业的氛围展示了加密社区的包容性，创新与包容并存。`
   },
   {
     chapter: "自拍 4",
-    title: "区块链活动",
+    title: "办公室访问",
     image: selfie4,
-    link: "https://x.com/ice_z3us/status/1852028431908647189",
-    content: `在展示Tron、Solana和币安品牌的区块链会议上与CZ的合影。
+    content: `CZ在现代办公环境中与年轻爱好者会面。
 
-这些多链活动展示了加密生态系统的合作精神。
-
-发布者：@ice_z3us`
+这些在专业空间中的亲密时刻展示了CZ致力于在会议和舞台之外与社区互动的承诺。`
   },
   {
     chapter: "自拍 5",
-    title: "莱特币致敬",
+    title: "年轻的CZ",
     image: selfie5,
-    link: "https://x.com/litecoin/status/1959799543051989366",
-    content: `CZ用俏皮的手势表达对莱特币的喜爱。
+    content: `CZ早年的回顾照片。
 
-一个有趣的时刻，展示了CZ对更广泛的加密社区和不同区块链项目的欣赏。
-
-发布者：@litecoin`
+这张复古照片提醒我们，每一段旅程都有起点——在币安之前，在区块链之前，有一个年轻的梦想家对未来充满愿景。`
   },
   {
     chapter: "自拍 6",
-    title: "中东连接",
+    title: "会议室时刻",
     image: selfie6,
-    link: "https://x.com/toastpunk/status/1959852084695798109",
-    content: `CZ与中东的加密爱好者会面。
+    content: `CZ在商务会议或演示期间的捕捉。
 
-这张照片代表了币安的全球影响力和在不同地区架设桥梁的承诺。
-
-发布者：@toastpunk`
+在区块链活动的幕后，想法得以分享，合作伙伴关系得以形成，加密货币的未来通过协作得以塑造。`
   },
   {
     chapter: "自拍 7",
-    title: "医疗环境",
+    title: "和平与积极",
     image: selfie7,
-    link: "https://x.com/rohelkhan/status/1961281256404001139",
-    content: `在医疗环境中拍摄的与CZ的温馨自拍。
+    content: `在BNB Chain Demo Day上的欢快自拍，到处都是和平手势。
 
-这张自然的照片展示了CZ的平易近人，即使在意想不到的地方也会花时间与人交流。
+这个乐观的时刻捕捉了加密社区的乐观精神——共同建设、连接和庆祝。`
+  },
+  {
+    chapter: "自拍 8",
+    title: "币安团队",
+    image: selfie8,
+    content: `CZ与币安团队——让这一切成为现实的人们。
 
-发布者：@rohelkhan`
+穿着配套的币安服装，这张集体照庆祝了世界领先加密平台背后的协作努力。`
+  },
+  {
+    chapter: "自拍 9",
+    title: "会议连接",
+    image: selfie9,
+    content: `CZ在币安大会上与社区成员在标志性的黄色背景前合影。
+
+这些会议时刻展示了加密领导者的可及性以及币安生态系统的包容性。`
+  },
+  {
+    chapter: "自拍 10",
+    title: "模因魔法",
+    image: selfie10,
+    content: `在BNB Chain Demo Day上的创意照片，CZ和社区成员手持模因艺术作品。
+
+这个有趣的时刻庆祝了区块链技术与互联网文化的交汇，表明加密货币既可以严肃也可以有趣。`
   },
   {
     chapter: "结语",
-    title: "未完待续...",
-    content: `这只是我们自拍集的开始！
+    title: "收藏继续",
+    content: `这10张自拍代表了连接、社区以及CZ和币安生态系统可及精神的时刻。
 
-我们正在收集来自全球各地更多与CZ的自拍。目标是展示社区中44个难忘的时刻。
+从Demo Day到办公室访问，从复古回顾到团队庆祝，每张照片都讲述了构成全球加密社区的人们和时刻的独特故事。
 
-每张自拍都讲述着一个关于联系、灵感和加密革命人性化一面的故事。
+这个收藏展示了区块链的人性化一面——真实的人、真实的联系、真实的影响。
 
-敬请期待这个不断增长的合集的更多内容。
-
-想要贡献？在你的自拍中标记@cz_binance，它可能会在未来的更新中出现！`
+想要贡献？在您的自拍中标记@cz_binance，它可能会在未来的更新中展示！`
   }
 ];

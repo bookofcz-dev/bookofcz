@@ -5,6 +5,9 @@ import selfie4 from "@/assets/selfie4.jpg";
 import selfie5 from "@/assets/selfie5.jpg";
 import selfie6 from "@/assets/selfie6.jpg";
 import selfie7 from "@/assets/selfie7.jpg";
+import selfie8 from "@/assets/selfie8.jpg";
+import selfie9 from "@/assets/selfie9.jpg";
+import selfie10 from "@/assets/selfie10.jpg";
 
 export interface BookPage {
   title: string;
@@ -28,91 +31,92 @@ Tap through to explore these memorable selfies from the CZ community.`
   },
   {
     chapter: "Selfie 1",
-    title: "Binance Conference",
+    title: "Doge Vibes at Demo Day",
     image: selfie1,
-    link: "https://x.com/TheBTCVerse/status/1965047744030191852",
-    content: `A selfie with CZ at a Binance conference event.
+    content: `A fun moment with CZ and a community member sporting a Doge hoodie at the BNB Chain Demo Day.
 
-The bright yellow Binance branding sets the stage for this energetic moment captured at a major crypto conference.
-
-Posted by: @TheBTCVerse`
+The yellow "BNB CHAIN DEMO DAY" backdrop perfectly frames this playful interaction, showing CZ's appreciation for meme culture and community creativity.`
   },
   {
     chapter: "Selfie 2",
-    title: "Virtual Meeting",
+    title: "Next Generation Builder",
     image: selfie2,
-    link: "https://x.com/Abrlien/status/1917564407883653387",
-    content: `A creative selfie with CZ appearing on screen during a virtual meeting.
+    content: `CZ poses with a young developer at a BNB Chain event.
 
-Even in the digital age, fans find unique ways to capture their connection with CZ.
-
-Posted by: @Abrlien`
+This photo represents the future of blockchain - young, enthusiastic builders connecting with industry leaders to shape tomorrow's decentralized world.`
   },
   {
     chapter: "Selfie 3",
-    title: "Presidential Meeting",
+    title: "Demo Day Elegance",
     image: selfie3,
-    link: "https://x.com/cz_binance/status/1544818369362141184",
-    content: `CZ photographed with a president in an official diplomatic setting.
+    content: `A stylish moment at BNB Chain Demo Day with CZ and a community member in elegant attire.
 
-This photo documents important high-level connections and the growing recognition of crypto at the government level.
-
-Posted by: @cz_binance`
+The casual yet professional atmosphere shows the welcoming nature of the crypto community, where innovation meets inclusivity.`
   },
   {
     chapter: "Selfie 4",
-    title: "Blockchain Event",
+    title: "Office Visit",
     image: selfie4,
-    link: "https://x.com/ice_z3us/status/1852028431908647189",
-    content: `A photo with CZ at a blockchain conference featuring Tron, Solana, and Binance branding.
+    content: `CZ meeting with young enthusiasts in a modern office setting.
 
-These multi-chain events showcase the collaborative spirit of the crypto ecosystem.
-
-Posted by: @ice_z3us`
+These intimate moments in professional spaces show CZ's commitment to engaging with the community beyond conferences and stages.`
   },
   {
     chapter: "Selfie 5",
-    title: "Litecoin Tribute",
+    title: "Young CZ",
     image: selfie5,
-    link: "https://x.com/litecoin/status/1959799543051989366",
-    content: `CZ showing love for Litecoin with a playful hand gesture.
+    content: `A throwback photo of young CZ from his early years.
 
-A fun moment showing CZ's appreciation for the broader crypto community and different blockchain projects.
-
-Posted by: @litecoin`
+This vintage shot reminds us that every journey starts somewhere - long before Binance, before blockchain, there was a young dreamer with a vision for the future.`
   },
   {
     chapter: "Selfie 6",
-    title: "Middle East Connection",
+    title: "Meeting Room Moments",
     image: selfie6,
-    link: "https://x.com/toastpunk/status/1959852084695798109",
-    content: `CZ meeting with crypto enthusiasts in the Middle East.
+    content: `CZ captured during what appears to be a business meeting or presentation.
 
-This photo represents Binance's global reach and commitment to building bridges across different regions.
-
-Posted by: @toastpunk`
+Behind the scenes at blockchain events, where ideas are shared, partnerships are formed, and the future of crypto is shaped through collaboration.`
   },
   {
     chapter: "Selfie 7",
-    title: "Medical Setting",
+    title: "Peace and Positivity",
     image: selfie7,
-    link: "https://x.com/rohelkhan/status/1961281256404001139",
-    content: `A heartwarming selfie with CZ captured in a medical setting.
+    content: `A cheerful selfie at BNB Chain Demo Day with peace signs all around.
 
-This candid photo shows CZ's down-to-earth nature, taking time to connect even in unexpected places.
+This upbeat moment captures the optimistic spirit of the crypto community - building, connecting, and celebrating together.`
+  },
+  {
+    chapter: "Selfie 8",
+    title: "Team Binance",
+    image: selfie8,
+    content: `CZ with the Binance team - the people who make it all happen.
 
-Posted by: @rohelkhan`
+In matching Binance attire, this group photo celebrates the collaborative effort behind one of the world's leading crypto platforms.`
+  },
+  {
+    chapter: "Selfie 9",
+    title: "Conference Connection",
+    image: selfie9,
+    content: `CZ at a Binance conference with a community member against the iconic yellow backdrop.
+
+These conference moments showcase the accessibility of crypto leaders and the welcoming nature of the Binance ecosystem.`
+  },
+  {
+    chapter: "Selfie 10",
+    title: "Meme Magic",
+    image: selfie10,
+    content: `A creative photo at BNB Chain Demo Day featuring CZ and a community member holding meme art.
+
+This playful moment celebrates the intersection of blockchain technology and internet culture, showing that crypto can be both serious and fun.`
   },
   {
     chapter: "Closing",
-    title: "To Be Continued...",
-    content: `This is just the beginning of our selfie collection!
+    title: "The Collection Continues",
+    content: `These 10 selfies represent moments of connection, community, and the accessible spirit of CZ and the Binance ecosystem.
 
-We're gathering more selfies with CZ from across the globe. The goal is to showcase 44 memorable moments from the community.
+From Demo Days to office visits, from vintage throwbacks to team celebrations, each photo tells a unique story of the people and moments that make up the global crypto community.
 
-Each selfie tells a story of connection, inspiration, and the human side of the crypto revolution.
-
-Stay tuned for more additions to this growing collection.
+This collection showcases the human side of blockchain - real people, real connections, real impact.
 
 Want to contribute? Tag @cz_binance in your selfie and it might be featured in future updates!`
   }
