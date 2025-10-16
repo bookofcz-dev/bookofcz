@@ -1,13 +1,10 @@
-import selfie1 from "@/assets/selfie1.png";
-import selfie2 from "@/assets/selfie2.png";
-import selfie3 from "@/assets/selfie3.png";
-import selfie4 from "@/assets/selfie4.png";
-import selfie5 from "@/assets/selfie5.png";
-import selfie6 from "@/assets/selfie6.png";
-import selfie7 from "@/assets/selfie7.png";
-import selfie8 from "@/assets/selfie8.png";
-import selfie9 from "@/assets/selfie9.png";
-import selfie10 from "@/assets/selfie10.png";
+import selfie1 from "@/assets/selfie1.jpg";
+import selfie2 from "@/assets/selfie2.jpg";
+import selfie3 from "@/assets/selfie3.jpg";
+import selfie4 from "@/assets/selfie4.jpg";
+import selfie5 from "@/assets/selfie5.jpg";
+import selfie6 from "@/assets/selfie6.jpg";
+import selfie7 from "@/assets/selfie7.jpg";
 
 export interface BookPage {
   title: string;
@@ -23,121 +20,88 @@ export const bookContent: BookPage[] = [
     title: "Selfies with CZ: A Collection",
     content: `Welcome to "Selfies with CZ" - a unique collection capturing moments when people around the world met and photographed with CZ, the founder of Binance.
 
-From medical settings to conferences, from casual meetups to official events, these selfies tell stories of connection, community, and the human side of crypto.
+From conference halls to medical settings, from presidential meetings to casual encounters, these selfies tell stories of connection, community, and the human side of crypto.
 
 Each photo represents a moment in time, a memory shared, and the accessibility of a leader who continues to inspire millions globally.
 
-Tap through to explore 10 memorable selfies from the CZ community.`
+Tap through to explore these memorable selfies from the CZ community.`
   },
   {
     chapter: "Selfie 1",
-    title: "Medical Setting Moment",
+    title: "Binance Conference",
     image: selfie1,
     link: "https://x.com/TheBTCVerse/status/1965047744030191852",
-    content: `A real selfie with CZ captured in a medical setting.
+    content: `A selfie with CZ at a Binance conference event.
 
-This candid photo shows CZ's down-to-earth nature, taking time to connect even in unexpected places.
+The bright yellow Binance branding sets the stage for this energetic moment captured at a major crypto conference.
 
 Posted by: @TheBTCVerse`
   },
   {
     chapter: "Selfie 2",
-    title: "Event Gathering",
+    title: "Virtual Meeting",
     image: selfie2,
     link: "https://x.com/Abrlien/status/1917564407883653387",
-    content: `Photos from a special event, including a memorable moment with CZ.
+    content: `A creative selfie with CZ appearing on screen during a virtual meeting.
 
-These event photos capture the energy and excitement when the crypto community comes together.
+Even in the digital age, fans find unique ways to capture their connection with CZ.
 
 Posted by: @Abrlien`
   },
   {
     chapter: "Selfie 3",
-    title: "Litecoin Memory Lane",
+    title: "Presidential Meeting",
     image: selfie3,
-    link: "https://x.com/litecoin/status/1959799543051989366",
-    content: `Litecoin sharing a treasured selfie memory with CZ.
+    link: "https://x.com/cz_binance/status/1544818369362141184",
+    content: `CZ photographed with a president in an official diplomatic setting.
 
-A throwback moment showing the long-standing connections in the crypto ecosystem.
+This photo documents important high-level connections and the growing recognition of crypto at the government level.
 
-Posted by: @litecoin`
+Posted by: @cz_binance`
   },
   {
     chapter: "Selfie 4",
-    title: "Event Connection",
+    title: "Blockchain Event",
     image: selfie4,
     link: "https://x.com/ice_z3us/status/1852028431908647189",
-    content: `A real photo with CZ captured at a crypto event.
+    content: `A photo with CZ at a blockchain conference featuring Tron, Solana, and Binance branding.
 
-These in-person moments showcase the vibrant community that gathers at blockchain conferences worldwide.
+These multi-chain events showcase the collaborative spirit of the crypto ecosystem.
 
 Posted by: @ice_z3us`
   },
   {
     chapter: "Selfie 5",
-    title: "Presidential Meeting & Lunch",
+    title: "Litecoin Tribute",
     image: selfie5,
-    link: "https://x.com/cz_binance/status/1544818369362141184",
-    content: `CZ photographed with a president, plus a group lunch photo.
+    link: "https://x.com/litecoin/status/1959799543051989366",
+    content: `CZ showing love for Litecoin with a playful hand gesture.
 
-These photos document important diplomatic and business connections in the crypto world.
+A fun moment showing CZ's appreciation for the broader crypto community and different blockchain projects.
 
-Posted by: @cz_binance`
+Posted by: @litecoin`
   },
   {
     chapter: "Selfie 6",
-    title: "Australian GM",
+    title: "Middle East Connection",
     image: selfie6,
     link: "https://x.com/toastpunk/status/1959852084695798109",
-    content: `A cheerful selfie with CZ's famous Australian "GM" (Good Morning).
+    content: `CZ meeting with crypto enthusiasts in the Middle East.
 
-The crypto community knows CZ for his daily GM tweets - this photo captures that positive energy in person.
+This photo represents Binance's global reach and commitment to building bridges across different regions.
 
 Posted by: @toastpunk`
   },
   {
     chapter: "Selfie 7",
-    title: "Creative Edit",
+    title: "Medical Setting",
     image: selfie7,
     link: "https://x.com/rohelkhan/status/1961281256404001139",
-    content: `An edited selfie creation featuring CZ.
+    content: `A heartwarming selfie with CZ captured in a medical setting.
 
-The crypto community's creativity shines through in these fun photo edits and tributes.
+This candid photo shows CZ's down-to-earth nature, taking time to connect even in unexpected places.
 
 Posted by: @rohelkhan`
-  },
-  {
-    chapter: "Selfie 8",
-    title: "Meme Magic",
-    image: selfie8,
-    link: "https://x.com/Halou_cto/status/1959837810418131199",
-    content: `A meme-style selfie with CZ.
-
-From serious business to internet culture - this photo shows CZ's good humor about memes and community creativity.
-
-Posted by: @Halou_cto`
-  },
-  {
-    chapter: "Selfie 9",
-    title: "CZ Statue Selfie",
-    image: selfie9,
-    link: "https://x.com/Cryptomania____/status/1917224455292297321",
-    content: `A photo with the CZ statue at a crypto event.
-
-When your impact is so significant that events feature statues - fans couldn't resist taking selfies with this unique tribute.
-
-Posted by: @Cryptomania____`
-  },
-  {
-    chapter: "Selfie 10",
-    title: "Classic CZ Moment",
-    image: selfie10,
-    link: "https://x.com/cz_binance/status/1622165925662277635",
-    content: `A classic photo shared by CZ himself.
-
-These personal shares from CZ give us glimpses into his journey and the people he meets along the way.
-
-Posted by: @cz_binance`
   },
   {
     chapter: "Closing",

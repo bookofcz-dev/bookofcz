@@ -1,13 +1,10 @@
-import selfie1 from "@/assets/selfie1.png";
-import selfie2 from "@/assets/selfie2.png";
-import selfie3 from "@/assets/selfie3.png";
-import selfie4 from "@/assets/selfie4.png";
-import selfie5 from "@/assets/selfie5.png";
-import selfie6 from "@/assets/selfie6.png";
-import selfie7 from "@/assets/selfie7.png";
-import selfie8 from "@/assets/selfie8.png";
-import selfie9 from "@/assets/selfie9.png";
-import selfie10 from "@/assets/selfie10.png";
+import selfie1 from "@/assets/selfie1.jpg";
+import selfie2 from "@/assets/selfie2.jpg";
+import selfie3 from "@/assets/selfie3.jpg";
+import selfie4 from "@/assets/selfie4.jpg";
+import selfie5 from "@/assets/selfie5.jpg";
+import selfie6 from "@/assets/selfie6.jpg";
+import selfie7 from "@/assets/selfie7.jpg";
 
 export interface BookPage {
   title: string;
@@ -23,121 +20,88 @@ export const bookContent: BookPage[] = [
     title: "与CZ的自拍：精选集",
     content: `欢迎来到"与CZ的自拍" - 这是一个独特的合集，记录了世界各地的人们与币安创始人CZ相遇并合影的瞬间。
 
-从医疗场所到会议现场，从休闲聚会到正式活动，这些自拍讲述着联系、社区和加密货币领袖人性化的一面。
+从会议场所到医疗环境，从总统会面到休闲邂逅，这些自拍讲述着联系、社区和加密货币领袖人性化的一面。
 
 每张照片都代表着一个时刻，一段共同的回忆，以及一位继续在全球激励数百万人的领导者的亲和力。
 
-浏览10张来自CZ社区的难忘自拍。`
+浏览这些来自CZ社区的难忘自拍。`
   },
   {
     chapter: "自拍 1",
-    title: "医疗场所的时刻",
+    title: "币安大会",
     image: selfie1,
     link: "https://x.com/TheBTCVerse/status/1965047744030191852",
-    content: `在医疗场所拍摄的与CZ的真实自拍。
+    content: `在币安会议活动上与CZ的自拍。
 
-这张自然的照片展示了CZ的平易近人,即使在意想不到的地方也会花时间与人交流。
+明亮的黄色币安品牌为这个在重大加密会议上捕捉的充满活力的时刻奠定了基调。
 
 发布者：@TheBTCVerse`
   },
   {
     chapter: "自拍 2",
-    title: "活动聚会",
+    title: "虚拟会面",
     image: selfie2,
     link: "https://x.com/Abrlien/status/1917564407883653387",
-    content: `来自特别活动的照片，包括与CZ的难忘时刻。
+    content: `在虚拟会议期间CZ出现在屏幕上的创意自拍。
 
-这些活动照片捕捉了加密社区聚集时的能量和兴奋。
+即使在数字时代，粉丝们也能找到独特的方式来捕捉与CZ的联系。
 
 发布者：@Abrlien`
   },
   {
     chapter: "自拍 3",
-    title: "莱特币的回忆",
+    title: "总统会面",
     image: selfie3,
-    link: "https://x.com/litecoin/status/1959799543051989366",
-    content: `莱特币分享与CZ的珍贵自拍回忆。
+    link: "https://x.com/cz_binance/status/1544818369362141184",
+    content: `CZ在正式外交场合与总统的合影。
 
-一个怀旧时刻，展示了加密生态系统中长期存在的联系。
+这张照片记录了重要的高层联系以及加密货币在政府层面日益增长的认可。
 
-发布者：@litecoin`
+发布者：@cz_binance`
   },
   {
     chapter: "自拍 4",
-    title: "活动连接",
+    title: "区块链活动",
     image: selfie4,
     link: "https://x.com/ice_z3us/status/1852028431908647189",
-    content: `在加密活动上拍摄的与CZ的真实照片。
+    content: `在展示Tron、Solana和币安品牌的区块链会议上与CZ的合影。
 
-这些面对面的时刻展示了全球区块链会议上聚集的充满活力的社区。
+这些多链活动展示了加密生态系统的合作精神。
 
 发布者：@ice_z3us`
   },
   {
     chapter: "自拍 5",
-    title: "总统会面与午餐",
+    title: "莱特币致敬",
     image: selfie5,
-    link: "https://x.com/cz_binance/status/1544818369362141184",
-    content: `CZ与总统的合影，以及团体午餐照片。
+    link: "https://x.com/litecoin/status/1959799543051989366",
+    content: `CZ用俏皮的手势表达对莱特币的喜爱。
 
-这些照片记录了加密世界中重要的外交和商业联系。
+一个有趣的时刻，展示了CZ对更广泛的加密社区和不同区块链项目的欣赏。
 
-发布者：@cz_binance`
+发布者：@litecoin`
   },
   {
     chapter: "自拍 6",
-    title: "澳大利亚早安",
+    title: "中东连接",
     image: selfie6,
     link: "https://x.com/toastpunk/status/1959852084695798109",
-    content: `与CZ著名的澳大利亚"GM"（早安）的欢快自拍。
+    content: `CZ与中东的加密爱好者会面。
 
-加密社区知道CZ每天的GM推文 - 这张照片捕捉了那种积极的能量。
+这张照片代表了币安的全球影响力和在不同地区架设桥梁的承诺。
 
 发布者：@toastpunk`
   },
   {
     chapter: "自拍 7",
-    title: "创意编辑",
+    title: "医疗环境",
     image: selfie7,
     link: "https://x.com/rohelkhan/status/1961281256404001139",
-    content: `一张以CZ为主角的编辑自拍创作。
+    content: `在医疗环境中拍摄的与CZ的温馨自拍。
 
-加密社区的创造力在这些有趣的照片编辑和致敬中闪耀。
+这张自然的照片展示了CZ的平易近人，即使在意想不到的地方也会花时间与人交流。
 
 发布者：@rohelkhan`
-  },
-  {
-    chapter: "自拍 8",
-    title: "表情包魔法",
-    image: selfie8,
-    link: "https://x.com/Halou_cto/status/1959837810418131199",
-    content: `与CZ的表情包风格自拍。
-
-从严肃的商业到网络文化 - 这张照片展示了CZ对表情包和社区创造力的幽默感。
-
-发布者：@Halou_cto`
-  },
-  {
-    chapter: "自拍 9",
-    title: "CZ雕像自拍",
-    image: selfie9,
-    link: "https://x.com/Cryptomania____/status/1917224455292297321",
-    content: `在加密活动上与CZ雕像的合影。
-
-当你的影响力如此巨大，以至于活动上出现雕像 - 粉丝们忍不住要与这个独特的致敬物合影。
-
-发布者：@Cryptomania____`
-  },
-  {
-    chapter: "自拍 10",
-    title: "经典CZ时刻",
-    image: selfie10,
-    link: "https://x.com/cz_binance/status/1622165925662277635",
-    content: `CZ本人分享的经典照片。
-
-CZ的这些个人分享让我们得以一窥他的旅程和沿途遇到的人们。
-
-发布者：@cz_binance`
   },
   {
     chapter: "结语",
