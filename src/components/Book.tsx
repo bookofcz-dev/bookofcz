@@ -98,7 +98,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                           <img 
                             src={content[leftPage].image} 
                             alt={content[leftPage].title}
-                            className="w-full h-auto rounded-lg mb-4 object-cover max-h-64"
+                            className="w-full h-auto rounded-lg mb-4 object-contain"
                           />
                         )}
                         <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
@@ -150,7 +150,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                           <img 
                             src={content[rightPage].image} 
                             alt={content[rightPage].title}
-                            className="w-full h-auto rounded-lg mb-4 object-cover max-h-64"
+                            className="w-full h-auto rounded-lg mb-4 object-contain"
                           />
                         )}
                         <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
