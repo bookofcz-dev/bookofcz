@@ -94,9 +94,26 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                             {content[leftPage].chapter}
                           </div>
                         )}
+                        {content[leftPage].image && (
+                          <img 
+                            src={content[leftPage].image} 
+                            alt={content[leftPage].title}
+                            className="w-full h-auto rounded-lg mb-4 object-cover max-h-64"
+                          />
+                        )}
                         <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
                           {content[leftPage].content}
                         </div>
+                        {content[leftPage].link && (
+                          <a
+                            href={content[leftPage].link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 mt-4 text-primary hover:text-accent transition-colors text-sm font-medium"
+                          >
+                            View on X →
+                          </a>
+                        )}
                       </>
                     )}
                   </div>
@@ -129,9 +146,26 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                             {content[rightPage].chapter}
                           </div>
                         )}
+                        {content[rightPage].image && (
+                          <img 
+                            src={content[rightPage].image} 
+                            alt={content[rightPage].title}
+                            className="w-full h-auto rounded-lg mb-4 object-cover max-h-64"
+                          />
+                        )}
                         <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
                           {content[rightPage].content}
                         </div>
+                        {content[rightPage].link && (
+                          <a
+                            href={content[rightPage].link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 mt-4 text-primary hover:text-accent transition-colors text-sm font-medium"
+                          >
+                            View on X →
+                          </a>
+                        )}
                       </>
                     )}
                   </div>
