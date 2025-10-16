@@ -8,6 +8,16 @@ import selfie7 from "@/assets/selfie7.jpg";
 import selfie8 from "@/assets/selfie8.jpg";
 import selfie9 from "@/assets/selfie9.jpg";
 import selfie10 from "@/assets/selfie10.jpg";
+import selfie11 from "@/assets/selfie11.jpg";
+import selfie12 from "@/assets/selfie12.jpg";
+import selfie13 from "@/assets/selfie13.jpg";
+import selfie14 from "@/assets/selfie14.jpg";
+import selfie15 from "@/assets/selfie15.jpg";
+import selfie16 from "@/assets/selfie16.jpg";
+import selfie17 from "@/assets/selfie17.jpg";
+import selfie18 from "@/assets/selfie18.jpg";
+import selfie19 from "@/assets/selfie19.jpg";
+import selfie20 from "@/assets/selfie20.jpg";
 
 export interface BookPage {
   title: string;
@@ -110,11 +120,91 @@ export const bookContent: BookPage[] = [
 这个有趣的时刻庆祝了区块链技术与互联网文化的交汇，表明加密货币既可以严肃也可以有趣。`
   },
   {
+    chapter: "自拍 11",
+    title: "币安的表情符号氛围",
+    image: selfie11,
+    content: `CZ在币安活动上与戴着有趣表情符号面具的社区成员合影。
+
+标志性的黄色币安背景完美地衬托出这个有趣的时刻，展示了加密社区有趣和创造性的一面。`
+  },
+  {
+    chapter: "自拍 12",
+    title: "巴黎OpenLedger时刻",
+    image: selfie12,
+    content: `CZ与OpenLedger社区成员在巴黎埃菲尔铁塔前合影。
+
+一个美丽的时刻，捕捉了区块链创新与标志性地标的交汇，展示了加密运动的全球影响力。`
+  },
+  {
+    chapter: "自拍 13",
+    title: "餐厅社交",
+    image: selfie13,
+    content: `CZ在餐厅与穿着正式服装的社区成员会面时拍摄。
+
+这些休闲用餐时刻展示了在加密世界中，商业和社区建设无处不在——从会议大厅到餐桌。`
+  },
+  {
+    chapter: "自拍 14",
+    title: "BNB Chain的超级英雄",
+    image: selfie14,
+    content: `CZ与穿着全套超级英雄服装的社区成员在BNB Chain活动上的史诗照片。
+
+这个创意服装代表了BNB生态系统中建设者的超级英雄级别的奉献精神，将创新带入生活。`
+  },
+  {
+    chapter: "自拍 15",
+    title: "币安 x Solana团结",
+    image: selfie15,
+    content: `CZ在币安和Solana合作活动上，展示了加密领域的合作精神。
+
+在同时展示币安和Solana品牌的背景下，这张照片庆祝了跨链协作和生态系统团结。`
+  },
+  {
+    chapter: "自拍 16",
+    title: "埃菲尔铁塔连接",
+    image: selfie16,
+    content: `CZ与社区成员在埃菲尔铁塔的另一个美丽巴黎时刻。
+
+黄金时段的照明和标志性地标为这次加密社区连接创造了一个难忘的背景。`
+  },
+  {
+    chapter: "自拍 17",
+    title: "角色遇见加密",
+    image: selfie17,
+    content: `CZ与色彩缤纷的卡通吉祥物角色在创意和有趣的环境中合影。
+
+这张有趣的照片展示了加密文化的轻松一面，严肃的区块链创新与创意表达和娱乐相遇。`
+  },
+  {
+    chapter: "自拍 18",
+    title: "NFT书籍持有者",
+    image: selfie18,
+    content: `CZ与自豪地展示NFT书籍艺术品的社区成员合影。
+
+这张照片庆祝了Web3时代实体和数字艺术的交汇，展示了区块链如何改变创意产业。`
+  },
+  {
+    chapter: "自拍 19",
+    title: "CZ之书粉丝",
+    image: selfie19,
+    content: `一位社区成员自豪地拿着CZ之书，庆祝这个收藏。
+
+这个元时刻捕捉了CZ故事日益增长的文化影响力以及社区对记录加密旅程的热情。`
+  },
+  {
+    chapter: "自拍 20",
+    title: "医疗英雄",
+    image: selfie20,
+    content: `CZ在医疗机构与医护人员合影，表达对一线工作者的感谢。
+
+这个温暖的时刻提醒我们，加密领导者与各行各业的英雄建立联系，认可那些为全球社区服务的人们。`
+  },
+  {
     chapter: "结语",
     title: "收藏继续",
-    content: `这10张自拍代表了连接、社区以及CZ和币安生态系统可及精神的时刻。
+    content: `这20张自拍代表了连接、社区以及CZ和币安生态系统可及精神的时刻。
 
-从Demo Day到办公室访问，从复古回顾到团队庆祝，每张照片都讲述了构成全球加密社区的人们和时刻的独特故事。
+从Demo Day到巴黎地标，从超级英雄服装到医疗环境，每张照片都讲述了构成全球加密社区的人们和时刻的独特故事。
 
 这个收藏展示了区块链的人性化一面——真实的人、真实的联系、真实的影响。
 

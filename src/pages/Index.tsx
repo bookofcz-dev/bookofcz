@@ -410,7 +410,7 @@ const Index = () => {
           {/* Part 7 Stats */}
           <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-4xl font-bold text-accent mb-2">10</div>
+              <div className="text-4xl font-bold text-accent mb-2">20</div>
               <div className="text-sm text-muted-foreground">Selfies</div>
             </div>
             <div className="text-center">
