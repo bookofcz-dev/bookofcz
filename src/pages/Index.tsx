@@ -366,6 +366,64 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 7 Preview Section */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-accent rounded-full text-accent-foreground text-sm font-semibold mb-4 animate-pulse">
+              Preview Available
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
+              Book of CZ: Selfies with CZ
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              A Collection of Moments with the Community
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              From medical settings to conferences, from casual meetups to official events, 
+              these selfies tell stories of connection, community, and the human side of crypto. 
+              Experience 10 memorable moments from the CZ community, with more coming soon!
+            </p>
+
+            {/* CTA Buttons for Part 7 */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button
+                onClick={() => navigate("/book7")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-accent hover:bg-accent/10"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                View Selfies
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+              <Button
+                onClick={() => navigate("/book7-cn")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                中文版
+              </Button>
+            </div>
+          </div>
+
+          {/* Part 7 Stats */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">10</div>
+              <div className="text-sm text-muted-foreground">Selfies</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">44</div>
+              <div className="text-sm text-muted-foreground">Goal</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-accent mb-2">∞</div>
+              <div className="text-sm text-muted-foreground">Community</div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a
