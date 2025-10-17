@@ -122,6 +122,14 @@ const Index = () => {
               >
                 中文版
               </Button>
+              <Button
+                onClick={() => navigate("/book2-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
+              </Button>
             </div>
           </div>
 
@@ -181,6 +189,14 @@ const Index = () => {
               >
                 中文版
               </Button>
+              <Button
+                onClick={() => navigate("/book3-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
+              </Button>
             </div>
 
             {/* Part 3 Stats */}
@@ -237,6 +253,14 @@ const Index = () => {
                 className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 中文版
+              </Button>
+              <Button
+                onClick={() => navigate("/book4-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
               </Button>
             </div>
           </div>
@@ -296,6 +320,14 @@ const Index = () => {
               >
                 中文版
               </Button>
+              <Button
+                onClick={() => navigate("/book5-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
+              </Button>
             </div>
           </div>
 
@@ -353,6 +385,14 @@ const Index = () => {
                 className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 中文版
+              </Button>
+              <Button
+                onClick={() => navigate("/book6-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
               </Button>
             </div>
           </div>
@@ -412,6 +452,14 @@ const Index = () => {
               >
                 中文版
               </Button>
+              <Button
+                onClick={() => navigate("/book7-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
+              </Button>
             </div>
           </div>
 
@@ -470,6 +518,14 @@ const Index = () => {
               >
                 中文版
               </Button>
+              <Button
+                onClick={() => navigate("/book8-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
+              </Button>
             </div>
           </div>
 
@@ -526,6 +582,14 @@ const Index = () => {
                 className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
               >
                 中文版
+              </Button>
+              <Button
+                onClick={() => navigate("/book9-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
               </Button>
             </div>
           </div>

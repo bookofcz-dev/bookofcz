@@ -24,6 +24,12 @@ import BookPage8CN from "./pages/BookPage8CN";
 import BookPage9CN from "./pages/BookPage9CN";
 import BookPageES from "./pages/BookPageES";
 import BookPage2ES from "./pages/BookPage2ES";
+import BookPage3ES from "./pages/BookPage3ES";
+import BookPage4ES from "./pages/BookPage4ES";
+import BookPage5ES from "./pages/BookPage5ES";
+import BookPage6ES from "./pages/BookPage6ES";
+import BookPage7ES from "./pages/BookPage7ES";
+import BookPage8ES from "./pages/BookPage8ES";
 import BookPage9ES from "./pages/BookPage9ES";
 import NotFound from "./pages/NotFound";
 
@@ -57,6 +63,12 @@ const App = () => (
           <Route path="/book9-cn" element={<BookPage9CN />} />
           <Route path="/book-es" element={<BookPageES />} />
           <Route path="/book2-es" element={<BookPage2ES />} />
+          <Route path="/book3-es" element={<BookPage3ES />} />
+          <Route path="/book4-es" element={<BookPage4ES />} />
+          <Route path="/book5-es" element={<BookPage5ES />} />
+          <Route path="/book6-es" element={<BookPage6ES />} />
+          <Route path="/book7-es" element={<BookPage7ES />} />
+          <Route path="/book8-es" element={<BookPage8ES />} />
           <Route path="/book9-es" element={<BookPage9ES />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
