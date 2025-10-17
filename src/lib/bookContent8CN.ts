@@ -1,4 +1,5 @@
 import book8Cover from "@/assets/book8-cover.png";
+import comingSoon from "@/assets/book8-coming-soon.png";
 
 interface BookPage {
   title: string;
@@ -18,6 +19,11 @@ export const bookContent: BookPage[] = [
   {
     title: "需要访问权限",
     content: "🔒 代币门控内容\n\n这是预览版。完整的CZ圣经仅对在币安智能链上持有CZ之书代币的用户开放。\n\n要求：\n• 最低余额：44,444个代币\n• 网络：BSC（币安智能链）\n• 代币：0x701bE97c604A35aB7BCF6C75cA6de3aba0704444\n\n连接您的钱包以验证您的持有量并解锁完整的智慧合集。"
+  },
+  {
+    title: "即将推出",
+    content: "CZ圣经\n\n即将推出\n\n神圣的文本正在准备中...\n\n敬请期待CZ非凡旅程中的完整智慧、教导和见解合集。",
+    image: comingSoon
   }
 ];
 

@@ -1,4 +1,5 @@
 import book8Cover from "@/assets/book8-cover.png";
+import comingSoon from "@/assets/book8-coming-soon.png";
 
 interface BookPage {
   title: string;
@@ -18,6 +19,11 @@ export const bookContent: BookPage[] = [
   {
     title: "Access Required",
     content: "🔒 Token Gated Content\n\nThis is a preview. The full CZ Bible is only accessible to holders of the Book of CZ token on Binance Smart Chain.\n\nRequirements:\n• Minimum Balance: 44,444 tokens\n• Network: BSC (BNB Smart Chain)\n• Token: 0x701bE97c604A35aB7BCF6C75cA6de3aba0704444\n\nConnect your wallet to verify your holdings and unlock the complete collection of wisdom."
+  },
+  {
+    title: "Coming Soon",
+    content: "The CZ Bible\n\nCOMING SOON\n\nThe sacred texts are being prepared...\n\nStay tuned for the complete collection of wisdom, teachings, and insights from CZ's extraordinary journey.",
+    image: comingSoon
   }
 ];
 
