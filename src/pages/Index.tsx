@@ -424,6 +424,56 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 8 - CZ Bible (Token Gated) */}
+        <div className="mt-32 text-center">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full mb-6">
+            <span className="text-2xl">📖</span>
+            <span className="text-lg font-semibold">Part 8: The CZ Bible</span>
+            <span className="px-2 py-1 bg-primary/20 rounded text-xs">Token Gated 🔒</span>
+          </div>
+
+          <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+            A sacred collection of wisdom, teachings, and insights from CZ's journey. 
+            This exclusive chapter is token-gated and requires holding Book of CZ tokens on BSC.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-4 justify-center mb-6">
+            <Button
+              onClick={() => navigate("/book8")}
+              size="lg"
+              className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/50"
+            >
+              <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              English
+            </Button>
+            <Button
+              onClick={() => navigate("/book8-cn")}
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+            >
+              中文版
+            </Button>
+          </div>
+
+          {/* Part 8 Info */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-primary mb-2">🔐</div>
+              <div className="text-sm text-muted-foreground">Token Gated</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-primary mb-2">44,444</div>
+              <div className="text-sm text-muted-foreground">Min. Tokens</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-primary mb-2">BSC</div>
+              <div className="text-sm text-muted-foreground">Network</div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a

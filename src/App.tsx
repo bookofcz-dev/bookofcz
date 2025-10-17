@@ -11,6 +11,7 @@ import BookPage4 from "./pages/BookPage4";
 import BookPage5 from "./pages/BookPage5";
 import BookPage6 from "./pages/BookPage6";
 import BookPage7 from "./pages/BookPage7";
+import BookPage8 from "./pages/BookPage8";
 import BookPageCN from "./pages/BookPageCN";
 import BookPage2CN from "./pages/BookPage2CN";
 import BookPage3CN from "./pages/BookPage3CN";
@@ -18,6 +19,7 @@ import BookPage4CN from "./pages/BookPage4CN";
 import BookPage5CN from "./pages/BookPage5CN";
 import BookPage6CN from "./pages/BookPage6CN";
 import BookPage7CN from "./pages/BookPage7CN";
+import BookPage8CN from "./pages/BookPage8CN";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +39,7 @@ const App = () => (
           <Route path="/book5" element={<BookPage5 />} />
           <Route path="/book6" element={<BookPage6 />} />
           <Route path="/book7" element={<BookPage7 />} />
+          <Route path="/book8" element={<BookPage8 />} />
           <Route path="/book-cn" element={<BookPageCN />} />
           <Route path="/book2-cn" element={<BookPage2CN />} />
           <Route path="/book3-cn" element={<BookPage3CN />} />
@@ -44,6 +47,7 @@ const App = () => (
           <Route path="/book5-cn" element={<BookPage5CN />} />
           <Route path="/book6-cn" element={<BookPage6CN />} />
           <Route path="/book7-cn" element={<BookPage7CN />} />
+          <Route path="/book8-cn" element={<BookPage8CN />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
