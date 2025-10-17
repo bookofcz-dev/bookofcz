@@ -58,6 +58,14 @@ const Index = () => {
           >
             中文版
           </Button>
+          <Button
+            onClick={() => navigate("/book-es")}
+            size="lg"
+            variant="outline"
+            className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+          >
+            Español
+          </Button>
         </div>
 
         {/* Stats */}

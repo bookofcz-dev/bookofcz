@@ -22,6 +22,9 @@ import BookPage6CN from "./pages/BookPage6CN";
 import BookPage7CN from "./pages/BookPage7CN";
 import BookPage8CN from "./pages/BookPage8CN";
 import BookPage9CN from "./pages/BookPage9CN";
+import BookPageES from "./pages/BookPageES";
+import BookPage2ES from "./pages/BookPage2ES";
+import BookPage9ES from "./pages/BookPage9ES";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +55,9 @@ const App = () => (
           <Route path="/book7-cn" element={<BookPage7CN />} />
           <Route path="/book8-cn" element={<BookPage8CN />} />
           <Route path="/book9-cn" element={<BookPage9CN />} />
+          <Route path="/book-es" element={<BookPageES />} />
+          <Route path="/book2-es" element={<BookPage2ES />} />
+          <Route path="/book9-es" element={<BookPage9ES />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
