@@ -482,6 +482,63 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 9 - Educating People About Bitcoin */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full text-white text-sm font-semibold mb-4 animate-pulse">
+              ₿ New Release
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-yellow-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent">
+              Book of CZ: Part 9
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              Educating People About Bitcoin
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              CZ's vision for Bitcoin and the future of financial freedom. A comprehensive 
+              guide exploring why Bitcoin matters, how it works, and why educating people 
+              about it is one of the most important missions of our time.
+            </p>
+
+            {/* CTA Buttons for Part 9 */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button
+                onClick={() => navigate("/book9")}
+                size="lg"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-orange-500/50 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                Learn About Bitcoin
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+              <Button
+                onClick={() => navigate("/book9-cn")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                中文版
+              </Button>
+            </div>
+          </div>
+
+          {/* Part 9 Stats */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-orange-500 mb-2">44</div>
+              <div className="text-sm text-muted-foreground">Pages</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-orange-500 mb-2">₿</div>
+              <div className="text-sm text-muted-foreground">Bitcoin Focus</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-orange-500 mb-2">💡</div>
+              <div className="text-sm text-muted-foreground">Education</div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a
