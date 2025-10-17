@@ -425,39 +425,47 @@ const Index = () => {
         </div>
 
         {/* Part 8 - CZ Bible (Token Gated) */}
-        <div className="mt-32 text-center">
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full mb-6">
-            <span className="text-2xl">📖</span>
-            <span className="text-lg font-semibold">Part 8: The CZ Bible</span>
-            <span className="px-2 py-1 bg-primary/20 rounded text-xs">Token Gated 🔒</span>
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-primary to-accent rounded-full text-primary-foreground text-sm font-semibold mb-4 animate-pulse">
+              🔒 Exclusive - Token Gated
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              Book of CZ: Part 8
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              The CZ Bible 📖
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              A sacred collection of wisdom, teachings, and insights from CZ's journey 
+              in the world of cryptocurrency and beyond. This exclusive chapter is 
+              token-gated and requires holding Book of CZ tokens on BSC.
+            </p>
+
+            {/* CTA Buttons for Part 8 */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button
+                onClick={() => navigate("/book8")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg border-primary hover:bg-primary/10"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                Unlock the Bible
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+              <Button
+                onClick={() => navigate("/book8-cn")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                中文版
+              </Button>
+            </div>
           </div>
 
-          <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-            A sacred collection of wisdom, teachings, and insights from CZ's journey. 
-            This exclusive chapter is token-gated and requires holding Book of CZ tokens on BSC.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 justify-center mb-6">
-            <Button
-              onClick={() => navigate("/book8")}
-              size="lg"
-              className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-primary/50"
-            >
-              <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              English
-            </Button>
-            <Button
-              onClick={() => navigate("/book8-cn")}
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
-            >
-              中文版
-            </Button>
-          </div>
-
-          {/* Part 8 Info */}
+          {/* Part 8 Stats */}
           <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
             <div className="text-center">
               <div className="text-4xl font-bold text-primary mb-2">🔐</div>
