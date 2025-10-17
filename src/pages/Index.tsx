@@ -653,6 +653,15 @@ const Index = () => {
             <span>Follow us on X</span>
           </a>
         </div>
+
+        {/* Footer */}
+        <div className="mt-16 pt-8 border-t border-border/50">
+          <div className="text-center text-muted-foreground">
+            <p className="text-sm">
+              Support: <a href="mailto:support@bookofcz.live" className="text-primary hover:underline">support@bookofcz.live</a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
