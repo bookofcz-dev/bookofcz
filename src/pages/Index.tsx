@@ -34,10 +34,40 @@ const Index = () => {
           The Extraordinary Journey of Changpeng Zhao
         </p>
 
-        <p className="text-lg text-foreground/80 mb-12 max-w-2xl mx-auto animate-fade-in">
+        <p className="text-lg text-foreground/80 mb-8 max-w-2xl mx-auto animate-fade-in">
           From humble beginnings to building the world's largest cryptocurrency exchange.
           An interactive 100-page chronicle of ambition, innovation, and resilience.
         </p>
+
+        {/* Community Links & Contract Address */}
+        <div className="mb-12 space-y-4 max-w-2xl mx-auto">
+          <div className="flex flex-wrap gap-4 justify-center items-center">
+            <Button
+              onClick={() => window.open("https://www.dextools.io/app/en/bnb/pair-explorer/0x9eed59058fc57c4bbaf92ea706e21d788fb6f278?t=1760721277896", "_blank")}
+              variant="outline"
+              size="lg"
+              className="gap-2 hover:scale-105 transition-all duration-300"
+            >
+              <BookOpen className="w-4 h-4" />
+              Dextools
+            </Button>
+            <Button
+              onClick={() => window.open("https://t.me/BOCZ_BookOfCZ", "_blank")}
+              variant="outline"
+              size="lg"
+              className="gap-2 hover:scale-105 transition-all duration-300"
+            >
+              <X className="w-4 h-4" />
+              Telegram
+            </Button>
+          </div>
+          <div className="bg-card border border-border rounded-lg p-4">
+            <p className="text-sm text-muted-foreground mb-1">Contract Address (CA)</p>
+            <code className="text-sm text-foreground font-mono break-all">
+              0x701bE97c604A35aB7BCF6C75cA6de3aba0704444
+            </code>
+          </div>
+        </div>
 
         {/* CTA Buttons */}
         <div className="flex flex-wrap gap-4 justify-center">
