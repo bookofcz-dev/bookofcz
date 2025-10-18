@@ -5,6 +5,7 @@ import czQuote4Portrait from "@/assets/cz-quote4-portrait.png";
 import czQuote5Portrait from "@/assets/cz-quote5-portrait.png";
 import czQuote6Portrait from "@/assets/cz-quote6-portrait.png";
 import czQuote7Portrait from "@/assets/cz-quote7-portrait.png";
+import czQuote8Portrait from "@/assets/cz-quote8-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -57,7 +58,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 8",
-    content: "\"Stay humble.\"\n\nNo matter how much you achieve, remember where you came from and who helped you along the way."
+    content: "\"Stay humble.\"\n\nNo matter how much you achieve, remember where you came from and who helped you along the way.",
+    backgroundImage: czQuote8Portrait
   },
   {
     title: "Quote 9",
