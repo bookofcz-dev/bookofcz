@@ -79,18 +79,26 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                   />
                 </div>
               ) : (
-                <div className="p-4 md:p-8 h-full flex flex-col">
-                  <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar">
-                    <div className="page-number text-muted-foreground text-xs md:text-sm mb-2 md:mb-4">
+                <div 
+                  className="p-4 md:p-8 h-full flex flex-col relative"
+                  style={content[leftPage]?.backgroundImage ? {
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${content[leftPage].backgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  } : {}}
+                >
+                  <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar relative z-10">
+                    <div className={`page-number text-xs md:text-sm mb-2 md:mb-4 ${content[leftPage]?.backgroundImage ? 'text-white/80' : 'text-muted-foreground'}`}>
                       Page {leftPage + 1}
                     </div>
                     {leftPage < totalPages && (
                       <>
-                        <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
+                        <h2 className={`text-lg md:text-2xl font-bold mb-2 md:mb-4 ${content[leftPage]?.backgroundImage ? 'text-white' : 'text-primary'}`}>
                           {content[leftPage].title}
                         </h2>
                         {content[leftPage].chapter && (
-                          <div className="text-xs md:text-sm text-accent font-semibold mb-2">
+                          <div className={`text-xs md:text-sm font-semibold mb-2 ${content[leftPage]?.backgroundImage ? 'text-white/90' : 'text-accent'}`}>
                             {content[leftPage].chapter}
                           </div>
                         )}
@@ -101,7 +109,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                             className="w-full h-auto rounded-lg mb-4 object-contain"
                           />
                         )}
-                        <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
+                        <div className={`text-sm md:text-base leading-relaxed whitespace-pre-line ${content[leftPage]?.backgroundImage ? 'text-white/95' : 'text-foreground'}`}>
                           {content[leftPage].content}
                         </div>
                         {content[leftPage].link && (
@@ -109,7 +117,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                             href={content[leftPage].link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 mt-4 text-primary hover:text-accent transition-colors text-sm font-medium"
+                            className={`inline-flex items-center gap-2 mt-4 transition-colors text-sm font-medium ${content[leftPage]?.backgroundImage ? 'text-white hover:text-white/80' : 'text-primary hover:text-accent'}`}
                           >
                             View on X →
                           </a>
@@ -131,18 +139,26 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                   </div>
                 </div>
               ) : (
-                <div className="p-4 md:p-8 h-full flex flex-col">
-                  <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar">
-                    <div className="page-number text-muted-foreground text-xs md:text-sm mb-2 md:mb-4">
+                <div 
+                  className="p-4 md:p-8 h-full flex flex-col relative"
+                  style={content[rightPage]?.backgroundImage ? {
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${content[rightPage].backgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
+                  } : {}}
+                >
+                  <div className="flex-1 overflow-y-auto pr-2 md:pr-4 custom-scrollbar relative z-10">
+                    <div className={`page-number text-xs md:text-sm mb-2 md:mb-4 ${content[rightPage]?.backgroundImage ? 'text-white/80' : 'text-muted-foreground'}`}>
                       Page {rightPage + 1}
                     </div>
                     {rightPage < totalPages && (
                       <>
-                        <h2 className="text-lg md:text-2xl font-bold text-primary mb-2 md:mb-4">
+                        <h2 className={`text-lg md:text-2xl font-bold mb-2 md:mb-4 ${content[rightPage]?.backgroundImage ? 'text-white' : 'text-primary'}`}>
                           {content[rightPage].title}
                         </h2>
                         {content[rightPage].chapter && (
-                          <div className="text-xs md:text-sm text-accent font-semibold mb-2">
+                          <div className={`text-xs md:text-sm font-semibold mb-2 ${content[rightPage]?.backgroundImage ? 'text-white/90' : 'text-accent'}`}>
                             {content[rightPage].chapter}
                           </div>
                         )}
@@ -153,7 +169,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                             className="w-full h-auto rounded-lg mb-4 object-contain"
                           />
                         )}
-                        <div className="text-sm md:text-base text-foreground leading-relaxed whitespace-pre-line">
+                        <div className={`text-sm md:text-base leading-relaxed whitespace-pre-line ${content[rightPage]?.backgroundImage ? 'text-white/95' : 'text-foreground'}`}>
                           {content[rightPage].content}
                         </div>
                         {content[rightPage].link && (
@@ -161,7 +177,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
                             href={content[rightPage].link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 mt-4 text-primary hover:text-accent transition-colors text-sm font-medium"
+                            className={`inline-flex items-center gap-2 mt-4 transition-colors text-sm font-medium ${content[rightPage]?.backgroundImage ? 'text-white hover:text-white/80' : 'text-primary hover:text-accent'}`}
                           >
                             View on X →
                           </a>

@@ -4,6 +4,7 @@ export interface BookPage {
   chapter?: string;
   image?: string;
   link?: string;
+  backgroundImage?: string;
 }
 
 export const bookContent: BookPage[] = [
