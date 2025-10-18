@@ -4,6 +4,7 @@ import czGoldenPortrait from "@/assets/cz-golden-portrait.png";
 import czQuote4Portrait from "@/assets/cz-quote4-portrait.png";
 import czQuote5Portrait from "@/assets/cz-quote5-portrait.png";
 import czQuote6Portrait from "@/assets/cz-quote6-portrait.png";
+import czQuote7Portrait from "@/assets/cz-quote7-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -51,7 +52,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 7",
-    content: "\"Think long term.\"\n\nShort-term thinking leads to short-term results. Build for decades, not days."
+    content: "\"Think long term.\"\n\nShort-term thinking leads to short-term results. Build for decades, not days.",
+    backgroundImage: czQuote7Portrait
   },
   {
     title: "Quote 8",
