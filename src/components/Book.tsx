@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, BookOpen, Home } from "lucide-react";
+import { ChevronLeft, ChevronRight, BookOpen, Home, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookPage } from "@/lib/bookContent";
 import { useNavigate } from "react-router-dom";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface BookProps {
   content: BookPage[];
@@ -13,7 +14,20 @@ interface BookProps {
 export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) => {
   const [currentPage, setCurrentPage] = useState(coverImage ? -1 : 0);
   const [isOpen, setIsOpen] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
   const navigate = useNavigate();
+
+  const handleTitleClick = () => {
+    if (title.includes("Part 10") || title.includes("10:")) {
+      const newCount = clickCount + 1;
+      setClickCount(newCount);
+      if (newCount >= 7) {
+        setShowEasterEgg(true);
+        setClickCount(0);
+      }
+    }
+  };
 
   const totalPages = content.length;
   const showCover = coverImage && currentPage === -1;
@@ -134,7 +148,12 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
               {showCover ? (
                 <div className="h-full flex items-center justify-center p-8 text-center">
                   <div>
-                    <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4">{title}</h1>
+                    <h1 
+                      className="text-3xl md:text-5xl font-bold text-primary mb-4 cursor-pointer transition-transform hover:scale-105"
+                      onClick={handleTitleClick}
+                    >
+                      {title}
+                    </h1>
                     <p className="text-muted-foreground">Click next to start reading</p>
                   </div>
                 </div>
@@ -243,6 +262,36 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
             })}
         </div>
       </div>
+
+      <Dialog open={showEasterEgg} onOpenChange={setShowEasterEgg}>
+        <DialogContent className="sm:max-w-md border-2 border-yellow-500/50 bg-gradient-to-br from-blue-500/10 via-background to-yellow-500/10">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-2xl bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent">
+              <Gift className="w-6 h-6 text-yellow-500" />
+              🎉 Easter Egg Found! 🎉
+            </DialogTitle>
+            <DialogDescription className="text-base space-y-4 pt-4">
+              <div className="bg-gradient-to-r from-blue-500/20 to-yellow-500/20 p-4 rounded-lg border border-yellow-500/30">
+                <p className="font-bold text-lg text-foreground mb-3">
+                  Win 44,444 FREE Tokens! 🎁
+                </p>
+                <p className="text-foreground mb-2">
+                  <span className="font-semibold">The Code:</span> <span className="font-mono bg-primary/20 px-2 py-1 rounded">BOCZ loves GIGGLE</span>
+                </p>
+                <p className="text-foreground mb-2">
+                  <span className="font-semibold">DM on Telegram:</span> <span className="font-mono">@successtoshi</span>
+                </p>
+                <p className="text-foreground mb-2">
+                  <span className="font-semibold">Or DM on X:</span> <span className="font-mono">@successtosh1</span>
+                </p>
+                <p className="text-sm text-yellow-600 dark:text-yellow-400 font-semibold mt-3">
+                  ⚡ Only the first 2 people to DM will win! ⚡
+                </p>
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
 
       <style>{`
         .book-page {
