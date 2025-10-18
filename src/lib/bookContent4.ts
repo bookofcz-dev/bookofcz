@@ -6,6 +6,7 @@ import czQuote5Portrait from "@/assets/cz-quote5-portrait.png";
 import czQuote6Portrait from "@/assets/cz-quote6-portrait.png";
 import czQuote7Portrait from "@/assets/cz-quote7-portrait.png";
 import czQuote8Portrait from "@/assets/cz-quote8-portrait.png";
+import czQuote9Portrait from "@/assets/cz-quote9-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -63,7 +64,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 9",
-    content: "\"Move fast, but don't break things.\"\n\nSpeed is important, but not at the cost of quality and security. Balance urgency with excellence."
+    content: "\"Move fast, but don't break things.\"\n\nSpeed is important, but not at the cost of quality and security. Balance urgency with excellence.",
+    backgroundImage: czQuote9Portrait
   },
   {
     title: "Quote 10",
