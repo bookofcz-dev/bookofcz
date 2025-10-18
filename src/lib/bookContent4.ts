@@ -1,4 +1,5 @@
 import czPortrait from "@/assets/cz-portrait.png";
+import czDiamondPortrait from "@/assets/cz-diamond-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -21,7 +22,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 2",
-    content: "\"Don't trade, just HODL.\"\n\nSimple advice that has made more people wealthy than complex trading strategies. Sometimes the best action is no action."
+    content: "\"Don't trade, just HODL.\"\n\nSimple advice that has made more people wealthy than complex trading strategies. Sometimes the best action is no action.",
+    backgroundImage: czDiamondPortrait
   },
   {
     title: "Quote 3",
