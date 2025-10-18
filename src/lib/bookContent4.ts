@@ -2,6 +2,7 @@ import czPortrait from "@/assets/cz-portrait.png";
 import czDiamondPortrait from "@/assets/cz-diamond-portrait.png";
 import czGoldenPortrait from "@/assets/cz-golden-portrait.png";
 import czQuote4Portrait from "@/assets/cz-quote4-portrait.png";
+import czQuote5Portrait from "@/assets/cz-quote5-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -39,7 +40,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 5",
-    content: "\"The crypto industry is still in its early days.\"\n\nWe're just beginning. The opportunities ahead are far greater than what we've seen so far."
+    content: "\"The crypto industry is still in its early days.\"\n\nWe're just beginning. The opportunities ahead are far greater than what we've seen so far.",
+    backgroundImage: czQuote5Portrait
   },
   {
     title: "Quote 6",
