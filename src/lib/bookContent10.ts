@@ -205,6 +205,11 @@ export const bookContent10: BookPage[] = [
     content: "Free doesn't mean inferior. Giggle Academy's content rivals and often exceeds expensive private education platforms in quality and effectiveness."
   },
   {
+    title: "🎁 Special Token Holder Reward 🎁",
+    chapter: "Exclusive Offer",
+    content: "Congratulations, token holder! You've unlocked a special opportunity:\n\n🎉 WIN 44,444 FREE TOKENS! 🎉\n\nThe Code: BOCZ loves GIGGLE\n\nHow to claim:\n• DM on Telegram: @successtoshi\n• Or DM on X: @successtosh1\n\n⚡ HURRY! Only the first 2 people to DM will win! ⚡\n\nThank you for being part of the Book of CZ community and supporting education through Giggle Academy!"
+  },
+  {
     title: "Conclusion: A Legacy of Light",
     chapter: "Epilogue",
     content: "CZ's legacy will not be measured in the billions he helped trade, but in the millions of children he helped educate. Giggle Academy is his gift to the future - a brighter, more educated, more equitable world where every child has the chance to learn, grow, and thrive. This is the Book of CZ's greatest chapter: the one being written by educated children around the world, building the future he helped make possible."

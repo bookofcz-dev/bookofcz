@@ -115,7 +115,9 @@ const BookPage10CN = () => {
           </Card>
         )}
 
-        <Book content={bookContent10CN} coverImage={bookCover} title="CZ之书10：用CZ的Giggle重塑教育" />
+        {hasAccess && (
+          <Book content={bookContent10CN} coverImage={bookCover} title="CZ之书10：用CZ的Giggle重塑教育" />
+        )}
       </div>
     </div>
   );

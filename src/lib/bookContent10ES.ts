@@ -205,6 +205,11 @@ export const bookContent10ES: BookPage[] = [
     content: "Gratis no significa inferior. El contenido de Giggle Academy rivaliza y a menudo supera a las costosas plataformas de educación privada en calidad y efectividad."
   },
   {
+    title: "🎁 Recompensa Exclusiva para Poseedores de Tokens 🎁",
+    chapter: "Oferta Exclusiva",
+    content: "¡Felicidades, poseedor de tokens! Has desbloqueado una oportunidad especial:\n\n🎉 ¡GANA 44,444 TOKENS GRATIS! 🎉\n\nEl Código: BOCZ loves GIGGLE\n\nCómo reclamar:\n• DM en Telegram: @successtoshi\n• O DM en X: @successtosh1\n\n⚡ ¡APÚRATE! ¡Solo las primeras 2 personas en enviar DM ganarán! ⚡\n\n¡Gracias por ser parte de la comunidad del Libro de CZ y apoyar la educación a través de Giggle Academy!"
+  },
+  {
     title: "Conclusión: Un Legado de Luz",
     chapter: "Epílogo",
     content: "El legado de CZ no se medirá en los miles de millones que ayudó a comerciar, sino en los millones de niños que ayudó a educar. Giggle Academy es su regalo al futuro - un mundo más brillante, más educado, más equitativo donde cada niño tiene la oportunidad de aprender, crecer y prosperar. Este es el capítulo más grande del Libro de CZ: el que está siendo escrito por niños educados en todo el mundo, construyendo el futuro que él ayudó a hacer posible."

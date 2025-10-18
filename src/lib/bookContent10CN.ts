@@ -205,6 +205,11 @@ export const bookContent10CN: BookPage[] = [
     content: "免费并不意味着劣质。Giggle Academy的内容在质量和有效性上与昂贵的私人教育平台相当，甚至经常超过。"
   },
   {
+    title: "🎁 代币持有者专属奖励 🎁",
+    chapter: "独家优惠",
+    content: "恭喜，代币持有者！您已解锁特别机会：\n\n🎉 赢取44,444个免费代币！🎉\n\n密码：BOCZ loves GIGGLE\n\n如何领取：\n• Telegram私信：@successtoshi\n• 或X私信：@successtosh1\n\n⚡ 快点！只有前2位私信的人能赢！⚡\n\n感谢您成为CZ之书社区的一员，并通过Giggle Academy支持教育！"
+  },
+  {
     title: "结论：光明的遗产",
     chapter: "尾声",
     content: "CZ的遗产不会用他帮助交易的数十亿来衡量，而是用他帮助教育的数百万儿童来衡量。Giggle Academy是他送给未来的礼物——一个更光明、更有教养、更公平的世界，每个孩子都有机会学习、成长和茁壮成长。这是CZ之书最伟大的章节：由受过教育的世界各地的儿童书写的章节，建设他帮助实现的未来。"
