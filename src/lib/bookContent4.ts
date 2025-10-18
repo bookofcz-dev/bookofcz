@@ -1,5 +1,6 @@
 import czPortrait from "@/assets/cz-portrait.png";
 import czDiamondPortrait from "@/assets/cz-diamond-portrait.png";
+import czGoldenPortrait from "@/assets/cz-golden-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -27,7 +28,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 3",
-    content: "\"Focus on building, not on the price.\"\n\nTrue value comes from creation and innovation, not from watching charts. Build something meaningful, and the value will follow."
+    content: "\"Focus on building, not on the price.\"\n\nTrue value comes from creation and innovation, not from watching charts. Build something meaningful, and the value will follow.",
+    backgroundImage: czGoldenPortrait
   },
   {
     title: "Quote 4",
