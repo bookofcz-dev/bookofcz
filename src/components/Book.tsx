@@ -110,7 +110,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
                     </div>
                     {leftPage < totalPages && (
                       <>
-                        <h2 className={`${content[leftPage].title === 'Quote 1' || content[leftPage].title === 'Quote 2' || content[leftPage].title === 'Quote 3' || content[leftPage].title === 'Quote 4' || content[leftPage].title === 'Quote 5' || content[leftPage].title === 'Quote 6' || content[leftPage].title === 'Quote 7' || content[leftPage].title === 'Quote 8' || content[leftPage].title === 'Quote 9' ? 'text-2xl md:text-4xl' : 'text-lg md:text-2xl'} font-bold mb-2 md:mb-4 ${content[leftPage]?.backgroundImage ? 'text-yellow-400' : content[leftPage].title.startsWith('Quote') ? 'text-yellow-400' : 'text-primary'}`}>
+                        <h2 className={`${content[leftPage].title === 'Quote 1' || content[leftPage].title === 'Quote 2' || content[leftPage].title === 'Quote 3' || content[leftPage].title === 'Quote 4' || content[leftPage].title === 'Quote 5' || content[leftPage].title === 'Quote 6' || content[leftPage].title === 'Quote 7' || content[leftPage].title === 'Quote 8' || content[leftPage].title === 'Quote 9' ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'} font-bold mb-2 md:mb-4 ${content[leftPage]?.backgroundImage ? 'text-yellow-400' : content[leftPage].title.startsWith('Quote') ? 'text-yellow-400' : 'text-primary'}`}>
                           {content[leftPage].title}
                         </h2>
                         {content[leftPage].chapter && (
@@ -122,10 +122,10 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
                           <img 
                             src={content[leftPage].image} 
                             alt={content[leftPage].title}
-                            className="w-full h-auto rounded-lg mb-4 object-contain"
+                            className="w-full h-auto max-h-[300px] md:max-h-none rounded-lg mb-4 object-cover"
                           />
                         )}
-                        <div className={`${content[leftPage].title === 'Quote 1' || content[leftPage].title === 'Quote 2' || content[leftPage].title === 'Quote 3' || content[leftPage].title === 'Quote 4' || content[leftPage].title === 'Quote 5' || content[leftPage].title === 'Quote 6' || content[leftPage].title === 'Quote 7' || content[leftPage].title === 'Quote 8' || content[leftPage].title === 'Quote 9' ? 'text-lg md:text-2xl font-semibold tracking-wide' : 'text-sm md:text-base'} leading-relaxed whitespace-pre-line ${content[leftPage]?.backgroundImage ? 'text-yellow-100/95' : content[leftPage].title.startsWith('Quote') ? 'text-yellow-400' : 'text-foreground'}`}>
+                        <div className={`${content[leftPage].title === 'Quote 1' || content[leftPage].title === 'Quote 2' || content[leftPage].title === 'Quote 3' || content[leftPage].title === 'Quote 4' || content[leftPage].title === 'Quote 5' || content[leftPage].title === 'Quote 6' || content[leftPage].title === 'Quote 7' || content[leftPage].title === 'Quote 8' || content[leftPage].title === 'Quote 9' ? 'text-xl md:text-2xl font-semibold tracking-wide' : 'text-base md:text-base'} leading-relaxed whitespace-pre-line ${content[leftPage]?.backgroundImage ? 'text-yellow-100/95' : content[leftPage].title.startsWith('Quote') ? 'text-yellow-400' : 'text-foreground'}`}>
                           {content[leftPage].content}
                         </div>
                         {content[leftPage].link && (
@@ -170,7 +170,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
                     </div>
                     {rightPage < totalPages && (
                       <>
-                        <h2 className={`${content[rightPage].title === 'Quote 1' || content[rightPage].title === 'Quote 2' || content[rightPage].title === 'Quote 3' || content[rightPage].title === 'Quote 4' || content[rightPage].title === 'Quote 5' || content[rightPage].title === 'Quote 6' || content[rightPage].title === 'Quote 7' || content[rightPage].title === 'Quote 8' || content[rightPage].title === 'Quote 9' ? 'text-2xl md:text-4xl' : 'text-lg md:text-2xl'} font-bold mb-2 md:mb-4 ${content[rightPage]?.backgroundImage ? 'text-yellow-400' : content[rightPage].title.startsWith('Quote') ? 'text-yellow-400' : 'text-primary'}`}>
+                        <h2 className={`${content[rightPage].title === 'Quote 1' || content[rightPage].title === 'Quote 2' || content[rightPage].title === 'Quote 3' || content[rightPage].title === 'Quote 4' || content[rightPage].title === 'Quote 5' || content[rightPage].title === 'Quote 6' || content[rightPage].title === 'Quote 7' || content[rightPage].title === 'Quote 8' || content[rightPage].title === 'Quote 9' ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'} font-bold mb-2 md:mb-4 ${content[rightPage]?.backgroundImage ? 'text-yellow-400' : content[rightPage].title.startsWith('Quote') ? 'text-yellow-400' : 'text-primary'}`}>
                           {content[rightPage].title}
                         </h2>
                         {content[rightPage].chapter && (
@@ -182,10 +182,10 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
                           <img 
                             src={content[rightPage].image} 
                             alt={content[rightPage].title}
-                            className="w-full h-auto rounded-lg mb-4 object-contain"
+                            className="w-full h-auto max-h-[300px] md:max-h-none rounded-lg mb-4 object-cover"
                           />
                         )}
-                        <div className={`${content[rightPage].title === 'Quote 1' || content[rightPage].title === 'Quote 2' || content[rightPage].title === 'Quote 3' || content[rightPage].title === 'Quote 4' || content[rightPage].title === 'Quote 5' || content[rightPage].title === 'Quote 6' || content[rightPage].title === 'Quote 7' || content[rightPage].title === 'Quote 8' || content[rightPage].title === 'Quote 9' ? 'text-lg md:text-2xl font-semibold tracking-wide' : 'text-sm md:text-base'} leading-relaxed whitespace-pre-line ${content[rightPage]?.backgroundImage ? 'text-yellow-100/95' : content[rightPage].title.startsWith('Quote') ? 'text-yellow-400' : 'text-foreground'}`}>
+                        <div className={`${content[rightPage].title === 'Quote 1' || content[rightPage].title === 'Quote 2' || content[rightPage].title === 'Quote 3' || content[rightPage].title === 'Quote 4' || content[rightPage].title === 'Quote 5' || content[rightPage].title === 'Quote 6' || content[rightPage].title === 'Quote 7' || content[rightPage].title === 'Quote 8' || content[rightPage].title === 'Quote 9' ? 'text-xl md:text-2xl font-semibold tracking-wide' : 'text-base md:text-base'} leading-relaxed whitespace-pre-line ${content[rightPage]?.backgroundImage ? 'text-yellow-100/95' : content[rightPage].title.startsWith('Quote') ? 'text-yellow-400' : 'text-foreground'}`}>
                           {content[rightPage].content}
                         </div>
                         {content[rightPage].link && (
@@ -270,7 +270,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
         @media (max-width: 768px) {
           .book-page {
             width: 100%;
-            min-height: 500px;
+            min-height: 600px;
             height: auto;
             position: relative;
             border-radius: 0.75rem;
