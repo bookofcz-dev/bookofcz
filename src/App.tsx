@@ -13,6 +13,7 @@ import BookPage6 from "./pages/BookPage6";
 import BookPage7 from "./pages/BookPage7";
 import BookPage8 from "./pages/BookPage8";
 import BookPage9 from "./pages/BookPage9";
+import BookPage10 from "./pages/BookPage10";
 import BookPageCN from "./pages/BookPageCN";
 import BookPage2CN from "./pages/BookPage2CN";
 import BookPage3CN from "./pages/BookPage3CN";
@@ -22,6 +23,7 @@ import BookPage6CN from "./pages/BookPage6CN";
 import BookPage7CN from "./pages/BookPage7CN";
 import BookPage8CN from "./pages/BookPage8CN";
 import BookPage9CN from "./pages/BookPage9CN";
+import BookPage10CN from "./pages/BookPage10CN";
 import BookPageES from "./pages/BookPageES";
 import BookPage2ES from "./pages/BookPage2ES";
 import BookPage3ES from "./pages/BookPage3ES";
@@ -31,6 +33,7 @@ import BookPage6ES from "./pages/BookPage6ES";
 import BookPage7ES from "./pages/BookPage7ES";
 import BookPage8ES from "./pages/BookPage8ES";
 import BookPage9ES from "./pages/BookPage9ES";
+import BookPage10ES from "./pages/BookPage10ES";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +55,7 @@ const App = () => (
           <Route path="/book7" element={<BookPage7 />} />
           <Route path="/book8" element={<BookPage8 />} />
           <Route path="/book9" element={<BookPage9 />} />
+          <Route path="/book10" element={<BookPage10 />} />
           <Route path="/book-cn" element={<BookPageCN />} />
           <Route path="/book2-cn" element={<BookPage2CN />} />
           <Route path="/book3-cn" element={<BookPage3CN />} />
@@ -61,6 +65,7 @@ const App = () => (
           <Route path="/book7-cn" element={<BookPage7CN />} />
           <Route path="/book8-cn" element={<BookPage8CN />} />
           <Route path="/book9-cn" element={<BookPage9CN />} />
+          <Route path="/book10-cn" element={<BookPage10CN />} />
           <Route path="/book-es" element={<BookPageES />} />
           <Route path="/book2-es" element={<BookPage2ES />} />
           <Route path="/book3-es" element={<BookPage3ES />} />
@@ -70,6 +75,7 @@ const App = () => (
           <Route path="/book7-es" element={<BookPage7ES />} />
           <Route path="/book8-es" element={<BookPage8ES />} />
           <Route path="/book9-es" element={<BookPage9ES />} />
+          <Route path="/book10-es" element={<BookPage10ES />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
