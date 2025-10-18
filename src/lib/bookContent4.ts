@@ -1,7 +1,10 @@
+import czPortrait from "@/assets/cz-portrait.png";
+
 export interface BookPage {
   title: string;
   content: string;
   chapter?: string;
+  image?: string;
 }
 
 export const bookContent4: BookPage[] = [
@@ -12,7 +15,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 1",
-    content: "\"If you can't hold, you won't be rich.\"\n\nPatience is the ultimate virtue in investing. The ability to hold through volatility separates successful investors from the rest."
+    content: "\"If you can't hold, you won't be rich.\"\n\nPatience is the ultimate virtue in investing. The ability to hold through volatility separates successful investors from the rest.",
+    image: czPortrait
   },
   {
     title: "Quote 2",
