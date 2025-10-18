@@ -2,7 +2,7 @@ import { Book } from "@/components/Book";
 import { bookContent } from "@/lib/bookContent7ES";
 
 const BookPage7ES = () => {
-  return <Book content={bookContent} title="Libro de CZ: Parte 7" />;
+  return <Book content={bookContent} title="Libro de CZ: Parte 7" bookId="book7-es" />;
 };
 
 export default BookPage7ES;

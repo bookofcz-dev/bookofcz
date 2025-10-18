@@ -9,6 +9,7 @@ const BookPage4CN = () => {
         content={bookContent4CN} 
         title="CZ的44句智慧之言" 
         coverImage={bookCover}
+        bookId="book4-cn"
       />
     </div>
   );

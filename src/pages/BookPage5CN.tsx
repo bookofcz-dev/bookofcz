@@ -10,7 +10,7 @@ const BookPage5CN = () => {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
 
   if (!showDisclaimer) {
-    return <Book content={bookContent} title="CZ之书：伙伴关系" coverImage={bookCover} />;
+    return <Book content={bookContent} title="CZ之书：伙伴关系" coverImage={bookCover} bookId="book5-cn" />;
   }
 
   return (
@@ -34,7 +34,7 @@ const BookPage5CN = () => {
         </Alert>
       </div>
       <div className="pt-20">
-        <Book content={bookContent} title="CZ之书：伙伴关系" coverImage={bookCover} />
+        <Book content={bookContent} title="CZ之书：伙伴关系" coverImage={bookCover} bookId="book5-cn" />
       </div>
     </>
   );

@@ -18,7 +18,7 @@ const BookPage9 = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Collection
         </Button>
-        <Book content={bookContent} title={title} coverImage={coverImage} />
+        <Book content={bookContent} title={title} coverImage={coverImage} bookId="book9-en" />
       </div>
     </div>
   );

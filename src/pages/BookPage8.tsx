@@ -108,7 +108,7 @@ const BookPage8 = () => {
           </div>
         )}
 
-        <Book content={bookContent} title={title} coverImage={coverImage} />
+        <Book content={bookContent} title={title} coverImage={coverImage} bookId="book8-en" />
       </div>
     </div>
   );

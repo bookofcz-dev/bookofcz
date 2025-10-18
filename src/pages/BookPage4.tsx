@@ -9,6 +9,7 @@ const BookPage4 = () => {
         content={bookContent4} 
         title="Book of CZ: 44 Words of Wisdom" 
         coverImage={bookCover}
+        bookId="book4-en"
       />
     </div>
   );

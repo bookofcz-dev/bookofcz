@@ -116,7 +116,7 @@ const BookPage10ES = () => {
         )}
 
         {hasAccess && (
-          <Book content={bookContent10ES} coverImage={bookCover} title="Libro de CZ 10: Remodelando la Educación con Giggle de CZ" />
+          <Book content={bookContent10ES} coverImage={bookCover} title="Libro de CZ 10: Remodelando la Educación con Giggle de CZ" bookId="book10-es" />
         )}
       </div>
     </div>

@@ -3,7 +3,7 @@ import { bookContent } from "@/lib/bookContent7";
 import bookCover from "@/assets/book7-cover.png";
 
 const BookPage7 = () => {
-  return <Book content={bookContent} title="Book of CZ: Selfies with CZ" coverImage={bookCover} />;
+  return <Book content={bookContent} title="Book of CZ: Selfies with CZ" coverImage={bookCover} bookId="book7-en" />;
 };
 
 export default BookPage7;

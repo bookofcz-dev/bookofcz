@@ -10,7 +10,7 @@ const BookPage5 = () => {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
 
   if (!showDisclaimer) {
-    return <Book content={bookContent} title="Book of CZ: The Partnership" coverImage={bookCover} />;
+    return <Book content={bookContent} title="Book of CZ: The Partnership" coverImage={bookCover} bookId="book5-en" />;
   }
 
   return (
@@ -34,7 +34,7 @@ const BookPage5 = () => {
         </Alert>
       </div>
       <div className="pt-20">
-        <Book content={bookContent} title="Book of CZ: The Partnership" coverImage={bookCover} />
+        <Book content={bookContent} title="Book of CZ: The Partnership" coverImage={bookCover} bookId="book5-en" />
       </div>
     </>
   );

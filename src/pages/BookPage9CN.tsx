@@ -18,7 +18,7 @@ const BookPage9CN = () => {
           <ArrowLeft className="mr-2 h-4 w-4" />
           返回合集
         </Button>
-        <Book content={bookContent} title={title} coverImage={coverImage} />
+        <Book content={bookContent} title={title} coverImage={coverImage} bookId="book9-cn" />
       </div>
     </div>
   );

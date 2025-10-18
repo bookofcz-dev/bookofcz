@@ -1,19 +1,29 @@
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, BookOpen, Home } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight, BookOpen, Home, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookPage } from "@/lib/bookContent";
 import { useNavigate } from "react-router-dom";
+import { useBookViews } from "@/hooks/useBookViews";
 
 interface BookProps {
   content: BookPage[];
   title?: string;
   coverImage?: string;
+  bookId?: string;
 }
 
-export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) => {
+export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: BookProps) => {
   const [currentPage, setCurrentPage] = useState(coverImage ? -1 : 0);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { viewCount, incrementView } = useBookViews(bookId);
+
+  // Track view when component mounts
+  useEffect(() => {
+    if (bookId) {
+      incrementView(bookId);
+    }
+  }, [bookId]);
 
   const totalPages = content.length;
   const showCover = coverImage && currentPage === -1;
@@ -43,7 +53,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
 
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-2 md:p-4 relative">
-      <div className="absolute top-2 left-2 md:top-4 md:left-4 z-20">
+      <div className="absolute top-2 left-2 md:top-4 md:left-4 z-20 flex gap-2">
         <Button
           variant="outline"
           size="sm"
@@ -53,6 +63,12 @@ export const Book = ({ content, title = "Book of CZ", coverImage }: BookProps) =
           <Home className="w-4 h-4" />
           <span className="hidden sm:inline">Back to Cover</span>
         </Button>
+        {bookId && (
+          <div className="flex items-center gap-2 bg-background/95 backdrop-blur px-3 py-2 rounded-lg shadow-lg border">
+            <Eye className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm font-medium">{viewCount.toLocaleString()}</span>
+          </div>
+        )}
       </div>
 
       <div className="w-full max-w-7xl mt-12 md:mt-0">
