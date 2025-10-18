@@ -3,6 +3,7 @@ import czDiamondPortrait from "@/assets/cz-diamond-portrait.png";
 import czGoldenPortrait from "@/assets/cz-golden-portrait.png";
 import czQuote4Portrait from "@/assets/cz-quote4-portrait.png";
 import czQuote5Portrait from "@/assets/cz-quote5-portrait.png";
+import czQuote6Portrait from "@/assets/cz-quote6-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -45,7 +46,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 6",
-    content: "\"User security is our top priority.\"\n\nWithout trust and security, nothing else matters. Protect users above all else."
+    content: "\"User security is our top priority.\"\n\nWithout trust and security, nothing else matters. Protect users above all else.",
+    backgroundImage: czQuote6Portrait
   },
   {
     title: "Quote 7",
