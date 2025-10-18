@@ -1,11 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Sparkles } from "lucide-react";
+import { BookOpen, Sparkles, Eye } from "lucide-react";
 import { X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import { useAllBookViews } from "@/hooks/useBookViews";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { bookViews } = useAllBookViews();
+
+  const getBookViews = (bookId: string) => {
+    return bookViews[bookId] || 0;
+  };
+
+  const getTotalViews = (baseId: string) => {
+    return getBookViews(`${baseId}-en`) + getBookViews(`${baseId}-cn`) + getBookViews(`${baseId}-es`);
+  };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
@@ -70,7 +80,7 @@ const Index = () => {
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-center mb-4">
           <Button
             onClick={() => navigate("/book")}
             size="lg"
@@ -96,6 +106,14 @@ const Index = () => {
           >
             Español
           </Button>
+        </div>
+        
+        {/* View Counter */}
+        <div className="flex justify-center">
+          <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+            <Eye className="h-4 w-4 text-primary" />
+            <span className="text-sm font-medium">{getTotalViews("book1").toLocaleString()} views</span>
+          </div>
         </div>
 
         {/* Stats */}
@@ -133,7 +151,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 2 */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book2")}
                 size="lg"
@@ -160,6 +178,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium">{getTotalViews("book2").toLocaleString()} views</span>
+              </div>
             </div>
           </div>
 
@@ -200,7 +226,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 3 */}
-            <div className="flex flex-wrap gap-4 justify-center mb-12">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book3")}
                 size="lg"
@@ -227,6 +253,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center mb-12">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium">{getTotalViews("book3").toLocaleString()} views</span>
+              </div>
             </div>
 
             {/* Part 3 Stats */}
@@ -266,7 +300,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 4 */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book4")}
                 size="lg"
@@ -292,6 +326,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium">{getTotalViews("book4").toLocaleString()} views</span>
+              </div>
             </div>
           </div>
 
@@ -332,7 +374,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 5 */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book5")}
                 size="lg"
@@ -358,6 +400,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium">{getTotalViews("book5").toLocaleString()} views</span>
+              </div>
             </div>
           </div>
 
@@ -398,7 +448,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 6 */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book6")}
                 size="lg"
@@ -424,6 +474,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium">{getTotalViews("book6").toLocaleString()} views</span>
+              </div>
             </div>
           </div>
 
@@ -463,7 +521,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 7 */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book7")}
                 size="lg"
@@ -490,6 +548,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium">{getTotalViews("book7").toLocaleString()} views</span>
+              </div>
             </div>
           </div>
 
@@ -529,7 +595,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 8 */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book8")}
                 size="lg"
@@ -556,6 +622,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium">{getTotalViews("book8").toLocaleString()} views</span>
+              </div>
             </div>
           </div>
 
@@ -595,7 +669,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 9 */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book9")}
                 size="lg"
@@ -621,6 +695,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-orange-500" />
+                <span className="text-sm font-medium">{getTotalViews("book9").toLocaleString()} views</span>
+              </div>
             </div>
           </div>
 
@@ -661,7 +743,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons for Part 10 */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
               <Button
                 onClick={() => navigate("/book10")}
                 size="lg"
@@ -687,6 +769,14 @@ const Index = () => {
               >
                 Español
               </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-blue-500" />
+                <span className="text-sm font-medium">{getTotalViews("book10").toLocaleString()} views</span>
+              </div>
             </div>
           </div>
 
