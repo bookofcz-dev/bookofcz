@@ -641,6 +641,72 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 10 - Giggle Academy */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white text-sm font-semibold mb-4 animate-pulse">
+              🎓 Educational Revolution
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+              Book of CZ: Part 10
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              Reshaping Education with CZ's Giggle Academy
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              Discover how CZ is revolutionizing education through Giggle Academy, making 
+              quality learning accessible to everyone, everywhere. From his vision to the 
+              platform's innovative features, witness how one man's commitment to education 
+              is creating a lasting legacy that transcends cryptocurrency.
+            </p>
+
+            {/* CTA Buttons for Part 10 */}
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button
+                onClick={() => navigate("/book10")}
+                size="lg"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/50 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                Explore Giggle Academy
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+              <Button
+                onClick={() => navigate("/book10-cn")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                中文版
+              </Button>
+              <Button
+                onClick={() => navigate("/book10-es")}
+                size="lg"
+                variant="outline"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Español
+              </Button>
+            </div>
+          </div>
+
+          {/* Part 10 Stats */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-500 mb-2">44</div>
+              <div className="text-sm text-muted-foreground">Pages</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-500 mb-2">🌍</div>
+              <div className="text-sm text-muted-foreground">Global Impact</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-500 mb-2">🎓</div>
+              <div className="text-sm text-muted-foreground">Free Education</div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a
