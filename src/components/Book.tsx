@@ -270,8 +270,8 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
         @media (max-width: 768px) {
           .book-page {
             width: 100%;
-            min-height: 600px;
-            height: auto;
+            min-height: 100vh;
+            height: 100vh;
             position: relative;
             border-radius: 0.75rem;
             margin-bottom: 1rem;
