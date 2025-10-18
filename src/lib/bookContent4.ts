@@ -1,6 +1,7 @@
 import czPortrait from "@/assets/cz-portrait.png";
 import czDiamondPortrait from "@/assets/cz-diamond-portrait.png";
 import czGoldenPortrait from "@/assets/cz-golden-portrait.png";
+import czQuote4Portrait from "@/assets/cz-quote4-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -33,7 +34,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 4",
-    content: "\"Regulate us. We want to work with regulators.\"\n\nCooperation and compliance are essential for the industry's growth. Embrace regulation as a path to mainstream adoption."
+    content: "\"Regulate us. We want to work with regulators.\"\n\nCooperation and compliance are essential for the industry's growth. Embrace regulation as a path to mainstream adoption.",
+    backgroundImage: czQuote4Portrait
   },
   {
     title: "Quote 5",
