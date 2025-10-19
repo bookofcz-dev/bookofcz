@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, BookOpen, Home, Eye } from "lucide-react";
+import { ChevronLeft, ChevronRight, BookOpen, Home, Eye, Play, Pause, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookPage } from "@/lib/bookContent";
 import { useNavigate } from "react-router-dom";
 import { useBookViews } from "@/hooks/useBookViews";
+import { useAudiobook } from "@/hooks/useAudiobook";
 
 interface BookProps {
   content: BookPage[];
@@ -17,6 +18,7 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { viewCount, incrementView } = useBookViews(bookId);
+  const audiobook = useAudiobook(content);
 
   // Track view when component mounts
   useEffect(() => {
@@ -34,6 +36,9 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
     if (showCover) {
       setCurrentPage(0);
     } else if (currentPage < totalPages - 2) {
+      if (audiobook.isPlaying) {
+        audiobook.stop();
+      }
       setCurrentPage(currentPage + 2);
     }
   };
@@ -42,7 +47,20 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
     if (currentPage === 0 && coverImage) {
       setCurrentPage(-1);
     } else if (currentPage > 0) {
+      if (audiobook.isPlaying) {
+        audiobook.stop();
+      }
       setCurrentPage(currentPage - 2);
+    }
+  };
+
+  const handlePlayPause = () => {
+    if (audiobook.isPlaying) {
+      audiobook.pause();
+    } else if (audiobook.currentPageIndex === currentPage && !audiobook.isLoading) {
+      audiobook.resume();
+    } else {
+      audiobook.playPage(currentPage);
     }
   };
 
@@ -70,6 +88,47 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
           </div>
         )}
       </div>
+
+      {/* Audio Controls */}
+      {!showCover && (
+        <div className="absolute top-2 right-2 md:top-4 md:right-4 z-20 flex gap-2">
+          <Button
+            onClick={handlePlayPause}
+            disabled={audiobook.isLoading}
+            variant="secondary"
+            size="sm"
+            className="shadow-lg gap-2"
+          >
+            {audiobook.isLoading ? (
+              <>
+                <div className="animate-spin">⏳</div>
+                <span className="hidden sm:inline">Loading...</span>
+              </>
+            ) : audiobook.isPlaying && audiobook.currentPageIndex === currentPage ? (
+              <>
+                <Pause className="h-4 w-4" />
+                <span className="hidden sm:inline">Pause</span>
+              </>
+            ) : (
+              <>
+                <Play className="h-4 w-4" />
+                <span className="hidden sm:inline">Play Audio</span>
+              </>
+            )}
+          </Button>
+          {audiobook.isPlaying && (
+            <Button
+              onClick={audiobook.stop}
+              variant="secondary"
+              size="sm"
+              className="shadow-lg gap-2"
+            >
+              <Square className="h-4 w-4" />
+              <span className="hidden sm:inline">Stop</span>
+            </Button>
+          )}
+        </div>
+      )}
 
       <div className="w-full max-w-7xl mt-12 md:mt-0">
         {/* Book Container */}
