@@ -69,10 +69,8 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
       if (audiobook.isPlaying) {
         console.log('Pausing audio');
         audiobook.pause();
-      } else if (audiobook.currentPageIndex === currentPage && !audiobook.isLoading) {
-        console.log('Resuming audio');
-        audiobook.resume();
       } else {
+        // Always use playPage to start fresh - it will handle whether to resume or start new
         console.log('Starting playPage for currentPage:', currentPage);
         audiobook.playPage(currentPage);
       }

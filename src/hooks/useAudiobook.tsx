@@ -125,9 +125,13 @@ export const useAudiobook = (pages: Array<{ title: string; content: string; chap
   };
 
   const resume = () => {
+    console.log('Resume called, checking audio ref...');
     if (audioRef.current && audioRef.current.src) {
+      console.log('Audio ref has source, playing...');
       audioRef.current.play();
       setState(prev => ({ ...prev, isPlaying: true }));
+    } else {
+      console.log('No audio source to resume, will need to call playPage instead');
     }
   };
 
