@@ -56,22 +56,28 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
 
   const handlePlayPause = () => {
     console.log('Play button clicked!');
-    console.log('Current state:', { 
-      isPlaying: audiobook.isPlaying, 
-      currentPageIndex: audiobook.currentPageIndex, 
-      currentPage,
-      isLoading: audiobook.isLoading 
-    });
     
-    if (audiobook.isPlaying) {
-      console.log('Pausing audio');
-      audiobook.pause();
-    } else if (audiobook.currentPageIndex === currentPage && !audiobook.isLoading) {
-      console.log('Resuming audio');
-      audiobook.resume();
-    } else {
-      console.log('Starting playPage for currentPage:', currentPage);
-      audiobook.playPage(currentPage);
+    try {
+      console.log('Audiobook object:', audiobook);
+      console.log('Current state:', { 
+        isPlaying: audiobook.isPlaying, 
+        currentPageIndex: audiobook.currentPageIndex, 
+        currentPage,
+        isLoading: audiobook.isLoading 
+      });
+      
+      if (audiobook.isPlaying) {
+        console.log('Pausing audio');
+        audiobook.pause();
+      } else if (audiobook.currentPageIndex === currentPage && !audiobook.isLoading) {
+        console.log('Resuming audio');
+        audiobook.resume();
+      } else {
+        console.log('Starting playPage for currentPage:', currentPage);
+        audiobook.playPage(currentPage);
+      }
+    } catch (error) {
+      console.error('Error in handlePlayPause:', error);
     }
   };
 
