@@ -55,11 +55,22 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
   };
 
   const handlePlayPause = () => {
+    console.log('Play button clicked!');
+    console.log('Current state:', { 
+      isPlaying: audiobook.isPlaying, 
+      currentPageIndex: audiobook.currentPageIndex, 
+      currentPage,
+      isLoading: audiobook.isLoading 
+    });
+    
     if (audiobook.isPlaying) {
+      console.log('Pausing audio');
       audiobook.pause();
     } else if (audiobook.currentPageIndex === currentPage && !audiobook.isLoading) {
+      console.log('Resuming audio');
       audiobook.resume();
     } else {
+      console.log('Starting playPage for currentPage:', currentPage);
       audiobook.playPage(currentPage);
     }
   };
@@ -89,46 +100,44 @@ export const Book = ({ content, title = "Book of CZ", coverImage, bookId }: Book
         )}
       </div>
 
-      {/* Audio Controls */}
-      {!showCover && (
-        <div className="absolute top-2 right-2 md:top-4 md:right-4 z-20 flex gap-2">
+      {/* Audio Controls - Always visible on all pages */}
+      <div className="absolute top-2 right-2 md:top-4 md:right-4 z-20 flex gap-2">
+        <Button
+          onClick={handlePlayPause}
+          disabled={audiobook.isLoading || showCover}
+          variant="secondary"
+          size="sm"
+          className="shadow-lg gap-2"
+        >
+          {audiobook.isLoading ? (
+            <>
+              <div className="animate-spin">⏳</div>
+              <span className="hidden sm:inline">Loading...</span>
+            </>
+          ) : audiobook.isPlaying && audiobook.currentPageIndex === currentPage ? (
+            <>
+              <Pause className="h-4 w-4" />
+              <span className="hidden sm:inline">Pause</span>
+            </>
+          ) : (
+            <>
+              <Play className="h-4 w-4" />
+              <span className="hidden sm:inline">Play Audio</span>
+            </>
+          )}
+        </Button>
+        {audiobook.isPlaying && (
           <Button
-            onClick={handlePlayPause}
-            disabled={audiobook.isLoading}
+            onClick={audiobook.stop}
             variant="secondary"
             size="sm"
             className="shadow-lg gap-2"
           >
-            {audiobook.isLoading ? (
-              <>
-                <div className="animate-spin">⏳</div>
-                <span className="hidden sm:inline">Loading...</span>
-              </>
-            ) : audiobook.isPlaying && audiobook.currentPageIndex === currentPage ? (
-              <>
-                <Pause className="h-4 w-4" />
-                <span className="hidden sm:inline">Pause</span>
-              </>
-            ) : (
-              <>
-                <Play className="h-4 w-4" />
-                <span className="hidden sm:inline">Play Audio</span>
-              </>
-            )}
+            <Square className="h-4 w-4" />
+            <span className="hidden sm:inline">Stop</span>
           </Button>
-          {audiobook.isPlaying && (
-            <Button
-              onClick={audiobook.stop}
-              variant="secondary"
-              size="sm"
-              className="shadow-lg gap-2"
-            >
-              <Square className="h-4 w-4" />
-              <span className="hidden sm:inline">Stop</span>
-            </Button>
-          )}
-        </div>
-      )}
+        )}
+      </div>
 
       <div className="w-full max-w-7xl mt-12 md:mt-0">
         {/* Book Container */}
