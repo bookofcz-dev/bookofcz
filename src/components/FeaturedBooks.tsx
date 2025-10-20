@@ -209,7 +209,10 @@ export const FeaturedBooks = ({ bookViews }: FeaturedBooksProps) => {
 
                   {/* CTA Button */}
                   <Button
-                    onClick={() => navigate(book.route)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(book.route);
+                    }}
                     className="w-full gap-2 group/btn"
                     variant="default"
                   >
