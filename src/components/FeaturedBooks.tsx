@@ -168,7 +168,10 @@ export const FeaturedBooks = ({ bookViews }: FeaturedBooksProps) => {
         <CarouselContent className="-ml-4">
           {topBooks.map((book, index) => (
             <CarouselItem key={book.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-              <Card className="group relative overflow-hidden border-2 hover:border-primary transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 h-full">
+              <Card 
+                className="group relative overflow-hidden border-2 hover:border-primary transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 h-full cursor-pointer"
+                onClick={() => navigate(book.route)}
+              >
                 {/* Rank Badge */}
                 <div className="absolute top-4 left-4 z-10">
                   <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground font-bold text-lg shadow-lg">
@@ -184,9 +187,9 @@ export const FeaturedBooks = ({ bookViews }: FeaturedBooksProps) => {
                 </div>
 
                 {/* Gradient Background Effect */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${book.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${book.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none`} />
 
-                <CardContent className="p-6 pt-16 flex flex-col h-full">
+                <CardContent className="p-6 pt-16 flex flex-col h-full relative z-10">
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
                       {book.title}
@@ -208,17 +211,10 @@ export const FeaturedBooks = ({ bookViews }: FeaturedBooksProps) => {
                   </div>
 
                   {/* CTA Button */}
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(book.route);
-                    }}
-                    className="w-full gap-2 group/btn"
-                    variant="default"
-                  >
-                    <BookOpen className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
+                  <div className="w-full gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium text-sm flex items-center justify-center group-hover:bg-primary/90 transition-colors">
+                    <BookOpen className="w-4 h-4" />
                     Read Now
-                  </Button>
+                  </div>
                 </CardContent>
               </Card>
             </CarouselItem>

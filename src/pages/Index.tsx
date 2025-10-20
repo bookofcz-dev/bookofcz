@@ -40,6 +40,11 @@ const Index = () => {
           Book of CZ
         </h1>
 
+        {/* Main Title */}
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground animate-fade-in">
+          Part 1: The Beginning
+        </h2>
+
         {/* Subtitle */}
         <p className="text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-in">
           The Extraordinary Journey of Changpeng Zhao
