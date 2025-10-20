@@ -40,19 +40,9 @@ const Index = () => {
           Book of CZ
         </h1>
 
-        {/* Main Title */}
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground animate-fade-in">
-          Part 1: The Beginning
-        </h2>
-
         {/* Subtitle */}
         <p className="text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-in">
           The Extraordinary Journey of Changpeng Zhao
-        </p>
-
-        <p className="text-lg text-foreground/80 mb-8 max-w-2xl mx-auto animate-fade-in">
-          From humble beginnings to building the world's largest cryptocurrency exchange.
-          An interactive 100-page chronicle of ambition, innovation, and resilience.
         </p>
 
         {/* Community Links & Contract Address */}
@@ -87,6 +77,16 @@ const Index = () => {
 
         {/* Featured Books Section */}
         <FeaturedBooks bookViews={bookViews} />
+
+        {/* Part 1 Title */}
+        <div className="mt-16 mb-8">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+            Part 1: The Beginning
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            From humble beginnings to building the world's largest cryptocurrency exchange. An interactive 100-page chronicle of ambition, innovation, and resilience.
+          </p>
+        </div>
 
         {/* CTA Buttons */}
         <div className="flex flex-wrap gap-4 justify-center mb-4">
