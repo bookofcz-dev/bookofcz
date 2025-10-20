@@ -1,7 +1,10 @@
+import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
+
 export interface BookPage {
   title: string;
   content: string;
   chapter?: string;
+  backgroundImage?: string;
 }
 
 export const bookContent4CN: BookPage[] = [
@@ -48,7 +51,8 @@ export const bookContent4CN: BookPage[] = [
   },
   {
     title: "语录 10",
-    content: "\"倾听你的用户。\"\n\n你的社区知道他们需要什么。注意、适应并根据他们的反馈进化。"
+    content: "\"倾听你的用户。\"\n\n你的社区知道他们需要什么。注意、适应并根据他们的反馈进化。",
+    backgroundImage: czQuote10Portrait
   },
   {
     title: "语录 11",

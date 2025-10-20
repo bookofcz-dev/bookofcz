@@ -1,7 +1,10 @@
+import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
+
 export interface BookPage {
   title: string;
   content: string;
   chapter?: string;
+  backgroundImage?: string;
 }
 
 export const bookContent4ES: BookPage[] = [

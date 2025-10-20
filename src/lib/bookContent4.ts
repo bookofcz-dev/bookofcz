@@ -7,6 +7,7 @@ import czQuote6Portrait from "@/assets/cz-quote6-portrait.png";
 import czQuote7Portrait from "@/assets/cz-quote7-portrait.png";
 import czQuote8Portrait from "@/assets/cz-quote8-portrait.png";
 import czQuote9Portrait from "@/assets/cz-quote9-portrait.png";
+import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -69,7 +70,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 10",
-    content: "\"Listen to your users.\"\n\nYour community knows what they need. Pay attention, adapt, and evolve based on their feedback."
+    content: "\"Listen to your users.\"\n\nYour community knows what they need. Pay attention, adapt, and evolve based on their feedback.",
+    backgroundImage: czQuote10Portrait
   },
   {
     title: "Quote 11",
