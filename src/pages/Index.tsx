@@ -40,6 +40,11 @@ const Index = () => {
           Book of CZ
         </h1>
 
+        {/* Description */}
+        <p className="text-lg text-muted-foreground mb-4 animate-fade-in">
+          A collection of mini books about CZ, Binance, and crypto in general.
+        </p>
+
         {/* Subtitle */}
         <p className="text-xl md:text-2xl text-muted-foreground mb-4 animate-fade-in">
           The Extraordinary Journey of Changpeng Zhao
@@ -78,24 +83,21 @@ const Index = () => {
         {/* Featured Books Section */}
         <FeaturedBooks bookViews={bookViews} />
 
-        {/* Part 1 Title */}
-        <div className="mt-16 mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
-            Book of CZ
-          </h2>
-          <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-muted-foreground">
-            Part 1: The Beginning
-          </h3>
-          <p className="text-base text-muted-foreground/80 max-w-2xl mx-auto mb-4">
-            A collection of mini books about CZ, Binance, and crypto in general.
-          </p>
-          <p className="text-lg text-foreground/90 max-w-2xl mx-auto mb-8">
-            From humble beginnings to building the world's largest cryptocurrency exchange. An interactive 100-page chronicle of ambition, innovation, and resilience.
-          </p>
-        </div>
+        {/* Part 1 Section */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+              Book of CZ: Part 1
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              The Beginning
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              From humble beginnings to building the world's largest cryptocurrency exchange. An interactive 100-page chronicle of ambition, innovation, and resilience.
+            </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center mb-4">
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
           <Button
             onClick={() => navigate("/book")}
             size="lg"
@@ -119,20 +121,21 @@ const Index = () => {
             variant="outline"
             className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg"
           >
-            Español
-          </Button>
-        </div>
-        
-        {/* View Counter */}
-        <div className="flex justify-center">
-          <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium">{getTotalViews("book1").toLocaleString()} views</span>
+              Español
+            </Button>
+          </div>
+          
+          {/* View Counter */}
+          <div className="flex justify-center">
+            <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+              <Eye className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium">{getTotalViews("book1").toLocaleString()} views</span>
+            </div>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+        <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
           <div className="text-center">
             <div className="text-4xl font-bold text-primary mb-2">100</div>
             <div className="text-sm text-muted-foreground">Pages</div>
@@ -146,6 +149,7 @@ const Index = () => {
             <div className="text-sm text-muted-foreground">Legend</div>
           </div>
         </div>
+      </div>
 
         {/* Part 2 Preview Section */}
         <div className="mt-24 pt-16 border-t border-border/50">
