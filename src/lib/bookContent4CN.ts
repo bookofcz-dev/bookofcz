@@ -1,4 +1,5 @@
 import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
+import czQuote11Portrait from "@/assets/cz-quote11-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -56,7 +57,8 @@ export const bookContent4CN: BookPage[] = [
   },
   {
     title: "语录 11",
-    content: "\"金钱自由是一项基本人权。\"\n\n每个人都应该有权使用为他们服务的金融系统，而不是控制他们的系统。"
+    content: "\"金钱自由是一项基本人权。\"\n\n每个人都应该有权使用为他们服务的金融系统，而不是控制他们的系统。",
+    backgroundImage: czQuote11Portrait
   },
   {
     title: "语录 12",

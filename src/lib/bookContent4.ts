@@ -8,6 +8,7 @@ import czQuote7Portrait from "@/assets/cz-quote7-portrait.png";
 import czQuote8Portrait from "@/assets/cz-quote8-portrait.png";
 import czQuote9Portrait from "@/assets/cz-quote9-portrait.png";
 import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
+import czQuote11Portrait from "@/assets/cz-quote11-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -75,7 +76,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 11",
-    content: "\"Freedom of money is a basic human right.\"\n\nEveryone deserves access to financial systems that serve them, not control them."
+    content: "\"Freedom of money is a basic human right.\"\n\nEveryone deserves access to financial systems that serve them, not control them.",
+    backgroundImage: czQuote11Portrait
   },
   {
     title: "Quote 12",
