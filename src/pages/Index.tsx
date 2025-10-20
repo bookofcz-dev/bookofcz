@@ -80,10 +80,16 @@ const Index = () => {
 
         {/* Part 1 Title */}
         <div className="mt-16 mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-            Part 1: The Beginning
+          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-foreground">
+            Book of CZ
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+          <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-muted-foreground">
+            Part 1: The Beginning
+          </h3>
+          <p className="text-base text-muted-foreground/80 max-w-2xl mx-auto mb-4">
+            A collection of mini books about CZ, Binance, and crypto in general.
+          </p>
+          <p className="text-lg text-foreground/90 max-w-2xl mx-auto mb-8">
             From humble beginnings to building the world's largest cryptocurrency exchange. An interactive 100-page chronicle of ambition, innovation, and resilience.
           </p>
         </div>
