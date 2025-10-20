@@ -4,6 +4,7 @@ import { BookOpen, Sparkles, Eye } from "lucide-react";
 import { X } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { useAllBookViews } from "@/hooks/useBookViews";
+import { FeaturedBooks } from "@/components/FeaturedBooks";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -78,6 +79,9 @@ const Index = () => {
             </code>
           </div>
         </div>
+
+        {/* Featured Books Section */}
+        <FeaturedBooks bookViews={bookViews} />
 
         {/* CTA Buttons */}
         <div className="flex flex-wrap gap-4 justify-center mb-4">
