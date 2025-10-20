@@ -9,6 +9,7 @@ import czQuote8Portrait from "@/assets/cz-quote8-portrait.png";
 import czQuote9Portrait from "@/assets/cz-quote9-portrait.png";
 import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
 import czQuote11Portrait from "@/assets/cz-quote11-portrait.png";
+import czQuote12Portrait from "@/assets/cz-quote12-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -81,7 +82,8 @@ export const bookContent4: BookPage[] = [
   },
   {
     title: "Quote 12",
-    content: "\"Compliance first, innovation second.\"\n\nWithout proper compliance, innovation cannot sustain. Build on a solid foundation."
+    content: "\"Compliance first, innovation second.\"\n\nWithout proper compliance, innovation cannot sustain. Build on a solid foundation.",
+    backgroundImage: czQuote12Portrait
   },
   {
     title: "Quote 13",

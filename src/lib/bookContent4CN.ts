@@ -1,5 +1,6 @@
 import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
 import czQuote11Portrait from "@/assets/cz-quote11-portrait.png";
+import czQuote12Portrait from "@/assets/cz-quote12-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -62,7 +63,8 @@ export const bookContent4CN: BookPage[] = [
   },
   {
     title: "语录 12",
-    content: "\"合规第一，创新第二。\"\n\n没有适当的合规，创新无法持续。在坚实的基础上建设。"
+    content: "\"合规第一，创新第二。\"\n\n没有适当的合规，创新无法持续。在坚实的基础上建设。",
+    backgroundImage: czQuote12Portrait
   },
   {
     title: "语录 13",
