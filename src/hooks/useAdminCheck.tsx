@@ -14,15 +14,18 @@ export const useAdminCheck = (walletAddress: string | null) => {
       }
 
       try {
-        // Case-insensitive comparison for Ethereum addresses
+        // Normalize to lowercase for comparison
+        const normalizedAddress = walletAddress.toLowerCase();
+        
         const { data, error } = await supabase
           .from('user_roles')
           .select('role')
-          .ilike('wallet_address', walletAddress)
+          .eq('wallet_address', normalizedAddress)
           .eq('role', 'admin')
           .maybeSingle();
 
         if (error) throw error;
+        console.log('Admin check result:', { walletAddress: normalizedAddress, data, isAdmin: !!data });
         setIsAdmin(!!data);
       } catch (error) {
         console.error('Error checking admin status:', error);
