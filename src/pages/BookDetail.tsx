@@ -150,9 +150,16 @@ export default function BookDetail() {
         if (error) console.error('Error updating download count:', error);
       }
 
-      // Open PDF in new tab
-      window.open(book.pdf_url, '_blank');
-      toast.success('Opening book...');
+      // Create a temporary link to download the file
+      const link = document.createElement('a');
+      link.href = book.pdf_url;
+      link.download = `${book.title}.pdf`;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast.success('Download started...');
     } catch (error) {
       console.error('Error downloading book:', error);
       toast.error('Failed to download book');
