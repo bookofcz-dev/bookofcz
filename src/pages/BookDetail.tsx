@@ -237,7 +237,7 @@ export default function BookDetail() {
   };
 
   const handleDownload = async () => {
-    if (!book) return;
+    if (!book || !account) return;
 
     if (book.price_bnb > 0 && !hasPurchased) {
       toast.error('Please purchase the book first');
@@ -245,15 +245,33 @@ export default function BookDetail() {
     }
 
     try {
-      // Update download count for free books
-      if (book.price_bnb === 0) {
-        const { error } = await supabase
-          .from('marketplace_books')
-          .update({ download_count: (book.download_count || 0) + 1 })
-          .eq('id', book.id);
+      // For free books, create a purchase record if it doesn't exist
+      if (book.price_bnb === 0 && !hasPurchased) {
+        const { error: purchaseError } = await supabase
+          .from('marketplace_purchases')
+          .insert({
+            book_id: book.id,
+            buyer_wallet: account.toLowerCase(),
+            price_paid: 0,
+            creator_amount: 0,
+            platform_fee: 0,
+            transaction_hash: `free-download-${Date.now()}`,
+          });
 
-        if (error) console.error('Error updating download count:', error);
+        if (purchaseError && !purchaseError.message.includes('duplicate')) {
+          throw purchaseError;
+        }
+
+        setHasPurchased(true);
       }
+
+      // Update download count
+      const { error } = await supabase
+        .from('marketplace_books')
+        .update({ download_count: (book.download_count || 0) + 1 })
+        .eq('id', book.id);
+
+      if (error) console.error('Error updating download count:', error);
 
       // Create a temporary link to download the file
       const link = document.createElement('a');
