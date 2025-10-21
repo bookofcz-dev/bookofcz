@@ -18,6 +18,33 @@ export const useMarketplaceWallet = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    // Check if already connected on mount
+    const checkConnection = async () => {
+      if (window.ethereum) {
+        try {
+          const browserProvider = new ethers.BrowserProvider(window.ethereum);
+          const accounts = await browserProvider.send('eth_accounts', []);
+          
+          if (accounts.length > 0) {
+            const account = accounts[0].toLowerCase();
+            setAccount(account);
+            setProvider(browserProvider);
+            
+            const signer = await browserProvider.getSigner();
+            setSigner(signer);
+            
+            const network = await browserProvider.getNetwork();
+            const currentChainId = '0x' + network.chainId.toString(16);
+            setChainId(currentChainId);
+          }
+        } catch (error) {
+          console.error('Error checking existing connection:', error);
+        }
+      }
+    };
+
+    checkConnection();
+
     if (window.ethereum) {
       const handleAccountsChanged = (accounts: string[]) => {
         if (accounts.length === 0) {
