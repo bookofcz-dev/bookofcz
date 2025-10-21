@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
-import { CheckCircle, XCircle, ExternalLink } from 'lucide-react';
+import { CheckCircle, XCircle, ExternalLink, Shield, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface Book {
   id: string;
@@ -27,9 +28,55 @@ interface BookReviewCardProps {
   onStatusChange: () => void;
 }
 
+interface SecurityReport {
+  safe: boolean;
+  score: number;
+  issues: Array<{
+    severity: 'low' | 'medium' | 'high' | 'critical';
+    category: string;
+    message: string;
+  }>;
+  metadata: {
+    fileSize: number;
+    isPDFValid: boolean;
+    hasJavaScript: boolean;
+    hasEmbeddedFiles: boolean;
+    hasExternalLinks: boolean;
+    isEncrypted: boolean;
+  };
+}
+
 export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) => {
   const [rejectionReason, setRejectionReason] = useState('');
   const [processing, setProcessing] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const [securityReport, setSecurityReport] = useState<SecurityReport | null>(null);
+
+  const handleScanPdf = async () => {
+    setScanning(true);
+    setSecurityReport(null);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('scan-pdf-security', {
+        body: { pdfUrl: book.pdf_url }
+      });
+
+      if (error) throw error;
+
+      setSecurityReport(data);
+      
+      if (data.safe) {
+        toast.success(`Security scan passed! Score: ${data.score}/100`);
+      } else {
+        toast.error(`Security issues detected! Score: ${data.score}/100`);
+      }
+    } catch (error: any) {
+      console.error('Error scanning PDF:', error);
+      toast.error('Failed to scan PDF: ' + error.message);
+    } finally {
+      setScanning(false);
+    }
+  };
 
   const handleDownloadPdf = async () => {
     try {
@@ -157,7 +204,7 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
           <p className="text-xs font-mono text-muted-foreground">{book.creator_wallet}</p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button
             variant="outline"
             size="sm"
@@ -176,7 +223,52 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
             <ExternalLink className="h-4 w-4 mr-2" />
             Download PDF
           </Button>
+          <Button
+            variant={securityReport?.safe === false ? "destructive" : "outline"}
+            size="sm"
+            onClick={handleScanPdf}
+            disabled={scanning}
+          >
+            <Shield className="h-4 w-4 mr-2" />
+            {scanning ? 'Scanning...' : 'Security Scan'}
+          </Button>
         </div>
+
+        {securityReport && (
+          <div className="mt-4 space-y-3">
+            <Alert variant={securityReport.safe ? "default" : "destructive"}>
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription>
+                <div className="font-semibold mb-2">
+                  Security Score: {securityReport.score}/100 - {securityReport.safe ? 'Safe' : 'Issues Detected'}
+                </div>
+                <div className="text-xs space-y-1">
+                  <div>File Size: {(securityReport.metadata.fileSize / 1024 / 1024).toFixed(2)}MB</div>
+                  <div>Valid PDF: {securityReport.metadata.isPDFValid ? '✓' : '✗'}</div>
+                  {securityReport.metadata.hasJavaScript && <div>⚠️ Contains JavaScript</div>}
+                  {securityReport.metadata.hasEmbeddedFiles && <div>⚠️ Contains embedded files</div>}
+                  {securityReport.metadata.isEncrypted && <div>🔒 Encrypted/Password protected</div>}
+                </div>
+              </AlertDescription>
+            </Alert>
+
+            {securityReport.issues.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-sm font-semibold">Security Issues:</p>
+                {securityReport.issues.map((issue, idx) => (
+                  <Alert 
+                    key={idx} 
+                    variant={issue.severity === 'critical' || issue.severity === 'high' ? 'destructive' : 'default'}
+                  >
+                    <AlertDescription className="text-xs">
+                      <span className="font-semibold">[{issue.severity.toUpperCase()}] {issue.category}:</span> {issue.message}
+                    </AlertDescription>
+                  </Alert>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {book.approval_status === 'pending' && (
           <>
