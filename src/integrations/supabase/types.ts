@@ -38,6 +38,157 @@ export type Database = {
         }
         Relationships: []
       }
+      marketplace_books: {
+        Row: {
+          approval_status: string
+          author: string
+          average_rating: number | null
+          category: string
+          cover_url: string
+          created_at: string
+          creator_wallet: string
+          description: string
+          download_count: number | null
+          id: string
+          ipfs_hash: string | null
+          isbn: string | null
+          pdf_url: string
+          price_bnb: number
+          publication_date: string | null
+          rejection_reason: string | null
+          review_count: number | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          approval_status?: string
+          author: string
+          average_rating?: number | null
+          category: string
+          cover_url: string
+          created_at?: string
+          creator_wallet: string
+          description: string
+          download_count?: number | null
+          id?: string
+          ipfs_hash?: string | null
+          isbn?: string | null
+          pdf_url: string
+          price_bnb?: number
+          publication_date?: string | null
+          rejection_reason?: string | null
+          review_count?: number | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          approval_status?: string
+          author?: string
+          average_rating?: number | null
+          category?: string
+          cover_url?: string
+          created_at?: string
+          creator_wallet?: string
+          description?: string
+          download_count?: number | null
+          id?: string
+          ipfs_hash?: string | null
+          isbn?: string | null
+          pdf_url?: string
+          price_bnb?: number
+          publication_date?: string | null
+          rejection_reason?: string | null
+          review_count?: number | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      marketplace_purchases: {
+        Row: {
+          book_id: string
+          buyer_wallet: string
+          creator_amount: number
+          id: string
+          platform_fee: number
+          price_paid: number
+          purchase_date: string
+          transaction_hash: string
+        }
+        Insert: {
+          book_id: string
+          buyer_wallet: string
+          creator_amount: number
+          id?: string
+          platform_fee: number
+          price_paid: number
+          purchase_date?: string
+          transaction_hash: string
+        }
+        Update: {
+          book_id?: string
+          buyer_wallet?: string
+          creator_amount?: number
+          id?: string
+          platform_fee?: number
+          price_paid?: number
+          purchase_date?: string
+          transaction_hash?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketplace_purchases_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "marketplace_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      marketplace_reviews: {
+        Row: {
+          book_id: string
+          created_at: string
+          helpful_count: number | null
+          id: string
+          rating: number
+          review_text: string | null
+          reviewer_wallet: string
+          updated_at: string
+        }
+        Insert: {
+          book_id: string
+          created_at?: string
+          helpful_count?: number | null
+          id?: string
+          rating: number
+          review_text?: string | null
+          reviewer_wallet: string
+          updated_at?: string
+        }
+        Update: {
+          book_id?: string
+          created_at?: string
+          helpful_count?: number | null
+          id?: string
+          rating?: number
+          review_text?: string | null
+          reviewer_wallet?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketplace_reviews_book_id_fkey"
+            columns: ["book_id"]
+            isOneToOne: false
+            referencedRelation: "marketplace_books"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

@@ -35,6 +35,7 @@ import BookPage8ES from "./pages/BookPage8ES";
 import BookPage9ES from "./pages/BookPage9ES";
 import BookPage10ES from "./pages/BookPage10ES";
 import NotFound from "./pages/NotFound";
+import Marketplace from "./pages/Marketplace";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ const App = () => (
           <Route path="/book8-es" element={<BookPage8ES />} />
           <Route path="/book9-es" element={<BookPage9ES />} />
           <Route path="/book10-es" element={<BookPage10ES />} />
+          <Route path="/marketplace" element={<Marketplace />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

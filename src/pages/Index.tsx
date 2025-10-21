@@ -80,6 +80,20 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Marketplace CTA */}
+        <div className="mb-12">
+          <Button
+            onClick={() => navigate("/marketplace")}
+            size="lg"
+            variant="default"
+            className="text-lg px-12 py-6 gap-3 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-primary/50 bg-gradient-to-r from-primary to-accent"
+          >
+            <BookOpen className="w-6 h-6" />
+            Visit BookofCZ Marketplace
+            <Sparkles className="w-6 h-6" />
+          </Button>
+        </div>
+
         {/* Featured Books Section */}
         <FeaturedBooks bookViews={bookViews} />
 
