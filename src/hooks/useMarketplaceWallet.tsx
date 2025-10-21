@@ -4,7 +4,12 @@ import { useToast } from '@/hooks/use-toast';
 
 const BSC_CHAIN_ID = '0x38'; // BSC Mainnet = 56 (0x38 in hex)
 const BSC_TESTNET_CHAIN_ID = '0x61'; // BSC Testnet = 97 (0x61 in hex)
-const BSC_RPC_URL = 'https://bsc-dataseed.binance.org/';
+const BSC_RPC_URLS = [
+  'https://bsc-dataseed1.binance.org',
+  'https://bsc-dataseed2.binance.org',
+  'https://bsc-dataseed3.binance.org',
+  'https://bsc-dataseed4.binance.org',
+];
 
 // Platform fee wallet (4% goes here)
 export const PLATFORM_WALLET = '0x0000000000000000000000000000000000000000'; // Replace with actual platform wallet
@@ -146,7 +151,7 @@ export const useMarketplaceWallet = () => {
                   symbol: 'BNB',
                   decimals: 18,
                 },
-                rpcUrls: [BSC_RPC_URL],
+                rpcUrls: BSC_RPC_URLS,
                 blockExplorerUrls: ['https://bscscan.com/'],
               },
             ],
