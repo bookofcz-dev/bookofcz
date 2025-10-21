@@ -61,7 +61,7 @@ export default function AdminDashboard() {
     }
   };
 
-  if (adminLoading) {
+  if (adminLoading || (account && !isAdmin && loading)) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
     );
   }
 
-  if (!isAdmin) {
+  if (account && !adminLoading && !isAdmin) {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
         <img src={logo} alt="BookofCZ" className="h-24 w-auto mb-6" />
