@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Upload, Loader2 } from 'lucide-react';
+import { bookUploadSchema, fileValidation } from '@/lib/validation/bookSchemas';
 
 interface UploadBookDialogProps {
   open: boolean;
@@ -27,12 +28,15 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
   });
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
   const categories = ['crypto', 'binance', 'defi', 'nft', 'trading', 'education', 'technology'];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setErrors({});
 
     if (!creatorWallet) {
       toast({
@@ -47,6 +51,46 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
       toast({
         title: "Missing Files",
         description: "Please upload both cover image and PDF file",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate form data
+    const validation = bookUploadSchema.safeParse(formData);
+    if (!validation.success) {
+      const newErrors: Record<string, string> = {};
+      validation.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          newErrors[err.path[0].toString()] = err.message;
+        }
+      });
+      setErrors(newErrors);
+      toast({
+        title: "Validation Error",
+        description: "Please check the form for errors",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate cover file
+    const coverError = fileValidation.coverImage.getMessage(coverFile);
+    if (coverError) {
+      toast({
+        title: "Invalid Cover Image",
+        description: coverError,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate PDF file
+    const pdfError = fileValidation.pdf.getMessage(pdfFile);
+    if (pdfError) {
+      toast({
+        title: "Invalid PDF File",
+        description: pdfError,
         variant: "destructive",
       });
       return;
@@ -115,6 +159,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
       });
       setCoverFile(null);
       setPdfFile(null);
+      setErrors({});
       onOpenChange(false);
     } catch (error: any) {
       console.error('Error uploading book:', error);

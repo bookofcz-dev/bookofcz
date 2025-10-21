@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Save, Loader2 } from 'lucide-react';
+import { bookUploadSchema, fileValidation } from '@/lib/validation/bookSchemas';
+import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
 
 interface Book {
   id: string;
@@ -40,7 +42,9 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
   });
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
+  const { account } = useMarketplaceWallet();
 
   const categories = ['crypto', 'binance', 'defi', 'nft', 'trading', 'education', 'technology'];
 
@@ -59,7 +63,53 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!book) return;
+    if (!book || !account) return;
+
+    setErrors({});
+
+    // Validate form data
+    const validation = bookUploadSchema.safeParse(formData);
+    if (!validation.success) {
+      const newErrors: Record<string, string> = {};
+      validation.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          newErrors[err.path[0].toString()] = err.message;
+        }
+      });
+      setErrors(newErrors);
+      toast({
+        title: "Validation Error",
+        description: "Please check the form for errors",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate cover file if provided
+    if (coverFile) {
+      const coverError = fileValidation.coverImage.getMessage(coverFile);
+      if (coverError) {
+        toast({
+          title: "Invalid Cover Image",
+          description: coverError,
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
+    // Validate PDF file if provided
+    if (pdfFile) {
+      const pdfError = fileValidation.pdf.getMessage(pdfFile);
+      if (pdfError) {
+        toast({
+          title: "Invalid PDF File",
+          description: pdfError,
+          variant: "destructive",
+        });
+        return;
+      }
+    }
 
     setUpdating(true);
 
@@ -100,20 +150,19 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
         pdfUrl = pdfData.publicUrl;
       }
 
-      // Update book record
-      const { error: updateError } = await supabase
-        .from('marketplace_books')
-        .update({
-          title: formData.title,
-          description: formData.description,
-          author: formData.author,
-          category: formData.category,
-          price_bnb: parseFloat(formData.price_bnb),
-          isbn: formData.isbn || null,
-          cover_url: coverUrl,
-          pdf_url: pdfUrl,
-        })
-        .eq('id', book.id);
+      // Use secure function to update book
+      const { error: updateError } = await supabase.rpc('update_book_as_creator', {
+        _book_id: book.id,
+        _creator_wallet: account.toLowerCase(),
+        _title: formData.title,
+        _author: formData.author,
+        _description: formData.description,
+        _category: formData.category,
+        _price_bnb: parseFloat(formData.price_bnb),
+        _isbn: formData.isbn || null,
+        _cover_url: coverUrl,
+        _pdf_url: pdfUrl,
+      });
 
       if (updateError) throw updateError;
 
@@ -124,6 +173,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
 
       setCoverFile(null);
       setPdfFile(null);
+      setErrors({});
       onBookUpdated();
       onOpenChange(false);
     } catch (error: any) {
@@ -159,7 +209,9 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="Enter book title"
+              className={errors.title ? 'border-destructive' : ''}
             />
+            {errors.title && <p className="text-xs text-destructive mt-1">{errors.title}</p>}
           </div>
 
           <div>

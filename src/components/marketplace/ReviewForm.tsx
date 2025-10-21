@@ -5,6 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Star } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { reviewSchema } from '@/lib/validation/bookSchemas';
 
 interface ReviewFormProps {
   bookId: string;
@@ -21,8 +22,15 @@ export const ReviewForm = ({ bookId, buyerWallet, onReviewSubmitted }: ReviewFor
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (rating === 0) {
-      toast.error('Please select a rating');
+    // Validate review data
+    const validation = reviewSchema.safeParse({
+      rating,
+      review_text: reviewText,
+    });
+
+    if (!validation.success) {
+      const firstError = validation.error.errors[0];
+      toast.error(firstError.message);
       return;
     }
 

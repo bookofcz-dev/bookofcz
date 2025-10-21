@@ -226,6 +226,30 @@ export type Database = {
         Args: { book_identifier: string }
         Returns: undefined
       }
+      update_book_approval_status: {
+        Args: {
+          _admin_wallet: string
+          _approval_status: string
+          _book_id: string
+          _rejection_reason: string
+        }
+        Returns: undefined
+      }
+      update_book_as_creator: {
+        Args: {
+          _author: string
+          _book_id: string
+          _category: string
+          _cover_url: string
+          _creator_wallet: string
+          _description: string
+          _isbn: string
+          _pdf_url: string
+          _price_bnb: number
+          _title: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"

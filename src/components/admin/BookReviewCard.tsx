@@ -7,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { CheckCircle, XCircle, ExternalLink, Shield, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
 
 interface Book {
   id: string;
@@ -51,6 +52,7 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
   const [processing, setProcessing] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [securityReport, setSecurityReport] = useState<SecurityReport | null>(null);
+  const { account } = useMarketplaceWallet();
 
   const handleScanPdf = async () => {
     setScanning(true);
@@ -114,51 +116,64 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
   };
 
   const handleApprove = async () => {
+    if (!account) {
+      toast.error('Please connect your wallet');
+      return;
+    }
+
     setProcessing(true);
     try {
-      const { error } = await supabase
-        .from('marketplace_books')
-        .update({ 
-          approval_status: 'approved',
-          rejection_reason: null 
-        })
-        .eq('id', book.id);
+      const { error } = await supabase.rpc('update_book_approval_status', {
+        _book_id: book.id,
+        _approval_status: 'approved',
+        _rejection_reason: null,
+        _admin_wallet: account.toLowerCase(),
+      });
 
       if (error) throw error;
       
       toast.success('Book approved successfully!');
       onStatusChange();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error approving book:', error);
-      toast.error('Failed to approve book');
+      toast.error(error.message || 'Failed to approve book');
     } finally {
       setProcessing(false);
     }
   };
 
   const handleReject = async () => {
+    if (!account) {
+      toast.error('Please connect your wallet');
+      return;
+    }
+
     if (!rejectionReason.trim()) {
       toast.error('Please provide a rejection reason');
       return;
     }
 
+    if (rejectionReason.length > 500) {
+      toast.error('Rejection reason must be less than 500 characters');
+      return;
+    }
+
     setProcessing(true);
     try {
-      const { error } = await supabase
-        .from('marketplace_books')
-        .update({ 
-          approval_status: 'rejected',
-          rejection_reason: rejectionReason 
-        })
-        .eq('id', book.id);
+      const { error } = await supabase.rpc('update_book_approval_status', {
+        _book_id: book.id,
+        _approval_status: 'rejected',
+        _rejection_reason: rejectionReason,
+        _admin_wallet: account.toLowerCase(),
+      });
 
       if (error) throw error;
       
       toast.success('Book rejected');
       onStatusChange();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error rejecting book:', error);
-      toast.error('Failed to reject book');
+      toast.error(error.message || 'Failed to reject book');
     } finally {
       setProcessing(false);
       setRejectionReason('');
