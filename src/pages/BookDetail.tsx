@@ -13,6 +13,8 @@ import { Separator } from '@/components/ui/separator';
 import { ArrowLeft, Download, Star, Wallet, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
+import { createPurchaseMessage, requestWalletSignature, verifyWalletSignature } from '@/lib/walletSecurity';
+import { ethers } from 'ethers';
 
 interface Book {
   id: string;
@@ -41,7 +43,7 @@ interface Review {
 export default function BookDetail() {
   const { bookId } = useParams();
   const navigate = useNavigate();
-  const { account, connectWallet, disconnectWallet, isConnecting, sendTransaction } = useMarketplaceWallet();
+  const { account, connectWallet, disconnectWallet, isConnecting, sendTransaction, provider } = useMarketplaceWallet();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
@@ -135,7 +137,7 @@ export default function BookDetail() {
   };
 
   const handlePurchase = async () => {
-    if (!book || !account) return;
+    if (!book || !account || !provider) return;
 
     setPurchasing(true);
     try {
@@ -143,21 +145,66 @@ export default function BookDetail() {
       const creatorAmount = (book.price_bnb * 0.96).toFixed(6);
       const platformFee = (book.price_bnb * 0.04).toFixed(6);
       
+      // Validate recipient addresses
+      if (!ethers.isAddress(book.creator_wallet)) {
+        throw new Error('Invalid creator wallet address');
+      }
+      if (!ethers.isAddress(platformWallet)) {
+        throw new Error('Invalid platform wallet address');
+      }
+
+      // Request wallet signature for verification
+      const timestamp = Date.now();
+      const message = createPurchaseMessage(book.id, book.price_bnb, timestamp);
+      
+      toast.info('Please sign the message to verify your purchase...');
+      const signature = await requestWalletSignature(provider, message);
+      
+      // Verify signature
+      const isValid = await verifyWalletSignature(message, signature, account);
+      if (!isValid) {
+        throw new Error('Signature verification failed');
+      }
+      
       // Send payment to creator (96%)
       toast.info('Confirm payment to creator...');
       const creatorTx = await sendTransaction(book.creator_wallet, creatorAmount);
       
       toast.info('Processing creator payment...');
-      await creatorTx.wait();
+      const creatorReceipt = await creatorTx.wait();
+      
+      if (!creatorReceipt || creatorReceipt.status !== 1) {
+        throw new Error('Creator payment failed');
+      }
+
+      // Verify transaction on-chain
+      const txDetails = await provider.getTransaction(creatorTx.hash);
+      if (!txDetails) {
+        throw new Error('Transaction not found on chain');
+      }
+      
+      // Verify transaction details
+      const actualAmount = ethers.formatEther(txDetails.value);
+      if (Math.abs(parseFloat(actualAmount) - parseFloat(creatorAmount)) > 0.000001) {
+        throw new Error('Transaction amount mismatch');
+      }
+      
+      if (txDetails.to?.toLowerCase() !== book.creator_wallet.toLowerCase()) {
+        throw new Error('Transaction recipient mismatch');
+      }
 
       // Send platform fee (4%)
       toast.info('Confirm platform fee...');
       const platformTx = await sendTransaction(platformWallet, platformFee);
       
       toast.info('Processing platform fee...');
-      await platformTx.wait();
+      const platformReceipt = await platformTx.wait();
+      
+      if (!platformReceipt || platformReceipt.status !== 1) {
+        throw new Error('Platform fee payment failed');
+      }
 
-      // Record purchase
+      // Record purchase with verification
       const { error: purchaseError } = await supabase
         .from('marketplace_purchases')
         .insert({

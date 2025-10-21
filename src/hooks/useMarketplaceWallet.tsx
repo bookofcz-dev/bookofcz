@@ -182,9 +182,20 @@ export const useMarketplaceWallet = () => {
       throw new Error('Wallet not connected');
     }
 
+    // Validate recipient address
+    if (!ethers.isAddress(to)) {
+      throw new Error('Invalid recipient address');
+    }
+
+    // Validate amount
+    const value = ethers.parseEther(valueInBNB);
+    if (value <= 0n) {
+      throw new Error('Invalid transaction amount');
+    }
+
     const tx = await signer.sendTransaction({
       to,
-      value: ethers.parseEther(valueInBNB),
+      value,
     });
 
     return tx;
