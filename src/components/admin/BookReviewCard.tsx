@@ -30,6 +30,40 @@ interface BookReviewCardProps {
 export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) => {
   const [rejectionReason, setRejectionReason] = useState('');
   const [processing, setProcessing] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState<string>('');
+
+  const handleViewPdf = async () => {
+    try {
+      // Extract the path from the full URL
+      const urlParts = book.pdf_url.split('/storage/v1/object/public/');
+      if (urlParts.length < 2) {
+        toast.error('Invalid PDF URL');
+        return;
+      }
+      
+      const [bucketAndPath] = urlParts[1].split('/').slice(0, 1);
+      const path = urlParts[1].substring(bucketAndPath.length + 1);
+      
+      // Get signed URL for secure access
+      const { data, error } = await supabase.storage
+        .from(bucketAndPath)
+        .createSignedUrl(path, 3600); // 1 hour expiry
+
+      if (error) {
+        // Fallback to direct URL if signed URL fails
+        window.open(book.pdf_url, '_blank');
+        return;
+      }
+
+      if (data?.signedUrl) {
+        window.open(data.signedUrl, '_blank');
+      }
+    } catch (error) {
+      console.error('Error viewing PDF:', error);
+      // Fallback to direct URL
+      window.open(book.pdf_url, '_blank');
+    }
+  };
 
   const handleApprove = async () => {
     setProcessing(true);
@@ -136,12 +170,10 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
           <Button
             variant="outline"
             size="sm"
-            asChild
+            onClick={handleViewPdf}
           >
-            <a href={book.pdf_url} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              View PDF
-            </a>
+            <ExternalLink className="h-4 w-4 mr-2" />
+            View PDF
           </Button>
         </div>
 
