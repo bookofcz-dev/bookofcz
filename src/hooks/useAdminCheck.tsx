@@ -14,10 +14,11 @@ export const useAdminCheck = (walletAddress: string | null) => {
       }
 
       try {
+        // Case-insensitive comparison for Ethereum addresses
         const { data, error } = await supabase
           .from('user_roles')
           .select('role')
-          .eq('wallet_address', walletAddress)
+          .ilike('wallet_address', walletAddress)
           .eq('role', 'admin')
           .maybeSingle();
 
