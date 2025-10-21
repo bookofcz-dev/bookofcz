@@ -31,6 +31,41 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
   const [rejectionReason, setRejectionReason] = useState('');
   const [processing, setProcessing] = useState(false);
 
+  const handleDownloadPdf = async () => {
+    try {
+      // Extract bucket and path from URL
+      const urlMatch = book.pdf_url.match(/\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
+      if (!urlMatch) {
+        toast.error('Invalid PDF URL format');
+        return;
+      }
+
+      const [, bucket, path] = urlMatch;
+      
+      // Download file from storage
+      const { data, error } = await supabase.storage
+        .from(bucket)
+        .download(path);
+
+      if (error) throw error;
+
+      // Create download link
+      const url = URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${book.title}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      toast.success('PDF downloaded successfully');
+    } catch (error: any) {
+      console.error('Error downloading PDF:', error);
+      toast.error('Failed to download PDF: ' + error.message);
+    }
+  };
+
   const handleApprove = async () => {
     setProcessing(true);
     try {
@@ -136,12 +171,10 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
           <Button
             variant="outline"
             size="sm"
-            asChild
+            onClick={handleDownloadPdf}
           >
-            <a href={book.pdf_url} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="h-4 w-4 mr-2" />
-              View PDF
-            </a>
+            <ExternalLink className="h-4 w-4 mr-2" />
+            Download PDF
           </Button>
         </div>
 
