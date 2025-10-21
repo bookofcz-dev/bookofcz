@@ -14,6 +14,7 @@ interface Book {
   category: string;
   average_rating: number;
   review_count: number;
+  download_count?: number;
 }
 
 interface BookCardProps {
