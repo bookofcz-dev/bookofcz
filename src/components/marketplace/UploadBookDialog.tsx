@@ -59,7 +59,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
       const coverExt = coverFile.name.split('.').pop();
       const coverPath = `${creatorWallet}/${Date.now()}-cover.${coverExt}`;
       const { error: coverError } = await supabase.storage
-        .from('marketplace')
+        .from('book-covers')
         .upload(coverPath, coverFile);
 
       if (coverError) throw coverError;
@@ -67,18 +67,18 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
       // Upload PDF
       const pdfPath = `${creatorWallet}/${Date.now()}-book.pdf`;
       const { error: pdfError } = await supabase.storage
-        .from('marketplace')
+        .from('book-pdfs')
         .upload(pdfPath, pdfFile);
 
       if (pdfError) throw pdfError;
 
       // Get public URLs
       const { data: coverUrl } = supabase.storage
-        .from('marketplace')
+        .from('book-covers')
         .getPublicUrl(coverPath);
 
       const { data: pdfUrl } = supabase.storage
-        .from('marketplace')
+        .from('book-pdfs')
         .getPublicUrl(pdfPath);
 
       // Insert book record
