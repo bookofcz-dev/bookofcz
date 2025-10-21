@@ -4,6 +4,8 @@ import { Helmet } from 'react-helmet';
 import { supabase } from '@/integrations/supabase/client';
 import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
 import { MarketplaceHeader } from '@/components/marketplace/MarketplaceHeader';
+import { ReviewForm } from '@/components/marketplace/ReviewForm';
+import { ReviewList } from '@/components/marketplace/ReviewList';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,6 +30,14 @@ interface Book {
   isbn?: string;
 }
 
+interface Review {
+  id: string;
+  rating: number;
+  review_text: string | null;
+  reviewer_wallet: string;
+  created_at: string;
+}
+
 export default function BookDetail() {
   const { bookId } = useParams();
   const navigate = useNavigate();
@@ -37,12 +47,16 @@ export default function BookDetail() {
   const [purchasing, setPurchasing] = useState(false);
   const [hasPurchased, setHasPurchased] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [hasReviewed, setHasReviewed] = useState(false);
 
   useEffect(() => {
     if (bookId) {
       fetchBook();
+      fetchReviews();
       if (account) {
         checkPurchase();
+        checkReview();
       }
     }
   }, [bookId, account]);
@@ -82,6 +96,41 @@ export default function BookDetail() {
       setHasPurchased(!!data);
     } catch (error) {
       console.error('Error checking purchase:', error);
+    }
+  };
+
+  const checkReview = async () => {
+    if (!account || !bookId) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('marketplace_reviews')
+        .select('id')
+        .eq('book_id', bookId)
+        .eq('reviewer_wallet', account.toLowerCase())
+        .maybeSingle();
+
+      if (error) throw error;
+      setHasReviewed(!!data);
+    } catch (error) {
+      console.error('Error checking review:', error);
+    }
+  };
+
+  const fetchReviews = async () => {
+    if (!bookId) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('marketplace_reviews')
+        .select('*')
+        .eq('book_id', bookId)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setReviews(data || []);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
     }
   };
 
@@ -333,6 +382,33 @@ export default function BookDetail() {
                 <p>• Powered by Binance Smart Chain</p>
               </div>
             </div>
+          </div>
+
+          {/* Reviews Section */}
+          <div className="space-y-6">
+            {hasPurchased && !hasReviewed && account && (
+              <ReviewForm
+                bookId={book.id}
+                buyerWallet={account}
+                onReviewSubmitted={() => {
+                  fetchReviews();
+                  fetchBook();
+                  setHasReviewed(true);
+                }}
+              />
+            )}
+
+            {hasPurchased && hasReviewed && (
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <p className="text-muted-foreground">
+                    ✓ Thank you for reviewing this book!
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            <ReviewList reviews={reviews} />
           </div>
         </main>
       </div>
