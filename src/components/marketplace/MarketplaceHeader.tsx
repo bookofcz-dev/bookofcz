@@ -52,6 +52,12 @@ export const MarketplaceHeader = ({
                   <Upload className="h-4 w-4" />
                   <span className="hidden md:inline">Upload</span>
                 </Button>
+                <Link to="/marketplace/dashboard">
+                  <Button variant="ghost" size="sm" className="gap-2">
+                    <LayoutDashboard className="h-4 w-4" />
+                    <span className="hidden md:inline">Dashboard</span>
+                  </Button>
+                </Link>
                 {isAdmin && (
                   <Button 
                     variant="ghost" 

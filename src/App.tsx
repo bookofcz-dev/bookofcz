@@ -37,6 +37,7 @@ import BookPage10ES from "./pages/BookPage10ES";
 import NotFound from "./pages/NotFound";
 import Marketplace from "./pages/Marketplace";
 import AdminDashboard from "./pages/AdminDashboard";
+import CreatorDashboard from "./pages/CreatorDashboard";
 
 const queryClient = new QueryClient();
 
@@ -79,6 +80,7 @@ const App = () => (
           <Route path="/book9-es" element={<BookPage9ES />} />
           <Route path="/book10-es" element={<BookPage10ES />} />
           <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/marketplace/dashboard" element={<CreatorDashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
