@@ -10,9 +10,12 @@ interface Book {
   description: string;
   author: string;
   cover_url: string;
+  pdf_url: string;
   price_bnb: number;
   category: string;
+  creator_wallet: string;
   approval_status: string;
+  created_at: string;
   average_rating: number;
   review_count: number;
   download_count: number;
@@ -21,9 +24,10 @@ interface Book {
 
 interface CreatorBookCardProps {
   book: Book;
+  onEdit: (book: Book) => void;
 }
 
-export const CreatorBookCard = ({ book }: CreatorBookCardProps) => {
+export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
   const totalEarnings = (book.download_count * book.price_bnb * 0.96).toFixed(4);
 
   return (
@@ -82,7 +86,11 @@ export const CreatorBookCard = ({ book }: CreatorBookCardProps) => {
         )}
 
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" disabled={book.approval_status !== 'approved'}>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => onEdit(book)}
+          >
             <Edit className="h-4 w-4 mr-2" />
             Edit
           </Button>

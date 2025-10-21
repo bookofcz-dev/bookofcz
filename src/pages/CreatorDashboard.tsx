@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Upload } from 'lucide-react';
 import { UploadBookDialog } from '@/components/marketplace/UploadBookDialog';
+import { EditBookDialog } from '@/components/marketplace/EditBookDialog';
 
 interface Book {
   id: string;
@@ -36,6 +37,7 @@ export default function CreatorDashboard() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('all');
   const [showUpload, setShowUpload] = useState(false);
+  const [editingBook, setEditingBook] = useState<Book | null>(null);
 
   useEffect(() => {
     if (account) {
@@ -167,7 +169,11 @@ export default function CreatorDashboard() {
               ) : (
                 <div className="grid gap-6">
                   {books.map((book) => (
-                    <CreatorBookCard key={book.id} book={book} />
+                    <CreatorBookCard 
+                      key={book.id} 
+                      book={book} 
+                      onEdit={setEditingBook}
+                    />
                   ))}
                 </div>
               )}
@@ -179,6 +185,13 @@ export default function CreatorDashboard() {
           open={showUpload}
           onOpenChange={setShowUpload}
           creatorWallet={account}
+        />
+
+        <EditBookDialog
+          open={!!editingBook}
+          onOpenChange={(open) => !open && setEditingBook(null)}
+          book={editingBook}
+          onBookUpdated={fetchMyBooks}
         />
       </div>
     </>
