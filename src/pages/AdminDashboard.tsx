@@ -34,7 +34,9 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('pending');
 
   useEffect(() => {
-    if (!adminLoading && !isAdmin && account) {
+    // Only redirect after admin check is complete and user is confirmed not admin
+    if (!adminLoading && account && !isAdmin) {
+      console.log('Not admin, redirecting...', { account, isAdmin });
       navigate('/marketplace');
     }
   }, [isAdmin, adminLoading, account, navigate]);
