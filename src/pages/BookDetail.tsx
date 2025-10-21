@@ -90,14 +90,23 @@ export default function BookDetail() {
 
     setPurchasing(true);
     try {
-      // Send payment to creator (96% of price)
+      const platformWallet = '0x6e22449bEbc5C719fA7ADB39bc2576B9E6F11bd8';
       const creatorAmount = (book.price_bnb * 0.96).toFixed(6);
+      const platformFee = (book.price_bnb * 0.04).toFixed(6);
       
-      toast.info('Confirm transaction in your wallet...');
-      const tx = await sendTransaction(book.creator_wallet, creatorAmount);
+      // Send payment to creator (96%)
+      toast.info('Confirm payment to creator...');
+      const creatorTx = await sendTransaction(book.creator_wallet, creatorAmount);
       
-      toast.info('Processing transaction...');
-      await tx.wait();
+      toast.info('Processing creator payment...');
+      await creatorTx.wait();
+
+      // Send platform fee (4%)
+      toast.info('Confirm platform fee...');
+      const platformTx = await sendTransaction(platformWallet, platformFee);
+      
+      toast.info('Processing platform fee...');
+      await platformTx.wait();
 
       // Record purchase
       const { error: purchaseError } = await supabase
@@ -107,8 +116,8 @@ export default function BookDetail() {
           buyer_wallet: account.toLowerCase(),
           price_paid: book.price_bnb,
           creator_amount: parseFloat(creatorAmount),
-          platform_fee: book.price_bnb * 0.04,
-          transaction_hash: tx.hash,
+          platform_fee: parseFloat(platformFee),
+          transaction_hash: creatorTx.hash,
         });
 
       if (purchaseError) throw purchaseError;
