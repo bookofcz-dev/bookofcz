@@ -12,7 +12,7 @@ const BSC_RPC_URLS = [
 ];
 
 // Platform fee wallet (4% goes here)
-export const PLATFORM_WALLET = '0x0000000000000000000000000000000000000000'; // Replace with actual platform wallet
+export const PLATFORM_WALLET = '0x6e22449bEbc5C719fA7ADB39bc2576B9E6F11bd8';
 
 export const useMarketplaceWallet = () => {
   const [account, setAccount] = useState<string | null>(null);
