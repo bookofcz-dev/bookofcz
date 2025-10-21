@@ -24,7 +24,7 @@ export const useMarketplaceWallet = () => {
           setAccount(null);
           setSigner(null);
         } else {
-          setAccount(accounts[0]);
+          setAccount(accounts[0].toLowerCase());
         }
       };
 
@@ -66,7 +66,7 @@ export const useMarketplaceWallet = () => {
 
       // Request account access
       const accounts = await browserProvider.send('eth_requestAccounts', []);
-      const account = accounts[0];
+      const account = accounts[0].toLowerCase();
       setAccount(account);
 
       // Get signer
