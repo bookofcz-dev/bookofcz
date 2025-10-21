@@ -34,14 +34,6 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('pending');
 
   useEffect(() => {
-    // Only redirect after admin check is complete and user is confirmed not admin
-    if (!adminLoading && account && !isAdmin) {
-      console.log('Not admin, redirecting...', { account, isAdmin });
-      navigate('/marketplace');
-    }
-  }, [isAdmin, adminLoading, account, navigate]);
-
-  useEffect(() => {
     if (isAdmin) {
       fetchBooks();
     }
@@ -91,7 +83,14 @@ export default function AdminDashboard() {
   }
 
   if (!isAdmin) {
-    return null;
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+        <img src={logo} alt="BookofCZ" className="h-24 w-auto mb-6" />
+        <h1 className="text-3xl font-bold mb-4 text-destructive">Access Denied</h1>
+        <p className="text-muted-foreground mb-6">You don't have admin privileges</p>
+        <Button onClick={() => navigate('/marketplace')}>Go to Marketplace</Button>
+      </div>
+    );
   }
 
   return (
