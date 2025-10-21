@@ -25,7 +25,7 @@ export const MarketplaceHeader = ({
           <Link to="/marketplace" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <img src={logo} alt="BookofCZ" className="h-10 w-auto" />
             <div>
-              <h1 className="text-xl font-bold">BookofCZ</h1>
+              <h1 className="text-xl font-bold">BOCZ</h1>
               <p className="text-xs text-muted-foreground">Web3 Marketplace</p>
             </div>
           </Link>

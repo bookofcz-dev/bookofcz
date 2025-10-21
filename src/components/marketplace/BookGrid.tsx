@@ -19,7 +19,7 @@ interface Book {
 interface BookGridProps {
   category: string;
   searchQuery: string;
-  account: string;
+  account: string | null;
 }
 
 export const BookGrid = ({ category, searchQuery, account }: BookGridProps) => {
@@ -77,7 +77,7 @@ export const BookGrid = ({ category, searchQuery, account }: BookGridProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {books.map((book) => (
-        <BookCard key={book.id} book={book} account={account} />
+        <BookCard key={book.id} book={book} account={account || ''} />
       ))}
     </div>
   );

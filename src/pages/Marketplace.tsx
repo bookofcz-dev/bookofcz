@@ -38,7 +38,7 @@ export default function Marketplace() {
               <img src={logo} alt="BookofCZ" className="h-32 w-auto" />
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              BookofCZ Marketplace
+              BOCZ Marketplace
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
               The first decentralized marketplace for crypto books on Binance Smart Chain
@@ -95,46 +95,42 @@ export default function Marketplace() {
           </div>
 
           {/* Featured Books */}
-          {account && (
-            <div className="mb-12">
-              <div className="flex items-center gap-2 mb-6">
-                <TrendingUp className="h-6 w-6 text-primary" />
-                <h2 className="text-3xl font-bold">Featured Books</h2>
-              </div>
-              <BookGrid
-                category={selectedCategory}
-                searchQuery={searchQuery}
-                account={account}
-              />
+          <div className="mb-12">
+            <div className="flex items-center gap-2 mb-6">
+              <TrendingUp className="h-6 w-6 text-primary" />
+              <h2 className="text-3xl font-bold">Featured Books</h2>
             </div>
-          )}
+            <BookGrid
+              category={selectedCategory}
+              searchQuery={searchQuery}
+              account={account}
+            />
+          </div>
 
           {/* How It Works */}
-          {!account && (
-            <div className="grid md:grid-cols-3 gap-6 my-12">
-              <div className="text-center p-6 border rounded-lg bg-card">
-                <Wallet className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">Connect Wallet</h3>
-                <p className="text-muted-foreground">
-                  Connect your MetaMask or BSC-compatible wallet to get started
-                </p>
-              </div>
-              <div className="text-center p-6 border rounded-lg bg-card">
-                <BookOpen className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">Browse & Buy</h3>
-                <p className="text-muted-foreground">
-                  Discover books and purchase with BNB or stablecoins
-                </p>
-              </div>
-              <div className="text-center p-6 border rounded-lg bg-card">
-                <Star className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">Rate & Review</h3>
-                <p className="text-muted-foreground">
-                  Share your thoughts and help the community
-                </p>
-              </div>
+          <div className="grid md:grid-cols-3 gap-6 my-12">
+            <div className="text-center p-6 border rounded-lg bg-card">
+              <Wallet className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <h3 className="text-xl font-semibold mb-2">Connect Wallet</h3>
+              <p className="text-muted-foreground">
+                Connect your MetaMask or BSC-compatible wallet to get started
+              </p>
             </div>
-          )}
+            <div className="text-center p-6 border rounded-lg bg-card">
+              <BookOpen className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <h3 className="text-xl font-semibold mb-2">Browse & Buy</h3>
+              <p className="text-muted-foreground">
+                Discover books and purchase with BNB or stablecoins
+              </p>
+            </div>
+            <div className="text-center p-6 border rounded-lg bg-card">
+              <Star className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <h3 className="text-xl font-semibold mb-2">Rate & Review</h3>
+              <p className="text-muted-foreground">
+                Share your thoughts and help the community
+              </p>
+            </div>
+          </div>
         </main>
 
         {/* Upload Dialog */}
