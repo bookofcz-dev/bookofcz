@@ -27,12 +27,17 @@ export const BookCard = ({ book, account }: BookCardProps) => {
     <Link to={`/marketplace/book/${book.id}`}>
       <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer group">
         <CardContent className="p-4">
-          <div className="aspect-[2/3] mb-4 overflow-hidden rounded-md bg-muted">
+          <div className="aspect-[2/3] mb-4 overflow-hidden rounded-md bg-muted relative">
             <img
               src={book.cover_url}
               alt={book.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
+            {book.price_bnb === 0 && (
+              <div className="absolute top-4 right-4 bg-primary/90 text-primary-foreground px-3 py-1.5 rounded-md font-bold text-sm shadow-lg rotate-12 transform">
+                SAMPLE
+              </div>
+            )}
           </div>
           
           <Badge variant="secondary" className="mb-2 capitalize">
