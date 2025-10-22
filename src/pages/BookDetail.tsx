@@ -201,17 +201,53 @@ export default function BookDetail() {
         throw new Error('Invalid platform wallet address');
       }
 
-      // Request wallet signature for verification
+      // Request wallet signature for verification with timestamp
       const timestamp = Date.now();
       const message = createPurchaseMessage(book.id, book.price_bnb, timestamp);
       
       toast.info('Please sign the message to verify your purchase...');
       const signature = await requestWalletSignature(provider, message);
       
+      // Verify signature freshness (prevent replay attacks)
+      const timeSinceSign = Date.now() - timestamp;
+      if (timeSinceSign > 60000) { // 1 minute expiry
+        throw new Error('Signature expired. Please try again.');
+      }
+      
       // Verify signature
       const isValid = await verifyWalletSignature(message, signature, account);
       if (!isValid) {
         throw new Error('Signature verification failed');
+      }
+
+      // Check if signature was already used (prevent replay attacks)
+      const { data: existingSig, error: sigCheckError } = await supabase
+        .from('purchase_signatures')
+        .select('id')
+        .eq('signature', signature)
+        .maybeSingle();
+
+      if (sigCheckError) {
+        console.error('Error checking signature:', sigCheckError);
+      }
+
+      if (existingSig) {
+        throw new Error('This signature has already been used');
+      }
+
+      // Record signature to prevent replay
+      const { error: sigInsertError } = await supabase
+        .from('purchase_signatures')
+        .insert({
+          signature,
+          book_id: book.id,
+          buyer_wallet: account.toLowerCase(),
+          timestamp,
+        });
+
+      if (sigInsertError) {
+        console.error('Error recording signature:', sigInsertError);
+        throw new Error('Failed to record signature');
       }
       
       let creatorTx: any;
@@ -265,6 +301,24 @@ export default function BookDetail() {
         
         if (!creatorReceipt || creatorReceipt.status !== 1) {
           throw new Error('Creator payment failed');
+        }
+
+        // Verify BOCZ token transfer amount on-chain
+        const TRANSFER_EVENT_SIGNATURE = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+        const transferLog = creatorReceipt.logs.find(
+          log => log.topics[0] === TRANSFER_EVENT_SIGNATURE
+        );
+
+        if (!transferLog) {
+          throw new Error('Token transfer event not found');
+        }
+
+        // Parse transfer amount from event data
+        const actualAmount = ethers.toBigInt(transferLog.data);
+        const expectedAmount = ethers.parseUnits(creatorAmount, 18);
+
+        if (actualAmount < expectedAmount) {
+          throw new Error(`Insufficient payment: expected ${creatorAmount} $BOCZ`);
         }
 
         // No platform fee for BOCZ payments
@@ -345,9 +399,24 @@ export default function BookDetail() {
 
       if (error) console.error('Error updating download count:', error);
 
+      // Generate signed URL for secure PDF download (1 hour expiry)
+      const pdfPath = book.pdf_url.split('/').pop(); // Extract filename from URL
+      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
+        .from('book-pdfs')
+        .createSignedUrl(`${book.id}/${pdfPath}`, 3600);
+
+      if (signedUrlError) {
+        console.error('Error creating signed URL:', signedUrlError);
+        throw new Error('Failed to generate download link');
+      }
+
+      if (!signedUrlData?.signedUrl) {
+        throw new Error('No download URL generated');
+      }
+
       // Create a temporary link to download the file
       const link = document.createElement('a');
-      link.href = book.pdf_url;
+      link.href = signedUrlData.signedUrl;
       link.download = `${book.title}.pdf`;
       link.target = '_blank';
       document.body.appendChild(link);

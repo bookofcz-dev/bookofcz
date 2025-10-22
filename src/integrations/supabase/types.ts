@@ -189,6 +189,33 @@ export type Database = {
           },
         ]
       }
+      purchase_signatures: {
+        Row: {
+          book_id: string
+          buyer_wallet: string
+          created_at: string | null
+          id: string
+          signature: string
+          timestamp: number
+        }
+        Insert: {
+          book_id: string
+          buyer_wallet: string
+          created_at?: string | null
+          id?: string
+          signature: string
+          timestamp: number
+        }
+        Update: {
+          book_id?: string
+          buyer_wallet?: string
+          created_at?: string | null
+          id?: string
+          signature?: string
+          timestamp?: number
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null
