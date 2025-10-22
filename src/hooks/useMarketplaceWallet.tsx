@@ -37,60 +37,66 @@ export const useMarketplaceWallet = () => {
     if (!window.ethereum) return;
 
     const handleAccountsChanged = async (accounts: string[]) => {
-      console.log('Accounts changed:', accounts);
+      console.log('🔄 Accounts changed event:', accounts);
+      
+      // Force clear all state first
+      setAccount(null);
+      setProvider(null);
+      setSigner(null);
+      setChainId(null);
+      
       if (accounts.length === 0) {
         // Wallet disconnected
-        setAccount(null);
-        setProvider(null);
-        setSigner(null);
-        setChainId(null);
+        console.log('❌ Wallet disconnected');
         toast({
           title: "Wallet Disconnected",
           description: "Your wallet has been disconnected",
         });
       } else {
-        // Account switched - completely refresh provider and signer
+        // Account switched - wait a bit then reconnect with new account
         const newAccount = accounts[0].toLowerCase();
-        console.log('Switching to new account:', newAccount);
+        console.log('🔄 Switching to new account:', newAccount);
+        
+        // Small delay to ensure MetaMask has updated
+        await new Promise(resolve => setTimeout(resolve, 100));
         
         try {
           const browserProvider = new ethers.BrowserProvider(window.ethereum);
           const newSigner = await browserProvider.getSigner();
+          const signerAddress = (await newSigner.getAddress()).toLowerCase();
+          
+          console.log('✅ New signer address:', signerAddress);
+          
           const network = await browserProvider.getNetwork();
           const currentChainId = '0x' + network.chainId.toString(16);
           
-          setAccount(newAccount);
+          setAccount(signerAddress);
           setProvider(browserProvider);
           setSigner(newSigner);
           setChainId(currentChainId);
           
           toast({
             title: "Account Switched",
-            description: `Switched to ${newAccount.slice(0, 6)}...${newAccount.slice(-4)}`,
+            description: `Switched to ${signerAddress.slice(0, 6)}...${signerAddress.slice(-4)}`,
           });
         } catch (error) {
-          console.error('Error updating signer:', error);
-          // Clear state on error
-          setAccount(null);
-          setProvider(null);
-          setSigner(null);
+          console.error('❌ Error updating signer:', error);
+          toast({
+            title: "Connection Error",
+            description: "Failed to switch accounts. Please try reconnecting.",
+            variant: "destructive",
+          });
         }
       }
     };
 
     const handleChainChanged = (newChainId: string) => {
-      console.log('Chain changed:', newChainId);
-      setChainId(newChainId);
-      if (newChainId !== BSC_CHAIN_ID && newChainId !== BSC_TESTNET_CHAIN_ID) {
-        toast({
-          title: "Wrong Network",
-          description: "Please switch to Binance Smart Chain",
-          variant: "destructive",
-        });
-      }
+      console.log('🔄 Chain changed:', newChainId);
+      // Reload page on chain change to reset everything
+      window.location.reload();
     };
 
-    // Set up event listeners
+    // Set up event listeners BEFORE checking connection
     window.ethereum.on('accountsChanged', handleAccountsChanged);
     window.ethereum.on('chainChanged', handleChainChanged);
 
@@ -102,11 +108,15 @@ export const useMarketplaceWallet = () => {
         
         if (accounts.length > 0) {
           const account = accounts[0].toLowerCase();
-          console.log('Found existing connection:', account);
-          setAccount(account);
-          setProvider(browserProvider);
+          console.log('🔍 Found existing connection:', account);
           
           const signer = await browserProvider.getSigner();
+          const signerAddress = (await signer.getAddress()).toLowerCase();
+          
+          console.log('🔍 Signer address:', signerAddress);
+          
+          setAccount(signerAddress);
+          setProvider(browserProvider);
           setSigner(signer);
           
           const network = await browserProvider.getNetwork();
@@ -114,7 +124,7 @@ export const useMarketplaceWallet = () => {
           setChainId(currentChainId);
         }
       } catch (error) {
-        console.error('Error checking existing connection:', error);
+        console.error('❌ Error checking existing connection:', error);
       }
     };
 
