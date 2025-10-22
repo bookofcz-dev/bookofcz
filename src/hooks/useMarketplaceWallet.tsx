@@ -77,18 +77,24 @@ export const useMarketplaceWallet = () => {
           const newAccount = accounts[0].toLowerCase();
           setAccount(newAccount);
           
-          // Update signer for the new account
-          if (provider) {
-            try {
-              const newSigner = await provider.getSigner();
-              setSigner(newSigner);
-              toast({
-                title: "Account Switched",
-                description: `Switched to ${newAccount.slice(0, 6)}...${newAccount.slice(-4)}`,
-              });
-            } catch (error) {
-              console.error('Error updating signer:', error);
-            }
+          // Create fresh provider and signer for new account
+          try {
+            const browserProvider = new ethers.BrowserProvider(window.ethereum);
+            setProvider(browserProvider);
+            
+            const newSigner = await browserProvider.getSigner();
+            setSigner(newSigner);
+            
+            const network = await browserProvider.getNetwork();
+            const currentChainId = '0x' + network.chainId.toString(16);
+            setChainId(currentChainId);
+            
+            toast({
+              title: "Account Switched",
+              description: `Switched to ${newAccount.slice(0, 6)}...${newAccount.slice(-4)}`,
+            });
+          } catch (error) {
+            console.error('Error updating signer:', error);
           }
         }
       };
