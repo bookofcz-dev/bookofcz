@@ -129,13 +129,19 @@ export const useMarketplaceWallet = () => {
     setChainId(null);
     
     try {
-      console.log('🔌 Requesting wallet connection...');
-      const browserProvider = new ethers.BrowserProvider(window.ethereum);
-
-      // Request account access
-      await browserProvider.send('eth_requestAccounts', []);
+      console.log('🔌 Forcing fresh wallet connection...');
       
-      // Get signer and use its address as the source of truth
+      // Force MetaMask to show account selection by requesting permissions
+      // This will ALWAYS show the account selection UI
+      await window.ethereum.request({
+        method: 'wallet_requestPermissions',
+        params: [{ eth_accounts: {} }],
+      });
+      
+      console.log('✅ Permissions granted, getting accounts...');
+      const browserProvider = new ethers.BrowserProvider(window.ethereum);
+      
+      // Now get the selected account
       const signer = await browserProvider.getSigner();
       const signerAddress = (await signer.getAddress()).toLowerCase();
       
