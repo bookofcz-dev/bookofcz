@@ -15,6 +15,7 @@ interface Book {
   average_rating: number;
   review_count: number;
   download_count?: number;
+  creator_wallet?: string;
 }
 
 interface BookCardProps {
@@ -33,7 +34,7 @@ export const BookCard = ({ book, account }: BookCardProps) => {
               alt={book.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            {book.price_bnb === 0 && (
+            {(!book.creator_wallet || book.creator_wallet === '' || book.creator_wallet === '0x0000000000000000000000000000000000000000') && (
               <div className="absolute top-4 right-4 bg-primary/90 text-primary-foreground px-3 py-1.5 rounded-md font-bold text-sm shadow-lg rotate-12 transform">
                 SAMPLE
               </div>
