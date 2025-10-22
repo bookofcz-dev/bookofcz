@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { supabase } from '@/integrations/supabase/client';
-import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
+import { useWallet } from '@/contexts/WalletContext';
 import { MarketplaceHeader } from '@/components/marketplace/MarketplaceHeader';
 import { ReviewForm } from '@/components/marketplace/ReviewForm';
 import { ReviewList } from '@/components/marketplace/ReviewList';
@@ -43,7 +43,7 @@ interface Review {
 export default function BookDetail() {
   const { bookId } = useParams();
   const navigate = useNavigate();
-  const { account, connectWallet, disconnectWallet, isConnecting, sendTransaction, sendTokenTransaction, getTokenBalance, provider } = useMarketplaceWallet();
+  const { account, connectWallet, disconnectWallet, isConnecting, sendTransaction, sendTokenTransaction, getTokenBalance, provider } = useWallet();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [purchasing, setPurchasing] = useState(false);

@@ -9,7 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Save, Loader2 } from 'lucide-react';
 import { bookUploadSchema, fileValidation } from '@/lib/validation/bookSchemas';
-import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
+import { useWallet } from '@/contexts/WalletContext';
 
 interface Book {
   id: string;
@@ -44,7 +44,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
-  const { account } = useMarketplaceWallet();
+  const { account } = useWallet();
 
   const categories = ['crypto', 'binance', 'defi', 'nft', 'trading', 'education', 'technology'];
 

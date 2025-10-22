@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { supabase } from '@/integrations/supabase/client';
-import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
+import { useWallet } from '@/contexts/WalletContext';
 import { MarketplaceHeader } from '@/components/marketplace/MarketplaceHeader';
 import { CreatorStats } from '@/components/creator/CreatorStats';
 import { CreatorBookCard } from '@/components/creator/CreatorBookCard';
@@ -32,7 +32,7 @@ interface Book {
 
 export default function CreatorDashboard() {
   const navigate = useNavigate();
-  const { account, connectWallet, disconnectWallet, isConnecting } = useMarketplaceWallet();
+  const { account, connectWallet, disconnectWallet, isConnecting } = useWallet();
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('all');

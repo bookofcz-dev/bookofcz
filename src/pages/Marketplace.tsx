@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
+import { useWallet } from '@/contexts/WalletContext';
 import { Button } from '@/components/ui/button';
 import { Wallet, Upload, Search, BookOpen, Star, TrendingUp } from 'lucide-react';
 import { MarketplaceHeader } from '@/components/marketplace/MarketplaceHeader';
@@ -10,7 +10,7 @@ import { MarketplaceStats } from '@/components/marketplace/MarketplaceStats';
 import logo from '@/assets/bookofcz-logo.png';
 
 export default function Marketplace() {
-  const { account, connectWallet, disconnectWallet, isConnecting } = useMarketplaceWallet();
+  const { account, connectWallet, disconnectWallet, isConnecting } = useWallet();
   const [showUpload, setShowUpload] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
