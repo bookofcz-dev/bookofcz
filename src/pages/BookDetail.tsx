@@ -53,9 +53,14 @@ export default function BookDetail() {
   const [hasReviewed, setHasReviewed] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'BNB' | 'BOCZ'>('BNB');
   const [boczBalance, setBoczBalance] = useState<string>('0');
+  const [boczPriceInBnb, setBoczPriceInBnb] = useState<number>(0);
   
-  // BOCZ conversion rate: 1 BNB = 20,370,747.6 BOCZ (based on 0.1 BNB = 2,037,074.76 BOCZ)
-  const BNB_TO_BOCZ_RATE = 20370747.6;
+  // Calculate BNB to BOCZ rate based on current price
+  const BNB_TO_BOCZ_RATE = boczPriceInBnb > 0 ? 1 / boczPriceInBnb : 0;
+
+  useEffect(() => {
+    fetchBoczPrice();
+  }, []);
 
   useEffect(() => {
     if (bookId) {
@@ -68,6 +73,21 @@ export default function BookDetail() {
       }
     }
   }, [bookId, account]);
+
+  const fetchBoczPrice = async () => {
+    try {
+      const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/bsc/0x9eed59058fc57c4bbaf92ea706e21d788fb6f278');
+      const data = await response.json();
+      if (data.pair && data.pair.priceNative) {
+        // priceNative is the price in BNB
+        setBoczPriceInBnb(parseFloat(data.pair.priceNative));
+      }
+    } catch (error) {
+      console.error('Error fetching BOCZ price:', error);
+      // Fallback to a default rate if API fails
+      setBoczPriceInBnb(0.000049); // Approximate fallback
+    }
+  };
 
   const loadBoczBalance = async () => {
     if (account && getTokenBalance) {
