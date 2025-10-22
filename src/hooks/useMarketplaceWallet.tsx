@@ -96,39 +96,12 @@ export const useMarketplaceWallet = () => {
       window.location.reload();
     };
 
-    // Set up event listeners BEFORE checking connection
+    // Set up event listeners
     window.ethereum.on('accountsChanged', handleAccountsChanged);
     window.ethereum.on('chainChanged', handleChainChanged);
 
-    // Check if already connected on mount
-    const checkConnection = async () => {
-      try {
-        const browserProvider = new ethers.BrowserProvider(window.ethereum);
-        const accounts = await browserProvider.send('eth_accounts', []);
-        
-        if (accounts.length > 0) {
-          const account = accounts[0].toLowerCase();
-          console.log('🔍 Found existing connection:', account);
-          
-          const signer = await browserProvider.getSigner();
-          const signerAddress = (await signer.getAddress()).toLowerCase();
-          
-          console.log('🔍 Signer address:', signerAddress);
-          
-          setAccount(signerAddress);
-          setProvider(browserProvider);
-          setSigner(signer);
-          
-          const network = await browserProvider.getNetwork();
-          const currentChainId = '0x' + network.chainId.toString(16);
-          setChainId(currentChainId);
-        }
-      } catch (error) {
-        console.error('❌ Error checking existing connection:', error);
-      }
-    };
-
-    checkConnection();
+    // DON'T auto-connect on mount - let user explicitly choose which wallet to connect
+    console.log('👂 Wallet event listeners ready');
 
     return () => {
       window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
