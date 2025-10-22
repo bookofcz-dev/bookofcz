@@ -34,90 +34,96 @@ export const useMarketplaceWallet = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check if already connected on mount
-    const checkConnection = async () => {
-      if (window.ethereum) {
+    if (!window.ethereum) return;
+
+    const handleAccountsChanged = async (accounts: string[]) => {
+      console.log('Accounts changed:', accounts);
+      if (accounts.length === 0) {
+        // Wallet disconnected
+        setAccount(null);
+        setProvider(null);
+        setSigner(null);
+        setChainId(null);
+        toast({
+          title: "Wallet Disconnected",
+          description: "Your wallet has been disconnected",
+        });
+      } else {
+        // Account switched - completely refresh provider and signer
+        const newAccount = accounts[0].toLowerCase();
+        console.log('Switching to new account:', newAccount);
+        
         try {
           const browserProvider = new ethers.BrowserProvider(window.ethereum);
-          const accounts = await browserProvider.send('eth_accounts', []);
+          const newSigner = await browserProvider.getSigner();
+          const network = await browserProvider.getNetwork();
+          const currentChainId = '0x' + network.chainId.toString(16);
           
-          if (accounts.length > 0) {
-            const account = accounts[0].toLowerCase();
-            setAccount(account);
-            setProvider(browserProvider);
-            
-            const signer = await browserProvider.getSigner();
-            setSigner(signer);
-            
-            const network = await browserProvider.getNetwork();
-            const currentChainId = '0x' + network.chainId.toString(16);
-            setChainId(currentChainId);
-          }
+          setAccount(newAccount);
+          setProvider(browserProvider);
+          setSigner(newSigner);
+          setChainId(currentChainId);
+          
+          toast({
+            title: "Account Switched",
+            description: `Switched to ${newAccount.slice(0, 6)}...${newAccount.slice(-4)}`,
+          });
         } catch (error) {
-          console.error('Error checking existing connection:', error);
+          console.error('Error updating signer:', error);
+          // Clear state on error
+          setAccount(null);
+          setProvider(null);
+          setSigner(null);
         }
+      }
+    };
+
+    const handleChainChanged = (newChainId: string) => {
+      console.log('Chain changed:', newChainId);
+      setChainId(newChainId);
+      if (newChainId !== BSC_CHAIN_ID && newChainId !== BSC_TESTNET_CHAIN_ID) {
+        toast({
+          title: "Wrong Network",
+          description: "Please switch to Binance Smart Chain",
+          variant: "destructive",
+        });
+      }
+    };
+
+    // Set up event listeners
+    window.ethereum.on('accountsChanged', handleAccountsChanged);
+    window.ethereum.on('chainChanged', handleChainChanged);
+
+    // Check if already connected on mount
+    const checkConnection = async () => {
+      try {
+        const browserProvider = new ethers.BrowserProvider(window.ethereum);
+        const accounts = await browserProvider.send('eth_accounts', []);
+        
+        if (accounts.length > 0) {
+          const account = accounts[0].toLowerCase();
+          console.log('Found existing connection:', account);
+          setAccount(account);
+          setProvider(browserProvider);
+          
+          const signer = await browserProvider.getSigner();
+          setSigner(signer);
+          
+          const network = await browserProvider.getNetwork();
+          const currentChainId = '0x' + network.chainId.toString(16);
+          setChainId(currentChainId);
+        }
+      } catch (error) {
+        console.error('Error checking existing connection:', error);
       }
     };
 
     checkConnection();
 
-    if (window.ethereum) {
-      const handleAccountsChanged = async (accounts: string[]) => {
-        if (accounts.length === 0) {
-          // Wallet disconnected
-          setAccount(null);
-          setProvider(null);
-          setSigner(null);
-          toast({
-            title: "Wallet Disconnected",
-            description: "Your wallet has been disconnected",
-          });
-        } else {
-          // Account switched to a new one
-          const newAccount = accounts[0].toLowerCase();
-          setAccount(newAccount);
-          
-          // Create fresh provider and signer for new account
-          try {
-            const browserProvider = new ethers.BrowserProvider(window.ethereum);
-            setProvider(browserProvider);
-            
-            const newSigner = await browserProvider.getSigner();
-            setSigner(newSigner);
-            
-            const network = await browserProvider.getNetwork();
-            const currentChainId = '0x' + network.chainId.toString(16);
-            setChainId(currentChainId);
-            
-            toast({
-              title: "Account Switched",
-              description: `Switched to ${newAccount.slice(0, 6)}...${newAccount.slice(-4)}`,
-            });
-          } catch (error) {
-            console.error('Error updating signer:', error);
-          }
-        }
-      };
-
-      const handleChainChanged = (newChainId: string) => {
-        setChainId(newChainId);
-        if (newChainId !== BSC_CHAIN_ID && newChainId !== BSC_TESTNET_CHAIN_ID) {
-          toast({
-            title: "Wrong Network",
-            description: "Please switch to Binance Smart Chain",
-            variant: "destructive",
-          });
-        }
-      };
-
-      window.ethereum.on('accountsChanged', handleAccountsChanged);
-      window.ethereum.on('chainChanged', handleChainChanged);
-
-      return () => {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        window.ethereum.removeListener('chainChanged', handleChainChanged);
-      };
-    }
+    return () => {
+      window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+      window.ethereum.removeListener('chainChanged', handleChainChanged);
+    };
   }, [toast]);
 
   const connectWallet = async () => {
