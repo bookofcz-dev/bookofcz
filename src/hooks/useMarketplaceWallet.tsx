@@ -36,7 +36,7 @@ export const useMarketplaceWallet = () => {
   useEffect(() => {
     if (!window.ethereum) return;
 
-    const handleAccountsChanged = (accounts: string[]) => {
+    const handleAccountsChanged = async (accounts: string[]) => {
       console.log('🔄 Accounts changed event:', accounts);
       
       if (accounts.length === 0) {
@@ -51,9 +51,36 @@ export const useMarketplaceWallet = () => {
           description: "Your wallet has been disconnected",
         });
       } else {
-        // Account switched - reload page to reset state cleanly
-        console.log('🔄 Account switched, reloading page...');
-        window.location.reload();
+        // Account switched - update state with new account
+        const newAccount = accounts[0].toLowerCase();
+        console.log('🔄 Switching to new account:', newAccount);
+        
+        try {
+          const browserProvider = new ethers.BrowserProvider(window.ethereum);
+          const newSigner = await browserProvider.getSigner();
+          const signerAddress = (await newSigner.getAddress()).toLowerCase();
+          
+          const network = await browserProvider.getNetwork();
+          const currentChainId = '0x' + network.chainId.toString(16);
+          
+          console.log('✅ Updated to new account:', signerAddress);
+          
+          setAccount(signerAddress);
+          setProvider(browserProvider);
+          setSigner(newSigner);
+          setChainId(currentChainId);
+          
+          toast({
+            title: "Account Switched",
+            description: `Switched to ${signerAddress.slice(0, 6)}...${signerAddress.slice(-4)}`,
+          });
+        } catch (error) {
+          console.error('❌ Error updating account:', error);
+          setAccount(null);
+          setProvider(null);
+          setSigner(null);
+          setChainId(null);
+        }
       }
     };
 
