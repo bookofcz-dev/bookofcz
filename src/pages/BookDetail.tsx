@@ -186,11 +186,11 @@ export default function BookDetail() {
         platformFee = (book.price_bnb * 0.04).toFixed(6);
         totalPrice = book.price_bnb.toFixed(6);
       } else {
-        // BOCZ payment: 0% platform fee - user only pays what creator receives
-        const boczCreatorAmount = (book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE;
-        creatorAmount = boczCreatorAmount.toFixed(6);
+        // BOCZ payment: 0% platform fee - creator receives 100% of the book price
+        const boczAmount = book.price_bnb * BNB_TO_BOCZ_RATE;
+        creatorAmount = boczAmount.toFixed(6);
         platformFee = '0';
-        totalPrice = boczCreatorAmount.toFixed(6);
+        totalPrice = boczAmount.toFixed(6);
       }
       
       // Validate recipient addresses
@@ -464,14 +464,14 @@ export default function BookDetail() {
                   <div className="text-4xl font-bold text-primary">
                     {book.price_bnb === 0 ? 'FREE' : paymentMethod === 'BNB' 
                       ? `${book.price_bnb} BNB` 
-                      : `${((book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ`}
+                      : `${(book.price_bnb * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ`}
                   </div>
                   {book.price_bnb > 0 && (
                     <>
                       {paymentMethod === 'BOCZ' && (
                         <div className="space-y-1">
                           <div className="text-sm text-green-600 font-medium">
-                            ✓ 0% platform fee with $BOCZ (save {(book.price_bnb * 0.04 * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ)
+                            ✓ 0% platform fee with $BOCZ (creator gets 100%)
                           </div>
                           {account && (
                             <div className="text-sm text-muted-foreground">
@@ -534,7 +534,7 @@ export default function BookDetail() {
                             <Wallet className="h-5 w-5 mr-2" />
                             Purchase for {paymentMethod === 'BNB' 
                               ? `${book.price_bnb} BNB` 
-                              : `${((book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ`}
+                              : `${(book.price_bnb * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ`}
                           </>
                         )}
                       </Button>
