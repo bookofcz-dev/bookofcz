@@ -263,10 +263,10 @@ export const useMarketplaceWallet = () => {
   };
 
   const getTokenBalance = async (walletAddress: string) => {
-    if (!provider) return '0';
-    
     try {
-      const tokenContract = new ethers.Contract(BOCZ_TOKEN_ADDRESS, ERC20_ABI, provider);
+      // Use public BSC RPC for read-only operations to avoid API key requirements
+      const publicProvider = new ethers.JsonRpcProvider(BSC_RPC_URLS[0]);
+      const tokenContract = new ethers.Contract(BOCZ_TOKEN_ADDRESS, ERC20_ABI, publicProvider);
       const balance = await tokenContract.balanceOf(walletAddress);
       const decimals = await tokenContract.decimals();
       return ethers.formatUnits(balance, decimals);
