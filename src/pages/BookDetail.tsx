@@ -43,7 +43,7 @@ interface Review {
 export default function BookDetail() {
   const { bookId } = useParams();
   const navigate = useNavigate();
-  const { account, connectWallet, disconnectWallet, isConnecting, sendTransaction, provider } = useMarketplaceWallet();
+  const { account, connectWallet, disconnectWallet, isConnecting, sendTransaction, sendTokenTransaction, getTokenBalance, provider } = useMarketplaceWallet();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
@@ -51,6 +51,8 @@ export default function BookDetail() {
   const [showUpload, setShowUpload] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [hasReviewed, setHasReviewed] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<'BNB' | 'BOCZ'>('BNB');
+  const [boczBalance, setBoczBalance] = useState<string>('0');
 
   useEffect(() => {
     if (bookId) {
@@ -59,9 +61,17 @@ export default function BookDetail() {
       if (account) {
         checkPurchase();
         checkReview();
+        loadBoczBalance();
       }
     }
   }, [bookId, account]);
+
+  const loadBoczBalance = async () => {
+    if (account && getTokenBalance) {
+      const balance = await getTokenBalance(account);
+      setBoczBalance(parseFloat(balance).toFixed(2));
+    }
+  };
 
   const fetchBook = async () => {
     try {
@@ -166,42 +176,69 @@ export default function BookDetail() {
         throw new Error('Signature verification failed');
       }
       
-      // Send payment to creator (96%)
-      toast.info('Confirm payment to creator...');
-      const creatorTx = await sendTransaction(book.creator_wallet, creatorAmount);
-      
-      toast.info('Processing creator payment...');
-      const creatorReceipt = await creatorTx.wait();
-      
-      if (!creatorReceipt || creatorReceipt.status !== 1) {
-        throw new Error('Creator payment failed');
-      }
+      let creatorTx: any;
+      let platformTx: any;
 
-      // Verify transaction on-chain
-      const txDetails = await provider.getTransaction(creatorTx.hash);
-      if (!txDetails) {
-        throw new Error('Transaction not found on chain');
-      }
-      
-      // Verify transaction details
-      const actualAmount = ethers.formatEther(txDetails.value);
-      if (Math.abs(parseFloat(actualAmount) - parseFloat(creatorAmount)) > 0.000001) {
-        throw new Error('Transaction amount mismatch');
-      }
-      
-      if (txDetails.to?.toLowerCase() !== book.creator_wallet.toLowerCase()) {
-        throw new Error('Transaction recipient mismatch');
-      }
+      if (paymentMethod === 'BNB') {
+        // Send BNB payment to creator (96%)
+        toast.info('Confirm payment to creator...');
+        creatorTx = await sendTransaction(book.creator_wallet, creatorAmount);
+        
+        toast.info('Processing creator payment...');
+        const creatorReceipt = await creatorTx.wait();
+        
+        if (!creatorReceipt || creatorReceipt.status !== 1) {
+          throw new Error('Creator payment failed');
+        }
 
-      // Send platform fee (4%)
-      toast.info('Confirm platform fee...');
-      const platformTx = await sendTransaction(platformWallet, platformFee);
-      
-      toast.info('Processing platform fee...');
-      const platformReceipt = await platformTx.wait();
-      
-      if (!platformReceipt || platformReceipt.status !== 1) {
-        throw new Error('Platform fee payment failed');
+        // Verify transaction on-chain
+        const txDetails = await provider.getTransaction(creatorTx.hash);
+        if (!txDetails) {
+          throw new Error('Transaction not found on chain');
+        }
+        
+        // Verify transaction details
+        const actualAmount = ethers.formatEther(txDetails.value);
+        if (Math.abs(parseFloat(actualAmount) - parseFloat(creatorAmount)) > 0.000001) {
+          throw new Error('Transaction amount mismatch');
+        }
+        
+        if (txDetails.to?.toLowerCase() !== book.creator_wallet.toLowerCase()) {
+          throw new Error('Transaction recipient mismatch');
+        }
+
+        // Send platform fee (4%)
+        toast.info('Confirm platform fee...');
+        platformTx = await sendTransaction(platformWallet, platformFee);
+        
+        toast.info('Processing platform fee...');
+        const platformReceipt = await platformTx.wait();
+        
+        if (!platformReceipt || platformReceipt.status !== 1) {
+          throw new Error('Platform fee payment failed');
+        }
+      } else {
+        // Send BOCZ token payment to creator (96%)
+        toast.info('Confirm $BOCZ payment to creator...');
+        creatorTx = await sendTokenTransaction(book.creator_wallet, parseFloat(creatorAmount));
+        
+        toast.info('Processing creator payment...');
+        const creatorReceipt = await creatorTx.wait();
+        
+        if (!creatorReceipt || creatorReceipt.status !== 1) {
+          throw new Error('Creator payment failed');
+        }
+
+        // Send $BOCZ platform fee (4%)
+        toast.info('Confirm $BOCZ platform fee...');
+        platformTx = await sendTokenTransaction(platformWallet, parseFloat(platformFee));
+        
+        toast.info('Processing platform fee...');
+        const platformReceipt = await platformTx.wait();
+        
+        if (!platformReceipt || platformReceipt.status !== 1) {
+          throw new Error('Platform fee payment failed');
+        }
       }
 
       // Record purchase with verification
@@ -228,6 +265,11 @@ export default function BookDetail() {
 
       toast.success('Purchase successful! You can now download the book.');
       setHasPurchased(true);
+      
+      // Refresh BOCZ balance if paid with BOCZ
+      if (paymentMethod === 'BOCZ') {
+        loadBoczBalance();
+      }
     } catch (error: any) {
       console.error('Error purchasing book:', error);
       toast.error(error.message || 'Purchase failed');
@@ -388,9 +430,37 @@ export default function BookDetail() {
 
               {/* Price and Actions */}
               <div className="space-y-4">
-                <div className="text-4xl font-bold text-primary">
-                  {book.price_bnb === 0 ? 'FREE' : `${book.price_bnb} BNB`}
+                <div className="space-y-2">
+                  <div className="text-4xl font-bold text-primary">
+                    {book.price_bnb === 0 ? 'FREE' : `${book.price_bnb} ${paymentMethod}`}
+                  </div>
+                  {book.price_bnb > 0 && paymentMethod === 'BOCZ' && account && (
+                    <div className="text-sm text-muted-foreground">
+                      Your $BOCZ balance: {boczBalance}
+                    </div>
+                  )}
                 </div>
+
+                {book.price_bnb > 0 && account && (
+                  <div className="flex gap-2 p-2 bg-muted rounded-lg">
+                    <Button
+                      variant={paymentMethod === 'BNB' ? 'default' : 'outline'}
+                      onClick={() => setPaymentMethod('BNB')}
+                      className="flex-1"
+                      size="sm"
+                    >
+                      Pay with BNB
+                    </Button>
+                    <Button
+                      variant={paymentMethod === 'BOCZ' ? 'default' : 'outline'}
+                      onClick={() => setPaymentMethod('BOCZ')}
+                      className="flex-1"
+                      size="sm"
+                    >
+                      Pay with $BOCZ
+                    </Button>
+                  </div>
+                )}
 
                 {!account ? (
                   <Button onClick={connectWallet} size="lg" className="w-full">

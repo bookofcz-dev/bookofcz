@@ -14,6 +14,17 @@ const BSC_RPC_URLS = [
 // Platform fee wallet (4% goes here)
 export const PLATFORM_WALLET = '0x6e22449bEbc5C719fA7ADB39bc2576B9E6F11bd8';
 
+// BOCZ Token contract address
+export const BOCZ_TOKEN_ADDRESS = '0x701bE97c604A35aB7BCF6C75cA6de3aba0704444';
+
+// Minimal ERC20 ABI for token operations
+const ERC20_ABI = [
+  'function transfer(address to, uint256 amount) returns (bool)',
+  'function balanceOf(address account) view returns (uint256)',
+  'function decimals() view returns (uint8)',
+  'function symbol() view returns (string)',
+];
+
 export const useMarketplaceWallet = () => {
   const [account, setAccount] = useState<string | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
@@ -201,6 +212,47 @@ export const useMarketplaceWallet = () => {
     return tx;
   };
 
+  const sendTokenTransaction = async (to: string, amount: number) => {
+    if (!signer) {
+      throw new Error('Wallet not connected');
+    }
+
+    // Validate recipient address
+    if (!ethers.isAddress(to)) {
+      throw new Error('Invalid recipient address');
+    }
+
+    try {
+      const tokenContract = new ethers.Contract(BOCZ_TOKEN_ADDRESS, ERC20_ABI, signer);
+      
+      // Get token decimals
+      const decimals = await tokenContract.decimals();
+      const tokenAmount = ethers.parseUnits(amount.toString(), decimals);
+
+      // Send token transfer
+      const tx = await tokenContract.transfer(to, tokenAmount);
+
+      return tx;
+    } catch (error: any) {
+      console.error('Token transaction error:', error);
+      throw new Error(error.message || 'Failed to send token transaction');
+    }
+  };
+
+  const getTokenBalance = async (walletAddress: string) => {
+    if (!provider) return '0';
+    
+    try {
+      const tokenContract = new ethers.Contract(BOCZ_TOKEN_ADDRESS, ERC20_ABI, provider);
+      const balance = await tokenContract.balanceOf(walletAddress);
+      const decimals = await tokenContract.decimals();
+      return ethers.formatUnits(balance, decimals);
+    } catch (error) {
+      console.error('Error fetching token balance:', error);
+      return '0';
+    }
+  };
+
   return {
     account,
     provider,
@@ -211,6 +263,8 @@ export const useMarketplaceWallet = () => {
     disconnectWallet,
     switchToBSC,
     sendTransaction,
+    sendTokenTransaction,
+    getTokenBalance,
     isOnBSC: chainId === BSC_CHAIN_ID || chainId === BSC_TESTNET_CHAIN_ID,
   };
 };
