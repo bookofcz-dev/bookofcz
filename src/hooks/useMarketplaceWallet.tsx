@@ -147,22 +147,35 @@ export const useMarketplaceWallet = () => {
     }
 
     setIsConnecting(true);
+    
+    // Clear all existing state first
+    console.log('🔄 Clearing existing wallet state');
+    setAccount(null);
+    setProvider(null);
+    setSigner(null);
+    setChainId(null);
+    
     try {
+      console.log('🔌 Requesting wallet connection...');
       const browserProvider = new ethers.BrowserProvider(window.ethereum);
-      setProvider(browserProvider);
 
       // Request account access
-      const accounts = await browserProvider.send('eth_requestAccounts', []);
-      const account = accounts[0].toLowerCase();
-      setAccount(account);
-
-      // Get signer
+      await browserProvider.send('eth_requestAccounts', []);
+      
+      // Get signer and use its address as the source of truth
       const signer = await browserProvider.getSigner();
-      setSigner(signer);
+      const signerAddress = (await signer.getAddress()).toLowerCase();
+      
+      console.log('✅ Connected to wallet:', signerAddress);
 
       // Check network
       const network = await browserProvider.getNetwork();
       const currentChainId = '0x' + network.chainId.toString(16);
+
+      // Set all state at once
+      setAccount(signerAddress);
+      setProvider(browserProvider);
+      setSigner(signer);
       setChainId(currentChainId);
 
       if (currentChainId !== BSC_CHAIN_ID && currentChainId !== BSC_TESTNET_CHAIN_ID) {
@@ -170,11 +183,16 @@ export const useMarketplaceWallet = () => {
       } else {
         toast({
           title: "Wallet Connected",
-          description: `Connected to ${account.slice(0, 6)}...${account.slice(-4)}`,
+          description: `Connected to ${signerAddress.slice(0, 6)}...${signerAddress.slice(-4)}`,
         });
       }
     } catch (error: any) {
-      console.error('Error connecting wallet:', error);
+      console.error('❌ Error connecting wallet:', error);
+      // Clear state on error
+      setAccount(null);
+      setProvider(null);
+      setSigner(null);
+      setChainId(null);
       toast({
         title: "Connection Failed",
         description: error.message || "Failed to connect wallet",
