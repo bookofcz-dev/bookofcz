@@ -62,12 +62,34 @@ export const useMarketplaceWallet = () => {
     checkConnection();
 
     if (window.ethereum) {
-      const handleAccountsChanged = (accounts: string[]) => {
+      const handleAccountsChanged = async (accounts: string[]) => {
         if (accounts.length === 0) {
+          // Wallet disconnected
           setAccount(null);
+          setProvider(null);
           setSigner(null);
+          toast({
+            title: "Wallet Disconnected",
+            description: "Your wallet has been disconnected",
+          });
         } else {
-          setAccount(accounts[0].toLowerCase());
+          // Account switched to a new one
+          const newAccount = accounts[0].toLowerCase();
+          setAccount(newAccount);
+          
+          // Update signer for the new account
+          if (provider) {
+            try {
+              const newSigner = await provider.getSigner();
+              setSigner(newSigner);
+              toast({
+                title: "Account Switched",
+                description: `Switched to ${newAccount.slice(0, 6)}...${newAccount.slice(-4)}`,
+              });
+            } catch (error) {
+              console.error('Error updating signer:', error);
+            }
+          }
         }
       };
 

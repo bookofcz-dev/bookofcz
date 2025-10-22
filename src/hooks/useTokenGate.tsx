@@ -169,23 +169,37 @@ export const useTokenGate = () => {
 
   useEffect(() => {
     if (window.ethereum) {
-      window.ethereum.on('accountsChanged', (accounts: string[]) => {
+      const handleAccountsChanged = async (accounts: string[]) => {
         if (accounts.length === 0) {
+          // Wallet disconnected
           disconnectWallet();
+        } else {
+          // Account switched - re-check balance for new account
+          const newAddress = accounts[0];
+          setWalletAddress(newAddress);
+          setIsConnected(true);
+          
+          try {
+            const provider = new BrowserProvider(window.ethereum);
+            await checkBalance(provider, newAddress);
+          } catch (err) {
+            setError('Failed to check balance for new account');
+          }
         }
-      });
+      };
 
-      window.ethereum.on('chainChanged', () => {
+      const handleChainChanged = () => {
         window.location.reload();
-      });
-    }
+      };
 
-    return () => {
-      if (window.ethereum) {
-        window.ethereum.removeAllListeners('accountsChanged');
-        window.ethereum.removeAllListeners('chainChanged');
-      }
-    };
+      window.ethereum.on('accountsChanged', handleAccountsChanged);
+      window.ethereum.on('chainChanged', handleChainChanged);
+
+      return () => {
+        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        window.ethereum.removeListener('chainChanged', handleChainChanged);
+      };
+    }
   }, []);
 
   return {
