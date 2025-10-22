@@ -7,7 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { CheckCircle, XCircle, ExternalLink, Shield, AlertTriangle } from 'lucide-react';
 import { toast } from 'sonner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
+import { useWallet } from '@/contexts/WalletContext';
 
 interface Book {
   id: string;
@@ -52,7 +52,7 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
   const [processing, setProcessing] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [securityReport, setSecurityReport] = useState<SecurityReport | null>(null);
-  const { account } = useMarketplaceWallet();
+  const { account } = useWallet();
 
   const handleScanPdf = async () => {
     setScanning(true);

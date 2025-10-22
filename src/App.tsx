@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { WalletProvider } from "@/contexts/WalletContext";
 import Index from "./pages/Index";
 import BookPage from "./pages/BookPage";
 import BookPage2 from "./pages/BookPage2";
@@ -45,49 +46,51 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/book" element={<BookPage />} />
-          <Route path="/book2" element={<BookPage2 />} />
-          <Route path="/book3" element={<BookPage3 />} />
-          <Route path="/book4" element={<BookPage4 />} />
-          <Route path="/book5" element={<BookPage5 />} />
-          <Route path="/book6" element={<BookPage6 />} />
-          <Route path="/book7" element={<BookPage7 />} />
-          <Route path="/book8" element={<BookPage8 />} />
-          <Route path="/book9" element={<BookPage9 />} />
-          <Route path="/book10" element={<BookPage10 />} />
-          <Route path="/book-cn" element={<BookPageCN />} />
-          <Route path="/book2-cn" element={<BookPage2CN />} />
-          <Route path="/book3-cn" element={<BookPage3CN />} />
-          <Route path="/book4-cn" element={<BookPage4CN />} />
-          <Route path="/book5-cn" element={<BookPage5CN />} />
-          <Route path="/book6-cn" element={<BookPage6CN />} />
-          <Route path="/book7-cn" element={<BookPage7CN />} />
-          <Route path="/book8-cn" element={<BookPage8CN />} />
-          <Route path="/book9-cn" element={<BookPage9CN />} />
-          <Route path="/book10-cn" element={<BookPage10CN />} />
-          <Route path="/book-es" element={<BookPageES />} />
-          <Route path="/book2-es" element={<BookPage2ES />} />
-          <Route path="/book3-es" element={<BookPage3ES />} />
-          <Route path="/book4-es" element={<BookPage4ES />} />
-          <Route path="/book5-es" element={<BookPage5ES />} />
-          <Route path="/book6-es" element={<BookPage6ES />} />
-          <Route path="/book7-es" element={<BookPage7ES />} />
-          <Route path="/book8-es" element={<BookPage8ES />} />
-          <Route path="/book9-es" element={<BookPage9ES />} />
-          <Route path="/book10-es" element={<BookPage10ES />} />
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/marketplace/book/:bookId" element={<BookDetail />} />
-          <Route path="/marketplace/dashboard" element={<CreatorDashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <WalletProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/book" element={<BookPage />} />
+            <Route path="/book2" element={<BookPage2 />} />
+            <Route path="/book3" element={<BookPage3 />} />
+            <Route path="/book4" element={<BookPage4 />} />
+            <Route path="/book5" element={<BookPage5 />} />
+            <Route path="/book6" element={<BookPage6 />} />
+            <Route path="/book7" element={<BookPage7 />} />
+            <Route path="/book8" element={<BookPage8 />} />
+            <Route path="/book9" element={<BookPage9 />} />
+            <Route path="/book10" element={<BookPage10 />} />
+            <Route path="/book-cn" element={<BookPageCN />} />
+            <Route path="/book2-cn" element={<BookPage2CN />} />
+            <Route path="/book3-cn" element={<BookPage3CN />} />
+            <Route path="/book4-cn" element={<BookPage4CN />} />
+            <Route path="/book5-cn" element={<BookPage5CN />} />
+            <Route path="/book6-cn" element={<BookPage6CN />} />
+            <Route path="/book7-cn" element={<BookPage7CN />} />
+            <Route path="/book8-cn" element={<BookPage8CN />} />
+            <Route path="/book9-cn" element={<BookPage9CN />} />
+            <Route path="/book10-cn" element={<BookPage10CN />} />
+            <Route path="/book-es" element={<BookPageES />} />
+            <Route path="/book2-es" element={<BookPage2ES />} />
+            <Route path="/book3-es" element={<BookPage3ES />} />
+            <Route path="/book4-es" element={<BookPage4ES />} />
+            <Route path="/book5-es" element={<BookPage5ES />} />
+            <Route path="/book6-es" element={<BookPage6ES />} />
+            <Route path="/book7-es" element={<BookPage7ES />} />
+            <Route path="/book8-es" element={<BookPage8ES />} />
+            <Route path="/book9-es" element={<BookPage9ES />} />
+            <Route path="/book10-es" element={<BookPage10ES />} />
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/marketplace/book/:bookId" element={<BookDetail />} />
+            <Route path="/marketplace/dashboard" element={<CreatorDashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </WalletProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

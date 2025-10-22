@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { supabase } from '@/integrations/supabase/client';
-import { useMarketplaceWallet } from '@/hooks/useMarketplaceWallet';
+import { useWallet } from '@/contexts/WalletContext';
 import { useAdminCheck } from '@/hooks/useAdminCheck';
 import { BookReviewCard } from '@/components/admin/BookReviewCard';
 import { Button } from '@/components/ui/button';
@@ -27,7 +27,7 @@ interface Book {
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const { account, connectWallet, isConnecting } = useMarketplaceWallet();
+  const { account, connectWallet, isConnecting } = useWallet();
   const { isAdmin, loading: adminLoading } = useAdminCheck(account);
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
