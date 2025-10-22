@@ -53,6 +53,9 @@ export default function BookDetail() {
   const [hasReviewed, setHasReviewed] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'BNB' | 'BOCZ'>('BNB');
   const [boczBalance, setBoczBalance] = useState<string>('0');
+  
+  // BOCZ conversion rate: 1 BOCZ = 0.074909 BNB
+  const BNB_TO_BOCZ_RATE = 1 / 0.074909;
 
   useEffect(() => {
     if (bookId) {
@@ -152,8 +155,23 @@ export default function BookDetail() {
     setPurchasing(true);
     try {
       const platformWallet = '0x6e22449bEbc5C719fA7ADB39bc2576B9E6F11bd8';
-      const creatorAmount = (book.price_bnb * 0.96).toFixed(6);
-      const platformFee = (book.price_bnb * 0.04).toFixed(6);
+      
+      let creatorAmount: string;
+      let platformFee: string;
+      let totalPrice: string;
+      
+      if (paymentMethod === 'BNB') {
+        // BNB payment: 4% platform fee
+        creatorAmount = (book.price_bnb * 0.96).toFixed(6);
+        platformFee = (book.price_bnb * 0.04).toFixed(6);
+        totalPrice = book.price_bnb.toFixed(6);
+      } else {
+        // BOCZ payment: 0% platform fee - user only pays what creator receives
+        const boczCreatorAmount = (book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE;
+        creatorAmount = boczCreatorAmount.toFixed(6);
+        platformFee = '0';
+        totalPrice = boczCreatorAmount.toFixed(6);
+      }
       
       // Validate recipient addresses
       if (!ethers.isAddress(book.creator_wallet)) {
@@ -218,7 +236,7 @@ export default function BookDetail() {
           throw new Error('Platform fee payment failed');
         }
       } else {
-        // Send BOCZ token payment to creator (96%)
+        // Send BOCZ token payment to creator (100% - no platform fee)
         toast.info('Confirm $BOCZ payment to creator...');
         creatorTx = await sendTokenTransaction(book.creator_wallet, parseFloat(creatorAmount));
         
@@ -229,16 +247,8 @@ export default function BookDetail() {
           throw new Error('Creator payment failed');
         }
 
-        // Send $BOCZ platform fee (4%)
-        toast.info('Confirm $BOCZ platform fee...');
-        platformTx = await sendTokenTransaction(platformWallet, parseFloat(platformFee));
-        
-        toast.info('Processing platform fee...');
-        const platformReceipt = await platformTx.wait();
-        
-        if (!platformReceipt || platformReceipt.status !== 1) {
-          throw new Error('Platform fee payment failed');
-        }
+        // No platform fee for BOCZ payments
+        platformTx = creatorTx; // Just use same tx for reference
       }
 
       // Record purchase with verification
@@ -432,12 +442,30 @@ export default function BookDetail() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <div className="text-4xl font-bold text-primary">
-                    {book.price_bnb === 0 ? 'FREE' : `${book.price_bnb} ${paymentMethod}`}
+                    {book.price_bnb === 0 ? 'FREE' : paymentMethod === 'BNB' 
+                      ? `${book.price_bnb} BNB` 
+                      : `${((book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ`}
                   </div>
-                  {book.price_bnb > 0 && paymentMethod === 'BOCZ' && account && (
-                    <div className="text-sm text-muted-foreground">
-                      Your $BOCZ balance: {boczBalance}
-                    </div>
+                  {book.price_bnb > 0 && (
+                    <>
+                      {paymentMethod === 'BOCZ' && (
+                        <div className="space-y-1">
+                          <div className="text-sm text-green-600 font-medium">
+                            ✓ 0% platform fee with $BOCZ (save {(book.price_bnb * 0.04 * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ)
+                          </div>
+                          {account && (
+                            <div className="text-sm text-muted-foreground">
+                              Your $BOCZ balance: {boczBalance}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      {paymentMethod === 'BNB' && (
+                        <div className="text-sm text-muted-foreground">
+                          Includes 4% platform fee ({(book.price_bnb * 0.04).toFixed(4)} BNB)
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
 
@@ -484,7 +512,9 @@ export default function BookDetail() {
                         ) : (
                           <>
                             <Wallet className="h-5 w-5 mr-2" />
-                            Purchase for {book.price_bnb} BNB
+                            Purchase for {paymentMethod === 'BNB' 
+                              ? `${book.price_bnb} BNB` 
+                              : `${((book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ`}
                           </>
                         )}
                       </Button>
@@ -512,8 +542,17 @@ export default function BookDetail() {
               </div>
 
               <div className="text-xs text-muted-foreground">
-                <p>• 96% goes to creator</p>
-                <p>• 4% platform fee</p>
+                {paymentMethod === 'BNB' ? (
+                  <>
+                    <p>• 96% goes to creator</p>
+                    <p>• 4% platform fee</p>
+                  </>
+                ) : (
+                  <>
+                    <p>• 100% goes to creator</p>
+                    <p>• 0% platform fee with $BOCZ</p>
+                  </>
+                )}
                 <p>• Powered by Binance Smart Chain</p>
               </div>
             </div>
