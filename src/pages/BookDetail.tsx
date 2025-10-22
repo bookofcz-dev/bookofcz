@@ -54,8 +54,8 @@ export default function BookDetail() {
   const [paymentMethod, setPaymentMethod] = useState<'BNB' | 'BOCZ'>('BNB');
   const [boczBalance, setBoczBalance] = useState<string>('0');
   
-  // BOCZ conversion rate: 1 BOCZ = 0.074909 BNB
-  const BNB_TO_BOCZ_RATE = 1 / 0.074909;
+  // BOCZ conversion rate: 1 BNB = 20,370,747.6 BOCZ (based on 0.1 BNB = 2,037,074.76 BOCZ)
+  const BNB_TO_BOCZ_RATE = 20370747.6;
 
   useEffect(() => {
     if (bookId) {
