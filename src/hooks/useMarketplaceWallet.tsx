@@ -166,36 +166,39 @@ export const useMarketplaceWallet = () => {
 
   const switchToBSC = async () => {
     try {
+      // First, try to add/update the network with correct RPC URLs
+      // This will update if it exists or add if it doesn't
       await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: BSC_CHAIN_ID }],
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: BSC_CHAIN_ID,
+            chainName: 'Binance Smart Chain',
+            nativeCurrency: {
+              name: 'BNB',
+              symbol: 'BNB',
+              decimals: 18,
+            },
+            rpcUrls: BSC_RPC_URLS,
+            blockExplorerUrls: ['https://bscscan.com/'],
+          },
+        ],
       });
-    } catch (switchError: any) {
-      // This error code indicates that the chain has not been added to MetaMask
-      if (switchError.code === 4902) {
+    } catch (addError: any) {
+      // If network already exists, just switch to it
+      if (addError.code === 4902 || addError.code === -32002) {
         try {
           await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: BSC_CHAIN_ID,
-                chainName: 'Binance Smart Chain',
-                nativeCurrency: {
-                  name: 'BNB',
-                  symbol: 'BNB',
-                  decimals: 18,
-                },
-                rpcUrls: BSC_RPC_URLS,
-                blockExplorerUrls: ['https://bscscan.com/'],
-              },
-            ],
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: BSC_CHAIN_ID }],
           });
-        } catch (addError) {
-          console.error('Error adding BSC network:', addError);
-          throw addError;
+        } catch (switchError) {
+          console.error('Error switching to BSC network:', switchError);
+          throw switchError;
         }
       } else {
-        throw switchError;
+        console.error('Error adding/updating BSC network:', addError);
+        throw addError;
       }
     }
   };
