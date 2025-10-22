@@ -36,57 +36,24 @@ export const useMarketplaceWallet = () => {
   useEffect(() => {
     if (!window.ethereum) return;
 
-    const handleAccountsChanged = async (accounts: string[]) => {
+    const handleAccountsChanged = (accounts: string[]) => {
       console.log('🔄 Accounts changed event:', accounts);
-      
-      // Force clear all state first
-      setAccount(null);
-      setProvider(null);
-      setSigner(null);
-      setChainId(null);
       
       if (accounts.length === 0) {
         // Wallet disconnected
         console.log('❌ Wallet disconnected');
+        setAccount(null);
+        setProvider(null);
+        setSigner(null);
+        setChainId(null);
         toast({
           title: "Wallet Disconnected",
           description: "Your wallet has been disconnected",
         });
       } else {
-        // Account switched - wait a bit then reconnect with new account
-        const newAccount = accounts[0].toLowerCase();
-        console.log('🔄 Switching to new account:', newAccount);
-        
-        // Small delay to ensure MetaMask has updated
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
-        try {
-          const browserProvider = new ethers.BrowserProvider(window.ethereum);
-          const newSigner = await browserProvider.getSigner();
-          const signerAddress = (await newSigner.getAddress()).toLowerCase();
-          
-          console.log('✅ New signer address:', signerAddress);
-          
-          const network = await browserProvider.getNetwork();
-          const currentChainId = '0x' + network.chainId.toString(16);
-          
-          setAccount(signerAddress);
-          setProvider(browserProvider);
-          setSigner(newSigner);
-          setChainId(currentChainId);
-          
-          toast({
-            title: "Account Switched",
-            description: `Switched to ${signerAddress.slice(0, 6)}...${signerAddress.slice(-4)}`,
-          });
-        } catch (error) {
-          console.error('❌ Error updating signer:', error);
-          toast({
-            title: "Connection Error",
-            description: "Failed to switch accounts. Please try reconnecting.",
-            variant: "destructive",
-          });
-        }
+        // Account switched - reload page to reset state cleanly
+        console.log('🔄 Account switched, reloading page...');
+        window.location.reload();
       }
     };
 
@@ -121,27 +88,15 @@ export const useMarketplaceWallet = () => {
 
     setIsConnecting(true);
     
-    // Clear all existing state first
-    console.log('🔄 Clearing existing wallet state');
-    setAccount(null);
-    setProvider(null);
-    setSigner(null);
-    setChainId(null);
-    
     try {
-      console.log('🔌 Forcing fresh wallet connection...');
-      
-      // Force MetaMask to show account selection by requesting permissions
-      // This will ALWAYS show the account selection UI
-      await window.ethereum.request({
-        method: 'wallet_requestPermissions',
-        params: [{ eth_accounts: {} }],
-      });
-      
-      console.log('✅ Permissions granted, getting accounts...');
+      console.log('🔌 Requesting wallet connection...');
       const browserProvider = new ethers.BrowserProvider(window.ethereum);
       
-      // Now get the selected account
+      // Request accounts - this will show account picker if multiple accounts
+      const accounts = await browserProvider.send('eth_requestAccounts', []);
+      console.log('📋 Available accounts:', accounts);
+      
+      // Get signer for the selected account
       const signer = await browserProvider.getSigner();
       const signerAddress = (await signer.getAddress()).toLowerCase();
       
