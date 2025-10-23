@@ -13,7 +13,7 @@ export const Navbar = () => {
   const baseNavLinks = [
     { name: 'Home', path: '/' },
     { name: 'Marketplace', path: '/marketplace' },
-    { name: 'Audio', path: '#audio' },
+    { name: 'Audio', path: '#collection' },
     { name: 'Roadmap', path: '#roadmap' },
   ];
 

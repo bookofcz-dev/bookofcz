@@ -62,6 +62,18 @@ const Index = () => {
                 Explore Marketplace
               </Button>
               <Button
+                onClick={() => {
+                  const element = document.getElementById('collection');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                size="lg"
+                variant="outline"
+                className="gap-2 font-cta"
+              >
+                <BookOpen className="w-4 h-4" />
+                Book of CZ Collection
+              </Button>
+              <Button
                 onClick={() => navigate("/marketplace")}
                 size="lg"
                 variant="outline"
@@ -131,7 +143,7 @@ const Index = () => {
       </section>
 
       {/* Book of CZ Collection Section */}
-      <section id="audio" className="container mx-auto px-4 py-20 border-t border-border/40 mt-20">
+      <section id="collection" className="container mx-auto px-4 py-20 border-t border-border/40 mt-20">
         <div className="text-center mb-16">
           <h2 className="font-heading text-4xl md:text-6xl font-bold mb-6 gold-shimmer bg-clip-text text-transparent">
             BOOK OF CZ COLLECTION
