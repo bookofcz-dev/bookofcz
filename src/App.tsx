@@ -15,6 +15,7 @@ import BookPage7 from "./pages/BookPage7";
 import BookPage8 from "./pages/BookPage8";
 import BookPage9 from "./pages/BookPage9";
 import BookPage10 from "./pages/BookPage10";
+import BookPage11 from "./pages/BookPage11";
 import BookPageCN from "./pages/BookPageCN";
 import BookPage2CN from "./pages/BookPage2CN";
 import BookPage3CN from "./pages/BookPage3CN";
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/book8" element={<BookPage8 />} />
             <Route path="/book9" element={<BookPage9 />} />
             <Route path="/book10" element={<BookPage10 />} />
+            <Route path="/book11" element={<BookPage11 />} />
             <Route path="/book-cn" element={<BookPageCN />} />
             <Route path="/book2-cn" element={<BookPage2CN />} />
             <Route path="/book3-cn" element={<BookPage3CN />} />
