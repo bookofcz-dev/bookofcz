@@ -19,12 +19,12 @@ export const Navbar = () => {
 
   // Add creator dashboard link if wallet is connected
   const navLinks = account 
-    ? [...baseNavLinks, { name: 'Creator Dashboard', path: '/creator-dashboard' }]
+    ? [...baseNavLinks, { name: 'Creator Dashboard', path: '/marketplace/dashboard' }]
     : baseNavLinks;
 
   // Add admin dashboard link if user is admin
   const allNavLinks = isAdmin
-    ? [...navLinks, { name: 'Admin Dashboard', path: '/admin-dashboard' }]
+    ? [...navLinks, { name: 'Admin Dashboard', path: '/admin' }]
     : navLinks;
 
   const isActive = (path: string) => location.pathname === path;
