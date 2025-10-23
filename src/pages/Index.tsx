@@ -40,22 +40,22 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 relative overflow-hidden">
+      <section className="container mx-auto px-4 py-12 md:py-20 relative overflow-hidden">
         {/* Background particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-20 left-20 w-64 md:w-96 h-64 md:h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-20 w-64 md:w-96 h-64 md:h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
-        <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+        <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 items-center max-w-7xl mx-auto">
           {/* Left: 3D Book Mock */}
-          <div className="flex justify-center">
+          <div className="flex justify-center order-1 md:order-none">
             <div className="relative group">
               <div className="absolute inset-0 bg-primary blur-3xl opacity-30 group-hover:opacity-50 transition-opacity animate-pulse" />
               <img 
                 src={logo} 
                 alt="Book of CZ" 
-                className="w-full max-w-md relative transform group-hover:scale-105 transition-transform duration-500 animate-[float_6s_ease-in-out_infinite]"
+                className="w-full max-w-[280px] md:max-w-md relative transform group-hover:scale-105 transition-transform duration-500 animate-[float_6s_ease-in-out_infinite]"
                 style={{
                   filter: 'drop-shadow(0 25px 50px rgba(217, 162, 65, 0.5))'
                 }}
@@ -64,14 +64,14 @@ const Index = () => {
           </div>
 
           {/* Right: Title & CTAs */}
-          <div className="text-center md:text-left">
-            <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 gold-shimmer bg-clip-text text-transparent">
+          <div className="text-center md:text-left order-2 md:order-none">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gold-shimmer bg-clip-text text-transparent">
               BOOK OF CZ
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-body">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 font-body px-4 md:px-0">
               Discover and submit books documenting the journey of CZ.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center md:justify-start px-4 md:px-0">
               <Button
                 onClick={() => navigate("/marketplace")}
                 size="lg"
@@ -144,36 +144,36 @@ const Index = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="container mx-auto px-4 py-20 border-t border-border/40">
-        <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto text-center">
+      <section className="container mx-auto px-4 py-12 md:py-20 border-t border-border/40">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto text-center">
           <div>
-            <div className="font-heading text-6xl md:text-7xl font-bold text-primary mb-2">50+</div>
-            <div className="font-cta text-muted-foreground text-lg">Books Available</div>
+            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">50+</div>
+            <div className="font-cta text-muted-foreground text-base md:text-lg">Books Available</div>
           </div>
           <div>
-            <div className="font-heading text-6xl md:text-7xl font-bold text-primary mb-2">100+</div>
-            <div className="font-cta text-muted-foreground text-lg">Authors</div>
+            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">100+</div>
+            <div className="font-cta text-muted-foreground text-base md:text-lg">Authors</div>
           </div>
           <div>
-            <div className="font-heading text-6xl md:text-7xl font-bold text-primary mb-2">200+</div>
-            <div className="font-cta text-muted-foreground text-lg">Community Members</div>
+            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">200+</div>
+            <div className="font-cta text-muted-foreground text-base md:text-lg">Community Members</div>
           </div>
         </div>
       </section>
 
       {/* Book of CZ Collection Section */}
-      <section id="collection" className="container mx-auto px-4 py-20 border-t border-border/40 mt-20">
-        <div className="text-center mb-16">
-          <h2 className="font-heading text-4xl md:text-6xl font-bold mb-6 gold-shimmer bg-clip-text text-transparent">
+      <section id="collection" className="container mx-auto px-4 py-12 md:py-20 border-t border-border/40 mt-12 md:mt-20">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 gold-shimmer bg-clip-text text-transparent px-4">
             BOOK OF CZ COLLECTION
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 md:mb-8 px-4">
             Explore the complete collection of CZ's journey - from humble beginnings to becoming a crypto legend. 
             Each book tells a unique chapter of innovation, resilience, and vision.
           </p>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-6 py-3">
-            <BookOpen className="h-5 w-5 text-primary" />
-            <span className="font-cta font-semibold">{bookCollection.length} Books Available • Audio Enabled</span>
+          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 md:px-6 py-2 md:py-3">
+            <BookOpen className="h-4 md:h-5 w-4 md:w-5 text-primary" />
+            <span className="font-cta font-semibold text-sm md:text-base">{bookCollection.length} Books Available • Audio Enabled</span>
           </div>
         </div>
       </section>
@@ -182,56 +182,56 @@ const Index = () => {
       <div className="container mx-auto px-4 max-w-4xl">
         
         {/* Part 1 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
+        <div className="py-8 md:py-16 border-t border-border/40">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4 gold-shimmer bg-clip-text text-transparent">
             Book of CZ: Part 1: The Beginning
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">The Extraordinary Journey of Changpeng Zhao</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-2 font-cta">The Extraordinary Journey of Changpeng Zhao</p>
+          <p className="text-sm sm:text-base text-foreground/80 mb-4 md:mb-6 max-w-2xl">
             From humble beginnings to building the world's largest cryptocurrency exchange.
           </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
+          <div className="flex flex-wrap gap-2 md:gap-3 mb-3 md:mb-4">
+            <Button onClick={() => navigate("/book")} size="default" className="text-sm md:text-base" variant="gold">
+              <Sparkles className="w-3 h-3 md:w-4 md:h-4" />
               Read Now
             </Button>
-            <Button onClick={() => navigate("/book")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
+            <Button onClick={() => navigate("/book")} size="default" className="text-sm md:text-base" variant="outline">
+              <Volume2 className="w-3 h-3 md:w-4 md:h-4" />
               Listen Now
             </Button>
-            <Button onClick={() => navigate("/book-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book-es")} size="lg" variant="outline">Español</Button>
+            <Button onClick={() => navigate("/book-cn")} size="default" className="text-sm md:text-base" variant="outline">中文版</Button>
+            <Button onClick={() => navigate("/book-es")} size="default" className="text-sm md:text-base" variant="outline">Español</Button>
           </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book1").toLocaleString()} views</span>
+          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-3 md:px-4 py-1.5 md:py-2">
+            <Eye className="h-3 w-3 md:h-4 md:w-4 text-primary" />
+            <span className="text-xs md:text-sm">{getTotalViews("book1").toLocaleString()} views</span>
           </div>
         </div>
 
         {/* Part 2 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
+        <div className="py-8 md:py-16 border-t border-border/40">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4 gold-shimmer bg-clip-text text-transparent">
             Book of CZ: Part 2: The Return
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">The Return & Resurgence</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-2 font-cta">The Return & Resurgence</p>
+          <p className="text-sm sm:text-base text-foreground/80 mb-4 md:mb-6 max-w-2xl">
             Witness the triumphant return of CZ and the rebirth of Binance Season.
           </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book2")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
+          <div className="flex flex-wrap gap-2 md:gap-3 mb-3 md:mb-4">
+            <Button onClick={() => navigate("/book2")} size="default" className="text-sm md:text-base" variant="gold">
+              <Sparkles className="w-3 h-3 md:w-4 md:h-4" />
               Read Now
             </Button>
-            <Button onClick={() => navigate("/book2")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
+            <Button onClick={() => navigate("/book2")} size="default" className="text-sm md:text-base" variant="outline">
+              <Volume2 className="w-3 h-3 md:w-4 md:h-4" />
               Listen Now
             </Button>
-            <Button onClick={() => navigate("/book2-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book2-es")} size="lg" variant="outline">Español</Button>
+            <Button onClick={() => navigate("/book2-cn")} size="default" className="text-sm md:text-base" variant="outline">中文版</Button>
+            <Button onClick={() => navigate("/book2-es")} size="default" className="text-sm md:text-base" variant="outline">Español</Button>
           </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book2").toLocaleString()} views</span>
+          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-3 md:px-4 py-1.5 md:py-2">
+            <Eye className="h-3 w-3 md:h-4 md:w-4 text-primary" />
+            <span className="text-xs md:text-sm">{getTotalViews("book2").toLocaleString()} views</span>
           </div>
         </div>
 
@@ -503,8 +503,8 @@ const Index = () => {
       </div>
 
       {/* Roadmap Section */}
-      <section id="roadmap" className="container mx-auto px-4 py-20 border-t border-border/40 mt-20">
-        <h2 className="font-heading text-4xl md:text-5xl font-bold text-center mb-16 gold-shimmer bg-clip-text text-transparent">
+      <section id="roadmap" className="container mx-auto px-4 py-12 md:py-20 border-t border-border/40 mt-12 md:mt-20">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 md:mb-16 gold-shimmer bg-clip-text text-transparent px-4">
           ROADMAP
         </h2>
         

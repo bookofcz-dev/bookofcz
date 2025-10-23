@@ -1,14 +1,17 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Wallet } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Wallet, Menu, X } from 'lucide-react';
 import { useWallet } from '@/contexts/WalletContext';
 import { useAdminCheck } from '@/hooks/useAdminCheck';
+import { useState } from 'react';
 import logo from '@/assets/bookofcz-logo.png';
 
 export const Navbar = () => {
   const location = useLocation();
   const { account, connectWallet, disconnectWallet, isConnecting } = useWallet();
   const { isAdmin } = useAdminCheck(account);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const baseNavLinks = [
     { name: 'Home', path: '/' },
@@ -37,6 +40,7 @@ export const Navbar = () => {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -89,12 +93,64 @@ export const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </Button>
+          {/* Mobile Menu */}
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <div className="flex flex-col gap-4 mt-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={logo} alt="Book of CZ" className="h-8 w-auto" />
+                </div>
+                
+                {allNavLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    onClick={(e) => handleNavClick(e, link.path)}
+                    className={`px-4 py-3 rounded-md font-cta text-base font-medium transition-all ${
+                      isActive(link.path)
+                        ? 'bg-primary/10 text-primary'
+                        : 'text-foreground hover:bg-muted'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                
+                <div className="mt-4 pt-4 border-t border-border">
+                  {!account ? (
+                    <Button 
+                      className="w-full gap-2"
+                      onClick={() => {
+                        connectWallet();
+                        setMobileMenuOpen(false);
+                      }}
+                      disabled={isConnecting}
+                    >
+                      <Wallet className="h-4 w-4" />
+                      {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+                    </Button>
+                  ) : (
+                    <Button 
+                      variant="outline"
+                      className="w-full gap-2"
+                      onClick={() => {
+                        disconnectWallet();
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      <Wallet className="h-4 w-4" />
+                      {account.slice(0, 6)}...{account.slice(-4)}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </nav>
