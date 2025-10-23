@@ -29,6 +29,16 @@ export const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (path.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(path);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md shadow-lg">
       <div className="container mx-auto px-4">
@@ -44,6 +54,7 @@ export const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
+                onClick={(e) => handleNavClick(e, link.path)}
                 className={`px-4 py-2 rounded-md font-cta text-sm font-medium transition-all duration-300 relative group ${
                   isActive(link.path)
                     ? 'text-primary'
