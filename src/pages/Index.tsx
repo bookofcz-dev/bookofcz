@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Sparkles, Eye } from "lucide-react";
+import { BookOpen, Sparkles, Eye, Volume2 } from "lucide-react";
 import { Twitter, MessageCircle, Send } from "lucide-react";
 import logo from "@/assets/bookofcz-logo.png";
 import { useAllBookViews } from "@/hooks/useBookViews";
@@ -176,6 +176,10 @@ const Index = () => {
               <Sparkles className="w-4 h-4" />
               Read Now
             </Button>
+            <Button onClick={() => navigate("/book")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
+            </Button>
             <Button onClick={() => navigate("/book-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book-es")} size="lg" variant="outline">Español</Button>
           </div>
@@ -198,6 +202,10 @@ const Index = () => {
             <Button onClick={() => navigate("/book2")} size="lg" variant="gold">
               <Sparkles className="w-4 h-4" />
               Read Now
+            </Button>
+            <Button onClick={() => navigate("/book2")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
             </Button>
             <Button onClick={() => navigate("/book2-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book2-es")} size="lg" variant="outline">Español</Button>
@@ -222,6 +230,10 @@ const Index = () => {
               <Sparkles className="w-4 h-4" />
               Read Now
             </Button>
+            <Button onClick={() => navigate("/book3")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
+            </Button>
             <Button onClick={() => navigate("/book3-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book3-es")} size="lg" variant="outline">Español</Button>
           </div>
@@ -244,6 +256,10 @@ const Index = () => {
             <Button onClick={() => navigate("/book4")} size="lg" variant="gold">
               <Sparkles className="w-4 h-4" />
               Read Now
+            </Button>
+            <Button onClick={() => navigate("/book4")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
             </Button>
             <Button onClick={() => navigate("/book4-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book4-es")} size="lg" variant="outline">Español</Button>
@@ -268,6 +284,10 @@ const Index = () => {
               <Sparkles className="w-4 h-4" />
               Read Now
             </Button>
+            <Button onClick={() => navigate("/book5")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
+            </Button>
             <Button onClick={() => navigate("/book5-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book5-es")} size="lg" variant="outline">Español</Button>
           </div>
@@ -290,6 +310,10 @@ const Index = () => {
             <Button onClick={() => navigate("/book6")} size="lg" variant="gold">
               <Sparkles className="w-4 h-4" />
               Read Now
+            </Button>
+            <Button onClick={() => navigate("/book6")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
             </Button>
             <Button onClick={() => navigate("/book6-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book6-es")} size="lg" variant="outline">Español</Button>
@@ -314,6 +338,10 @@ const Index = () => {
               <Sparkles className="w-4 h-4" />
               Read Now
             </Button>
+            <Button onClick={() => navigate("/book7")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
+            </Button>
             <Button onClick={() => navigate("/book7-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book7-es")} size="lg" variant="outline">Español</Button>
           </div>
@@ -336,6 +364,10 @@ const Index = () => {
             <Button onClick={() => navigate("/book8")} size="lg" variant="gold">
               <Sparkles className="w-4 h-4" />
               Read Now
+            </Button>
+            <Button onClick={() => navigate("/book8")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
             </Button>
             <Button onClick={() => navigate("/book8-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book8-es")} size="lg" variant="outline">Español</Button>
@@ -360,6 +392,10 @@ const Index = () => {
               <Sparkles className="w-4 h-4" />
               Read Now
             </Button>
+            <Button onClick={() => navigate("/book9")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
+            </Button>
             <Button onClick={() => navigate("/book9-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book9-es")} size="lg" variant="outline">Español</Button>
           </div>
@@ -382,6 +418,10 @@ const Index = () => {
             <Button onClick={() => navigate("/book10")} size="lg" variant="gold">
               <Sparkles className="w-4 h-4" />
               Read Now
+            </Button>
+            <Button onClick={() => navigate("/book10")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
             </Button>
             <Button onClick={() => navigate("/book10-cn")} size="lg" variant="outline">中文版</Button>
             <Button onClick={() => navigate("/book10-es")} size="lg" variant="outline">Español</Button>
@@ -406,6 +446,10 @@ const Index = () => {
               <Sparkles className="w-4 h-4" />
               Read Now
             </Button>
+            <Button onClick={() => navigate("/book11")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
+            </Button>
           </div>
           <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
             <Eye className="h-4 w-4 text-primary" />
@@ -426,6 +470,10 @@ const Index = () => {
             <Button onClick={() => navigate("/book12")} size="lg" variant="gold">
               <Sparkles className="w-4 h-4" />
               Read Now
+            </Button>
+            <Button onClick={() => navigate("/book12")} size="lg" variant="outline">
+              <Volume2 className="w-4 h-4" />
+              Listen Now
             </Button>
           </div>
           <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
