@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Sparkles, Eye, Volume2 } from "lucide-react";
 import { Twitter, MessageCircle, Send } from "lucide-react";
-import logo from "@/assets/bookofcz-logo.png";
+import logo from "@/assets/book-of-cz-hero.png";
 import { useAllBookViews } from "@/hooks/useBookViews";
 import { FeaturedBooks } from "@/components/FeaturedBooks";
 import { Navbar } from "@/components/Navbar";
@@ -35,11 +35,14 @@ const Index = () => {
           {/* Left: 3D Book Mock */}
           <div className="flex justify-center">
             <div className="relative group">
-              <div className="absolute inset-0 bg-primary blur-3xl opacity-30 group-hover:opacity-50 transition-opacity" />
+              <div className="absolute inset-0 bg-primary blur-3xl opacity-30 group-hover:opacity-50 transition-opacity animate-pulse" />
               <img 
                 src={logo} 
                 alt="Book of CZ" 
-                className="w-full max-w-md relative transform group-hover:scale-105 transition-transform duration-500"
+                className="w-full max-w-md relative transform group-hover:scale-105 transition-transform duration-500 animate-[float_6s_ease-in-out_infinite]"
+                style={{
+                  filter: 'drop-shadow(0 25px 50px rgba(217, 162, 65, 0.5))'
+                }}
               />
             </div>
           </div>
