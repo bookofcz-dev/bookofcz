@@ -130,8 +130,25 @@ const Index = () => {
         </div>
       </section>
 
-      {/* All Book Parts - Keeping original content */}
-      <div id="audio" className="container mx-auto px-4 max-w-4xl">
+      {/* Book of CZ Collection Section */}
+      <section id="audio" className="container mx-auto px-4 py-20 border-t border-border/40 mt-20">
+        <div className="text-center mb-16">
+          <h2 className="font-heading text-4xl md:text-6xl font-bold mb-6 gold-shimmer bg-clip-text text-transparent">
+            BOOK OF CZ COLLECTION
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+            Explore the complete collection of CZ's journey - from humble beginnings to becoming a crypto legend. 
+            Each book tells a unique chapter of innovation, resilience, and vision.
+          </p>
+          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-6 py-3">
+            <BookOpen className="h-5 w-5 text-primary" />
+            <span className="font-cta font-semibold">12 Books Available • Audio Enabled</span>
+          </div>
+        </div>
+      </section>
+
+      {/* All Book Parts */}
+      <div className="container mx-auto px-4 max-w-4xl">
         
         {/* Part 1 */}
         <div className="py-16 border-t border-border/40">
