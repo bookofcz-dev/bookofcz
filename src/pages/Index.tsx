@@ -19,6 +19,22 @@ const Index = () => {
     return getBookViews(`${baseId}-en`) + getBookViews(`${baseId}-cn`) + getBookViews(`${baseId}-es`);
   };
 
+  // Book collection for dynamic count
+  const bookCollection = [
+    { id: 1, route: "/book", hasTranslations: true },
+    { id: 2, route: "/book2", hasTranslations: true },
+    { id: 3, route: "/book3", hasTranslations: true },
+    { id: 4, route: "/book4", hasTranslations: true },
+    { id: 5, route: "/book5", hasTranslations: true },
+    { id: 6, route: "/book6", hasTranslations: true },
+    { id: 7, route: "/book7", hasTranslations: true },
+    { id: 8, route: "/book8", hasTranslations: true },
+    { id: 9, route: "/book9", hasTranslations: true },
+    { id: 10, route: "/book10", hasTranslations: true },
+    { id: 11, route: "/book11", hasTranslations: false },
+    { id: 12, route: "/book12", hasTranslations: false },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -157,7 +173,7 @@ const Index = () => {
           </p>
           <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-6 py-3">
             <BookOpen className="h-5 w-5 text-primary" />
-            <span className="font-cta font-semibold">12 Books Available • Audio Enabled</span>
+            <span className="font-cta font-semibold">{bookCollection.length} Books Available • Audio Enabled</span>
           </div>
         </div>
       </section>
