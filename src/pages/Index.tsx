@@ -4,6 +4,7 @@ import { BookOpen, Sparkles, Eye, Volume2 } from "lucide-react";
 import { Twitter, MessageCircle, Send } from "lucide-react";
 import logo from "@/assets/book-of-cz-hero.png";
 import { useAllBookViews } from "@/hooks/useBookViews";
+import { useHomeStats } from "@/hooks/useHomeStats";
 import { FeaturedBooks } from "@/components/FeaturedBooks";
 import { Navbar } from "@/components/Navbar";
 
@@ -34,6 +35,8 @@ const Index = () => {
     { id: 11, route: "/book11", hasTranslations: false },
     { id: 12, route: "/book12", hasTranslations: false },
   ];
+
+  const homeStats = useHomeStats(bookCollection.length);
 
   return (
     <div className="min-h-screen bg-background">
@@ -147,15 +150,26 @@ const Index = () => {
       <section className="container mx-auto px-4 py-12 md:py-20 border-t border-border/40">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto text-center">
           <div>
-            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">50+</div>
-            <div className="font-cta text-muted-foreground text-base md:text-lg">Books Available</div>
+            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">
+              {homeStats.totalBooks}
+            </div>
+            <div className="font-cta text-muted-foreground text-base md:text-lg">
+              Books Available
+              <div className="text-xs mt-1">
+                ({bookCollection.length} Book of CZ + {homeStats.totalBooks - bookCollection.length} Marketplace)
+              </div>
+            </div>
           </div>
           <div>
-            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">100+</div>
+            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">
+              {homeStats.totalAuthors}+
+            </div>
             <div className="font-cta text-muted-foreground text-base md:text-lg">Authors</div>
           </div>
           <div>
-            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">200+</div>
+            <div className="font-heading text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2">
+              {homeStats.totalCommunity}+
+            </div>
             <div className="font-cta text-muted-foreground text-base md:text-lg">Community Members</div>
           </div>
         </div>
