@@ -406,6 +406,135 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Roadmap Section */}
+      <section id="roadmap" className="container mx-auto px-4 py-20 border-t border-border/40 mt-20">
+        <h2 className="font-heading text-4xl md:text-5xl font-bold text-center mb-16 gold-shimmer bg-clip-text text-transparent">
+          ROADMAP
+        </h2>
+        
+        <div className="max-w-4xl mx-auto space-y-12">
+          {/* Q4 2025 */}
+          <div className="relative pl-8 border-l-2 border-primary">
+            <div className="absolute -left-3 top-0 w-6 h-6 bg-primary rounded-full border-4 border-background" />
+            <div className="mb-2">
+              <span className="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-cta font-semibold">
+                Q4 2025
+              </span>
+            </div>
+            <ul className="space-y-3 mt-4">
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Release Book of CZ books regularly</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Go Live of $BOCZ Marketplace with full Integration</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Accept USDT, BOCZ, and BNB as payment in the Marketplace</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Listings in Coingecko and CoinmarketCap</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">CEX Listings</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Support CZ in marketing his upcoming book</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Q1-Q2 2026 */}
+          <div className="relative pl-8 border-l-2 border-primary">
+            <div className="absolute -left-3 top-0 w-6 h-6 bg-primary rounded-full border-4 border-background" />
+            <div className="mb-2">
+              <span className="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-cta font-semibold">
+                Q1-Q2 2026
+              </span>
+            </div>
+            <ul className="space-y-3 mt-4">
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Product Market Fit for the BOCZ Marketplace and Books collection</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Reach up to 1000 Authors onboarded</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Reach up to 1000 Books uploaded</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Reach up to 1000 BNB Trading Volume onsite</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Grow Holders to 1000 to 10000 Holders</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Increase Global Recognition</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">1 Billion Copies Sold of CZ Book</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Q3-Q4 2026 */}
+          <div className="relative pl-8 border-l-2 border-primary">
+            <div className="absolute -left-3 top-0 w-6 h-6 bg-primary rounded-full border-4 border-background" />
+            <div className="mb-2">
+              <span className="inline-block bg-primary/20 text-primary px-4 py-1 rounded-full text-sm font-cta font-semibold">
+                Q3-Q4 2026
+              </span>
+            </div>
+            <ul className="space-y-3 mt-4">
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Launch Multi-chain support for broader accessibility</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Introduce NFT collections for exclusive book editions</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Expand to 10,000+ Active Authors and Creators</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Reach 50,000+ Holders globally</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Achieve 10,000 BNB Trading Volume milestone</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Launch BOCZ Mobile App for iOS and Android</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Establish Strategic Partnerships with major publishing houses</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                <span className="text-foreground/80">Host First Annual BOCZ Book Summit</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="container mx-auto px-4 py-12 border-t border-border/40 mt-20">
         <div className="flex flex-col items-center gap-6">
