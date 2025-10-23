@@ -2,19 +2,30 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Wallet } from 'lucide-react';
 import { useWallet } from '@/contexts/WalletContext';
+import { useAdminCheck } from '@/hooks/useAdminCheck';
 import logo from '@/assets/bookofcz-logo.png';
 
 export const Navbar = () => {
   const location = useLocation();
   const { account, connectWallet, disconnectWallet, isConnecting } = useWallet();
+  const { isAdmin } = useAdminCheck(account);
   
-  const navLinks = [
+  const baseNavLinks = [
     { name: 'Home', path: '/' },
     { name: 'Marketplace', path: '/marketplace' },
     { name: 'Audio', path: '#audio' },
     { name: 'Roadmap', path: '#roadmap' },
-    { name: 'Submit Book', path: '/marketplace' },
   ];
+
+  // Add creator dashboard link if wallet is connected
+  const navLinks = account 
+    ? [...baseNavLinks, { name: 'Creator Dashboard', path: '/creator-dashboard' }]
+    : baseNavLinks;
+
+  // Add admin dashboard link if user is admin
+  const allNavLinks = isAdmin
+    ? [...navLinks, { name: 'Admin Dashboard', path: '/admin-dashboard' }]
+    : navLinks;
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -29,7 +40,7 @@ export const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {allNavLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
