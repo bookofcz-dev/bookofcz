@@ -1,9 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Wallet } from 'lucide-react';
+import { useWallet } from '@/contexts/WalletContext';
 import logo from '@/assets/bookofcz-logo.png';
 
 export const Navbar = () => {
   const location = useLocation();
+  const { account, connectWallet, disconnectWallet, isConnecting } = useWallet();
   
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -40,9 +43,28 @@ export const Navbar = () => {
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </Link>
             ))}
-            <Button size="sm" variant="outline" className="ml-4">
-              Sign In
-            </Button>
+            {!account ? (
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="ml-4 gap-2"
+                onClick={connectWallet}
+                disabled={isConnecting}
+              >
+                <Wallet className="h-4 w-4" />
+                {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+              </Button>
+            ) : (
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="ml-4 gap-2"
+                onClick={disconnectWallet}
+              >
+                <Wallet className="h-4 w-4" />
+                {account.slice(0, 6)}...{account.slice(-4)}
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
