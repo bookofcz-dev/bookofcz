@@ -635,7 +635,7 @@ const Index = () => {
       <footer className="container mx-auto px-4 py-12 border-t border-border/40 mt-20">
         <div className="flex flex-col items-center gap-6">
           <div className="flex gap-6">
-            <a href="https://x.com/BookOfCZ_BSC" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="X (Twitter)">
+            <a href="https://x.com/BOCZ_BookOfCZ" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="X (Twitter)">
               <Twitter className="h-6 w-6" />
             </a>
             <a href="https://x.com/i/communities/1977777558855766270" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors" aria-label="X Community">
