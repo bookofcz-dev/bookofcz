@@ -131,14 +131,14 @@ const Index = () => {
       </section>
 
       {/* All Book Parts - Keeping original content */}
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div id="audio" className="container mx-auto px-4 max-w-4xl">
         
         {/* Part 1 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 1
+            Book of CZ: Part 1: The Beginning
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">The Beginning</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">The Extraordinary Journey of Changpeng Zhao</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
             From humble beginnings to building the world's largest cryptocurrency exchange.
           </p>
@@ -159,7 +159,7 @@ const Index = () => {
         {/* Part 2 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 2
+            Book of CZ: Part 2: The Return
           </h2>
           <p className="text-xl text-muted-foreground mb-2 font-cta">The Return & Resurgence</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
@@ -182,11 +182,11 @@ const Index = () => {
         {/* Part 3 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 3
+            Book of CZ: Part 3: The Awakening
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">The Awakening: CZ's new take on Memes</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">CZ's New Take on Memes</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            Witness CZ's transformative journey as $GIGGLE donates over $10M USD.
+            How $10M+ donation to Giggle Academy transformed CZ's perspective on meme coins.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book3")} size="lg" variant="gold">
@@ -205,11 +205,11 @@ const Index = () => {
         {/* Part 4 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: 44 Words of Wisdom
+            Book of CZ: Part 4: Wisdom
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Inspiring Quotes from the Crypto Legend</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">44 Words of Wisdom</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            A collection of 44 inspiring quotes coming from CZ himself.
+            Inspiring quotes from CZ that guide millions in their crypto journey.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book4")} size="lg" variant="gold">
@@ -228,11 +228,11 @@ const Index = () => {
         {/* Part 5 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 5
+            Book of CZ: Part 5: Love Story
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">The Giggle Movement</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">The Uncharted Romance of CZ and Yi He</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            Dive into the heartwarming story of how a meme coin community rallied behind education.
+            The partnership that built Binance—both personal and professional.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book5")} size="lg" variant="gold">
@@ -251,11 +251,11 @@ const Index = () => {
         {/* Part 6 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 6
+            Book of CZ: Part 6: Killing the FUD
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">The Future of Finance</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">Transparency & Trust</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            Explore CZ's vision for the future of cryptocurrency and decentralized finance.
+            How CZ's '4' philosophy and Proof of Reserves built unshakeable trust.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book6")} size="lg" variant="gold">
@@ -274,11 +274,11 @@ const Index = () => {
         {/* Part 7 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 7
+            Book of CZ: Part 7: Selfies
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Global Impact</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">Moments with the Community</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            Discover how CZ and Binance have changed the global financial landscape.
+            20 memorable moments showing the human side of crypto.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book7")} size="lg" variant="gold">
@@ -297,11 +297,11 @@ const Index = () => {
         {/* Part 8 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 8
+            Book of CZ: Part 8: The CZ Bible
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Community Building</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">Exclusive Token-Gated Content</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            Learn how CZ built one of the strongest communities in crypto.
+            Sacred wisdom and teachings from CZ's journey in cryptocurrency.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book8")} size="lg" variant="gold">
@@ -320,11 +320,11 @@ const Index = () => {
         {/* Part 9 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 9
+            Book of CZ: Part 9: Bitcoin Education
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Lessons from the Journey</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">Educating People About Bitcoin</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            Key lessons and insights from CZ's entrepreneurial journey.
+            CZ's vision for Bitcoin and the future of financial freedom.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book9")} size="lg" variant="gold">
@@ -343,11 +343,11 @@ const Index = () => {
         {/* Part 10 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 10
+            Book of CZ: Part 10: Giggle Academy
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Looking Forward</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">Reshaping Education</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            What's next for CZ and the crypto ecosystem?
+            Revolutionizing education, making quality learning accessible to everyone.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book10")} size="lg" variant="gold">
@@ -366,11 +366,11 @@ const Index = () => {
         {/* Part 11 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 11
+            Book of CZ: Part 11: Bitcoin vs Gold
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Innovation Never Stops</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">The Ultimate Debate</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
-            The continuous evolution and innovation in the Binance ecosystem.
+            CZ's perspective on Bitcoin versus Gold - the ultimate store of value showdown.
           </p>
           <div className="flex flex-wrap gap-3 mb-4">
             <Button onClick={() => navigate("/book11")} size="lg" variant="gold">
