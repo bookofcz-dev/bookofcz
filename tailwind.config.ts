@@ -57,6 +57,18 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        gold: "hsl(var(--gold))",
+        "gold-accent": "hsl(var(--gold-accent))",
+      },
+      fontFamily: {
+        heading: ['"Playfair Display"', 'serif'],
+        cta: ['Poppins', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      },
+      boxShadow: {
+        'gold': 'var(--shadow-gold)',
+        'gold-glow': 'var(--shadow-gold-glow)',
+        'book': 'var(--shadow-book)',
       },
       borderRadius: {
         lg: "var(--radius)",

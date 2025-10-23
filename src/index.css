@@ -8,47 +8,56 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 45 100% 51%;
+    /* Black & Gold Theme */
+    --background: 0 0% 4%; /* #0B0B0B */
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 45 100% 96%;
+    --card: 0 0% 10%; /* #1A1A1A */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 45 100% 96%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 45 100% 51%;
+    --primary: 45 79% 52%; /* #D4AF37 gold */
     --primary-foreground: 0 0% 0%;
 
-    --secondary: 45 90% 40%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 45 30% 70%;
+    --muted: 0 0% 18%; /* #2E2E2E */
+    --muted-foreground: 0 0% 70%; /* #B3B3B3 */
 
-    --accent: 45 100% 51%;
+    --accent: 46 89% 61%; /* #F5C542 gold accent */
     --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 45 100% 51%;
+    --border: 0 0% 18%; /* #2E2E2E */
+    --input: 0 0% 18%;
+    --ring: 45 79% 52%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
     
-    /* Binance brand colors */
-    --binance-gold: 45 100% 51%;
-    --binance-black: 0 0% 0%;
-    --binance-gold-glow: 45 100% 60%;
+    /* Gold colors */
+    --gold: 45 79% 52%; /* #D4AF37 */
+    --gold-accent: 46 89% 61%; /* #F5C542 */
+    --gold-glow: 45 89% 65%;
+    
+    /* Background variants */
+    --bg-primary: 0 0% 4%; /* #0B0B0B */
+    --bg-secondary: 0 0% 10%; /* #1A1A1A */
+    
+    /* Text colors */
+    --text-subtle: 0 0% 70%; /* #B3B3B3 */
     
     /* Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(45 100% 51%), hsl(45 90% 60%));
-    --gradient-book: linear-gradient(90deg, hsl(0 0% 5%), hsl(0 0% 10%));
+    --gradient-gold: linear-gradient(135deg, hsl(45 79% 52%), hsl(46 89% 61%));
+    --gradient-book: linear-gradient(90deg, hsl(0 0% 4%), hsl(0 0% 10%));
     
     /* Shadows */
-    --shadow-gold: 0 10px 40px hsl(45 100% 51% / 0.4);
+    --shadow-gold: 0 10px 40px hsl(45 79% 52% / 0.4);
+    --shadow-gold-glow: 0 0 30px hsl(45 79% 52% / 0.3);
     --shadow-book: 0 20px 60px hsl(0 0% 0% / 0.8);
     
     /* Animations */
@@ -72,33 +81,33 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 45 100% 51%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 45 100% 96%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 45 100% 96%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 45 100% 51%;
+    --primary: 45 79% 52%;
     --primary-foreground: 0 0% 0%;
 
-    --secondary: 45 90% 40%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 45 30% 70%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 45 100% 51%;
+    --accent: 46 89% 61%;
     --accent-foreground: 0 0% 0%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 45 100% 51%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 45 79% 52%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -117,5 +126,37 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.025em;
+  }
+
+  .font-heading {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-cta {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .gold-glow {
+    text-shadow: 0 0 20px hsl(var(--gold) / 0.5);
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(90deg, 
+      hsl(var(--gold)) 0%, 
+      hsl(var(--gold-accent)) 50%, 
+      hsl(var(--gold)) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
   }
 }
