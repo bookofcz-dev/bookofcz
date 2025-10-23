@@ -887,6 +887,63 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 12 - Pardoned */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-white text-sm font-semibold mb-4 animate-pulse">
+              🎉 Redemption Story
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 bg-clip-text text-transparent">
+              Book of CZ: Part 12
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              Pardoned - A Story of Redemption, Revolution, and Revelation
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              October 23, 2025: President Trump pardons CZ, marking a historic moment for cryptocurrency. 
+              From prison to pardon, witness the extraordinary journey of redemption that signals a new 
+              dawn for the crypto industry. A story of justice, innovation, and the future of finance.
+            </p>
+
+            {/* CTA Buttons for Part 12 */}
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
+              <Button
+                onClick={() => navigate("/book12")}
+                size="lg"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                Read the Story
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-purple-500" />
+                <span className="text-sm font-medium">{getTotalViews("book12").toLocaleString()} views</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 12 Stats */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-blue-500 mb-2">44</div>
+              <div className="text-sm text-muted-foreground">Pages</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-purple-500 mb-2">⚖️</div>
+              <div className="text-sm text-muted-foreground">Justice</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-blue-500 mb-2">🚀</div>
+              <div className="text-sm text-muted-foreground">New Dawn</div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a
