@@ -137,6 +137,16 @@ export const FeaturedBooks = ({ bookViews }: FeaturedBooksProps) => {
       badge: "🎓 Legacy",
       gradient: "from-blue-500 to-yellow-500",
     },
+    {
+      id: "book11",
+      title: "Part 11: Bitcoin vs Gold",
+      subtitle: "The Ultimate Debate",
+      description: "CZ's perspective on Bitcoin versus Gold - the ultimate store of value showdown.",
+      route: "/book11",
+      views: getTotalViews("book11"),
+      badge: "⚡ Debate",
+      gradient: "from-yellow-500 via-orange-500 to-yellow-600",
+    },
   ];
 
   const topBooks = books

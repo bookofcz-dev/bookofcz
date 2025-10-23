@@ -830,6 +830,63 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Part 11 - Bitcoin vs Gold */}
+        <div className="mt-24 pt-16 border-t border-border/50">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full text-white text-sm font-semibold mb-4 animate-pulse">
+              ⚡ The Ultimate Debate
+            </div>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-yellow-500 via-orange-500 to-yellow-600 bg-clip-text text-transparent">
+              Book of CZ: Part 11
+            </h2>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+              Bitcoin vs Gold - The Ultimate Debate
+            </p>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+              Witness the legendary debate between CZ's Bitcoin vision and Peter Schiff's gold 
+              advocacy. Explore both perspectives on store of value, scarcity, and the future 
+              of money in this comprehensive analysis of the greatest financial debate of our time.
+            </p>
+
+            {/* CTA Buttons for Part 11 */}
+            <div className="flex flex-wrap gap-4 justify-center mb-4">
+              <Button
+                onClick={() => navigate("/book11")}
+                size="lg"
+                className="text-lg px-8 py-6 gap-3 group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-orange-500/50 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600"
+              >
+                <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                Read the Debate
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+            </div>
+            
+            {/* View Counter */}
+            <div className="flex justify-center">
+              <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2 shadow-lg">
+                <Eye className="h-4 w-4 text-orange-500" />
+                <span className="text-sm font-medium">{getTotalViews("book11").toLocaleString()} views</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 11 Stats */}
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-yellow-500 mb-2">44</div>
+              <div className="text-sm text-muted-foreground">Pages</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-orange-500 mb-2">⚡</div>
+              <div className="text-sm text-muted-foreground">Epic Debate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-yellow-500 mb-2">₿</div>
+              <div className="text-sm text-muted-foreground">vs 🥇</div>
+            </div>
+          </div>
+        </div>
+
         {/* Social Link */}
         <div className="mt-12 flex justify-center">
           <a
