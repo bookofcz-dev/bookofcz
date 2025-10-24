@@ -597,23 +597,37 @@ export default function BookDetail() {
                 </div>
 
                 {bookPrice > 0 && account && (
-                  <div className="flex gap-2 p-2 bg-muted rounded-lg">
-                    <Button
-                      variant={paymentMethod === 'BNB' ? 'default' : 'outline'}
-                      onClick={() => setPaymentMethod('BNB')}
-                      className="flex-1"
-                      size="sm"
-                    >
-                      Pay with BNB
-                    </Button>
-                    <Button
-                      variant={paymentMethod === 'BOCZ' ? 'default' : 'outline'}
-                      onClick={() => setPaymentMethod('BOCZ')}
-                      className="flex-1"
-                      size="sm"
-                    >
-                      Pay with $BOCZ
-                    </Button>
+                  <div className="space-y-2">
+                    <div className="flex gap-2 p-2 bg-muted rounded-lg">
+                      <Button
+                        variant={paymentMethod === 'BNB' ? 'default' : 'outline'}
+                        onClick={() => setPaymentMethod('BNB')}
+                        className="flex-1"
+                        size="sm"
+                      >
+                        Pay with BNB
+                      </Button>
+                      <Button
+                        variant={paymentMethod === 'BOCZ' ? 'default' : 'outline'}
+                        onClick={() => setPaymentMethod('BOCZ')}
+                        className="flex-1"
+                        size="sm"
+                      >
+                        Pay with $BOCZ
+                      </Button>
+                    </div>
+                    
+                    {paymentMethod === 'BOCZ' && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                        onClick={() => window.open('https://pancakeswap.finance/swap?outputCurrency=0x701bE97c604A35aB7BCF6C75cA6de3aba0704444', '_blank')}
+                      >
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Swap to $BOCZ
+                      </Button>
+                    )}
                   </div>
                 )}
 
