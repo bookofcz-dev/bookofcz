@@ -255,6 +255,7 @@ export const useMarketplaceWallet = () => {
   };
 
   const disconnectWallet = () => {
+    console.log('🔌 Manually disconnecting wallet');
     localStorage.removeItem('walletConnected');
     setAccount(null);
     setProvider(null);
@@ -262,7 +263,7 @@ export const useMarketplaceWallet = () => {
     setChainId(null);
     toast({
       title: "Wallet Disconnected",
-      description: "Your wallet has been disconnected",
+      description: "Your wallet has been disconnected from the app",
     });
   };
 

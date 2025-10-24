@@ -160,6 +160,7 @@ export const useTokenGate = () => {
   };
 
   const disconnectWallet = () => {
+    console.log('🔌 Token gate wallet disconnected');
     setIsConnected(false);
     setHasAccess(false);
     setWalletAddress(null);
@@ -170,37 +171,73 @@ export const useTokenGate = () => {
   useEffect(() => {
     if (window.ethereum) {
       const handleAccountsChanged = async (accounts: string[]) => {
+        console.log('🔄 Token gate accounts changed:', accounts);
+        
         if (accounts.length === 0) {
           // Wallet disconnected
+          console.log('❌ Token gate wallet disconnected');
           disconnectWallet();
         } else {
           // Account switched - re-check balance for new account
           const newAddress = accounts[0];
+          console.log('🔄 Switching to new account in token gate:', newAddress);
           setWalletAddress(newAddress);
           setIsConnected(true);
+          setError(null);
+          setIsLoading(true);
           
           try {
             const provider = new BrowserProvider(window.ethereum);
-            await checkBalance(provider, newAddress);
+            const network = await provider.getNetwork();
+            
+            if (network.chainId === BSC_CHAIN_ID_DECIMAL) {
+              await checkBalance(provider, newAddress);
+            } else {
+              setError('Please switch to BSC network');
+              setHasAccess(false);
+            }
           } catch (err) {
+            console.error('❌ Failed to check balance for new account:', err);
             setError('Failed to check balance for new account');
+            setHasAccess(false);
+          } finally {
+            setIsLoading(false);
           }
         }
       };
 
-      const handleChainChanged = () => {
-        window.location.reload();
+      const handleChainChanged = async () => {
+        console.log('🔄 Chain changed, re-checking wallet');
+        // Re-check connection and balance on chain change instead of reloading
+        if (isConnected && walletAddress) {
+          try {
+            const provider = new BrowserProvider(window.ethereum);
+            const network = await provider.getNetwork();
+            
+            if (network.chainId === BSC_CHAIN_ID_DECIMAL) {
+              await checkBalance(provider, walletAddress);
+            } else {
+              setError('Please switch to BSC network');
+              setHasAccess(false);
+            }
+          } catch (err) {
+            setError('Network change error. Please reconnect.');
+            disconnectWallet();
+          }
+        }
       };
 
       window.ethereum.on('accountsChanged', handleAccountsChanged);
       window.ethereum.on('chainChanged', handleChainChanged);
 
       return () => {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        window.ethereum.removeListener('chainChanged', handleChainChanged);
+        if (window.ethereum) {
+          window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+          window.ethereum.removeListener('chainChanged', handleChainChanged);
+        }
       };
     }
-  }, []);
+  }, [isConnected, walletAddress]);
 
   return {
     isConnected,
