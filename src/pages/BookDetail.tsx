@@ -234,7 +234,12 @@ export default function BookDetail() {
 
       // Request wallet signature for verification with timestamp
       const timestamp = Date.now();
-      const message = createPurchaseMessage(book.id, pricePaidUSDT, timestamp);
+      const message = createPurchaseMessage(
+        book.id, 
+        totalPrice, 
+        timestamp, 
+        paymentMethod === 'BNB' ? 'BNB' : '$BOCZ'
+      );
       
       toast.info('Please sign the message to verify your purchase...');
       const signature = await requestWalletSignature(provider, message);

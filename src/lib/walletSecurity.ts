@@ -35,10 +35,11 @@ export async function requestWalletSignature(
  */
 export function createPurchaseMessage(
   bookId: string,
-  price: number,
-  timestamp: number
+  price: string | number,
+  timestamp: number,
+  currency: string = 'USDT'
 ): string {
-  return `BookofCZ Purchase Verification\n\nBook ID: ${bookId}\nPrice: ${price} BNB\nTimestamp: ${timestamp}\n\nI confirm this purchase from my wallet.`;
+  return `BookofCZ Purchase Verification\n\nBook ID: ${bookId}\nPrice: ${price} ${currency}\nTimestamp: ${timestamp}\n\nI confirm this purchase from my wallet.`;
 }
 
 /**
