@@ -17,6 +17,7 @@ interface Book {
   author: string;
   cover_url: string;
   pdf_url: string;
+  price_usdt: number;
   price_bnb: number;
   category: string;
   creator_wallet: string;

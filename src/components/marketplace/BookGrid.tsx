@@ -9,6 +9,7 @@ interface Book {
   description: string;
   author: string;
   cover_url: string;
+  price_usdt: number;
   price_bnb: number;
   category: string;
   average_rating: number;

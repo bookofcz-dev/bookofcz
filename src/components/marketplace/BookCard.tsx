@@ -10,6 +10,7 @@ interface Book {
   description: string;
   author: string;
   cover_url: string;
+  price_usdt: number;
   price_bnb: number;
   category: string;
   average_rating: number;
@@ -24,6 +25,8 @@ interface BookCardProps {
 }
 
 export const BookCard = ({ book, account }: BookCardProps) => {
+  const bookPrice = book.price_usdt || book.price_bnb;
+  
   return (
     <Link to={`/marketplace/book/${book.id}`}>
       <Card className="h-full cursor-pointer group">
@@ -64,7 +67,7 @@ export const BookCard = ({ book, account }: BookCardProps) => {
 
         <CardFooter className="p-4 pt-0 flex items-center justify-between">
           <div className="text-2xl font-heading font-bold text-primary">
-            {book.price_bnb === 0 ? 'FREE' : `${book.price_bnb} BNB`}
+            {bookPrice === 0 ? 'FREE' : `$${bookPrice.toFixed(2)}`}
           </div>
           <Button size="sm" variant="gold" className="gap-2 font-cta">
             <Eye className="h-4 w-4" />

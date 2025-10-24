@@ -275,7 +275,7 @@ export type Database = {
           _description: string
           _isbn: string
           _pdf_url: string
-          _price_bnb: number
+          _price_usdt: number
           _title: string
         }
         Returns: undefined

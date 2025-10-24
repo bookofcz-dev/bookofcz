@@ -11,6 +11,7 @@ interface Book {
   author: string;
   cover_url: string;
   pdf_url: string;
+  price_usdt: number;
   price_bnb: number;
   category: string;
   creator_wallet: string;
@@ -28,7 +29,8 @@ interface CreatorBookCardProps {
 }
 
 export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
-  const totalEarnings = (book.download_count * book.price_bnb * 0.96).toFixed(4);
+  const priceUSDT = book.price_usdt || book.price_bnb;
+  const totalEarnings = (book.download_count * priceUSDT * 0.96).toFixed(2);
 
   return (
     <Card>
@@ -60,7 +62,7 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
           <div>
             <p className="text-sm text-muted-foreground mb-1">Price</p>
-            <p className="font-semibold">{book.price_bnb} BNB</p>
+            <p className="font-semibold">{priceUSDT} USDT</p>
           </div>
           <div>
             <p className="text-sm text-muted-foreground mb-1">Downloads</p>
@@ -74,7 +76,7 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
           </div>
           <div>
             <p className="text-sm text-muted-foreground mb-1">Earnings (96%)</p>
-            <p className="font-semibold text-primary">{totalEarnings} BNB</p>
+            <p className="font-semibold text-primary">{totalEarnings} USDT</p>
           </div>
         </div>
 

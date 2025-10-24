@@ -20,10 +20,10 @@ export const bookUploadSchema = z.object({
     errorMap: () => ({ message: 'Please select a valid category' }),
   }),
   
-  price_bnb: z.string()
+  price_usdt: z.string()
     .refine((val) => !isNaN(parseFloat(val)), 'Price must be a valid number')
     .refine((val) => parseFloat(val) >= 0, 'Price cannot be negative')
-    .refine((val) => parseFloat(val) <= 1000, 'Price cannot exceed 1000 BNB'),
+    .refine((val) => parseFloat(val) <= 10000, 'Price cannot exceed 10000 USDT'),
   
   isbn: z.string()
     .trim()

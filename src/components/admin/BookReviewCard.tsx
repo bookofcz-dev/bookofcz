@@ -16,6 +16,7 @@ interface Book {
   author: string;
   cover_url: string;
   pdf_url: string;
+  price_usdt: number;
   price_bnb: number;
   category: string;
   creator_wallet: string;
@@ -194,7 +195,7 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
               <CardTitle className="mb-2">{book.title}</CardTitle>
               <p className="text-sm text-muted-foreground mb-1">by {book.author}</p>
               <Badge variant="outline" className="mb-2">{book.category}</Badge>
-              <p className="text-sm font-semibold">{book.price_bnb} BNB</p>
+              <p className="text-sm font-semibold">${(book.price_usdt || book.price_bnb).toFixed(2)} USDT</p>
               {book.isbn && (
                 <p className="text-xs text-muted-foreground mt-1">ISBN: {book.isbn}</p>
               )}

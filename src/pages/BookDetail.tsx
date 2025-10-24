@@ -23,7 +23,8 @@ interface Book {
   author: string;
   cover_url: string;
   pdf_url: string;
-  price_bnb: number;
+  price_usdt: number;
+  price_bnb: number; // Legacy field
   category: string;
   average_rating: number;
   review_count: number;
@@ -54,12 +55,17 @@ export default function BookDetail() {
   const [paymentMethod, setPaymentMethod] = useState<'BNB' | 'BOCZ'>('BNB');
   const [boczBalance, setBoczBalance] = useState<string>('0');
   const [boczPriceInBnb, setBoczPriceInBnb] = useState<number>(0);
+  const [bnbPriceInUsdt, setBnbPriceInUsdt] = useState<number>(0);
   
-  // Calculate BNB to BOCZ rate based on current price
-  const BNB_TO_BOCZ_RATE = boczPriceInBnb > 0 ? 1 / boczPriceInBnb : 0;
+  // Calculate conversion rates
+  const USDT_TO_BNB_RATE = bnbPriceInUsdt > 0 ? 1 / bnbPriceInUsdt : 0;
+  const USDT_TO_BOCZ_RATE = (bnbPriceInUsdt > 0 && boczPriceInBnb > 0) 
+    ? (1 / bnbPriceInUsdt) / boczPriceInBnb 
+    : 0;
 
   useEffect(() => {
     fetchBoczPrice();
+    fetchBnbPrice();
   }, []);
 
   useEffect(() => {
@@ -86,6 +92,20 @@ export default function BookDetail() {
       console.error('Error fetching BOCZ price:', error);
       // Fallback to a default rate if API fails
       setBoczPriceInBnb(0.000049); // Approximate fallback
+    }
+  };
+
+  const fetchBnbPrice = async () => {
+    try {
+      const response = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BNBUSDT');
+      const data = await response.json();
+      if (data.price) {
+        setBnbPriceInUsdt(parseFloat(data.price));
+      }
+    } catch (error) {
+      console.error('Error fetching BNB price:', error);
+      // Fallback to a default rate if API fails
+      setBnbPriceInUsdt(600); // Approximate fallback
     }
   };
 
@@ -175,22 +195,31 @@ export default function BookDetail() {
     setPurchasing(true);
     try {
       const platformWallet = '0x6e22449bEbc5C719fA7ADB39bc2576B9E6F11bd8';
+      const bookPriceUSDT = book.price_usdt || book.price_bnb; // Fallback to price_bnb for legacy books
       
       let creatorAmount: string;
       let platformFee: string;
       let totalPrice: string;
+      let pricePaidUSDT: number;
       
       if (paymentMethod === 'BNB') {
         // BNB payment: 4% platform fee
-        creatorAmount = (book.price_bnb * 0.96).toFixed(6);
-        platformFee = (book.price_bnb * 0.04).toFixed(6);
-        totalPrice = book.price_bnb.toFixed(6);
+        const totalBNB = bookPriceUSDT * USDT_TO_BNB_RATE;
+        const creatorBNB = totalBNB * 0.96;
+        const platformFeeBNB = totalBNB * 0.04;
+        
+        creatorAmount = creatorBNB.toFixed(6);
+        platformFee = platformFeeBNB.toFixed(6);
+        totalPrice = totalBNB.toFixed(6);
+        pricePaidUSDT = bookPriceUSDT;
       } else {
-        // BOCZ payment: 0% platform fee - buyer pays 96% of price (same as what creator gets)
-        const boczAmount = (book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE;
-        creatorAmount = boczAmount.toFixed(6);
+        // BOCZ payment: 0% platform fee
+        const totalBOCZ = bookPriceUSDT * USDT_TO_BOCZ_RATE;
+        
+        creatorAmount = totalBOCZ.toFixed(0);
         platformFee = '0';
-        totalPrice = boczAmount.toFixed(6);
+        totalPrice = totalBOCZ.toFixed(0);
+        pricePaidUSDT = bookPriceUSDT; // No fee, so price is the same
       }
       
       // Validate recipient addresses
@@ -203,7 +232,7 @@ export default function BookDetail() {
 
       // Request wallet signature for verification with timestamp
       const timestamp = Date.now();
-      const message = createPurchaseMessage(book.id, book.price_bnb, timestamp);
+      const message = createPurchaseMessage(book.id, pricePaidUSDT, timestamp);
       
       toast.info('Please sign the message to verify your purchase...');
       const signature = await requestWalletSignature(provider, message);
@@ -331,7 +360,7 @@ export default function BookDetail() {
         .insert({
           book_id: book.id,
           buyer_wallet: account.toLowerCase(),
-          price_paid: book.price_bnb,
+          price_paid: pricePaidUSDT,
           creator_amount: parseFloat(creatorAmount),
           platform_fee: parseFloat(platformFee),
           transaction_hash: creatorTx.hash,
@@ -365,14 +394,15 @@ export default function BookDetail() {
   const handleDownload = async () => {
     if (!book || !account) return;
 
-    if (book.price_bnb > 0 && !hasPurchased) {
+    const bookPrice = book.price_usdt || book.price_bnb;
+    if (bookPrice > 0 && !hasPurchased) {
       toast.error('Please purchase the book first');
       return;
     }
 
     try {
       // For free books, create a purchase record if it doesn't exist
-      if (book.price_bnb === 0 && !hasPurchased) {
+      if (bookPrice === 0 && !hasPurchased) {
         const { error: purchaseError } = await supabase
           .from('marketplace_purchases')
           .insert({
@@ -455,7 +485,12 @@ export default function BookDetail() {
 
   if (!book) return null;
 
-  const canDownload = book.price_bnb === 0 || hasPurchased;
+  const bookPrice = book.price_usdt || book.price_bnb;
+  const canDownload = bookPrice === 0 || hasPurchased;
+  
+  // Calculate display prices
+  const priceInBNB = bookPrice * USDT_TO_BNB_RATE;
+  const priceInBOCZ = bookPrice * USDT_TO_BOCZ_RATE;
 
   return (
     <>
@@ -531,12 +566,15 @@ export default function BookDetail() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <div className="text-4xl font-bold text-primary">
-                    {book.price_bnb === 0 ? 'FREE' : paymentMethod === 'BNB' 
-                      ? `${book.price_bnb} BNB` 
-                      : `${((book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ`}
+                    {bookPrice === 0 ? 'FREE' : `$${bookPrice.toFixed(2)} USDT`}
                   </div>
-                  {book.price_bnb > 0 && (
+                  {bookPrice > 0 && (
                     <>
+                      <div className="text-lg text-muted-foreground">
+                        {paymentMethod === 'BNB' 
+                          ? `≈ ${priceInBNB.toFixed(4)} BNB (incl. 4% fee)` 
+                          : `≈ ${priceInBOCZ.toFixed(0)} $BOCZ (0% fee)`}
+                      </div>
                        {paymentMethod === 'BOCZ' && (
                         <div className="space-y-1">
                           <div className="text-sm text-green-600 font-medium">
@@ -551,14 +589,14 @@ export default function BookDetail() {
                       )}
                       {paymentMethod === 'BNB' && (
                         <div className="text-sm text-muted-foreground">
-                          Includes 4% platform fee ({(book.price_bnb * 0.04).toFixed(4)} BNB)
+                          Includes 4% platform fee (≈ {(priceInBNB * 0.04).toFixed(4)} BNB)
                         </div>
                       )}
                     </>
                   )}
                 </div>
 
-                {book.price_bnb > 0 && account && (
+                {bookPrice > 0 && account && (
                   <div className="flex gap-2 p-2 bg-muted rounded-lg">
                     <Button
                       variant={paymentMethod === 'BNB' ? 'default' : 'outline'}
@@ -582,11 +620,11 @@ export default function BookDetail() {
                 {!account ? (
                   <Button onClick={connectWallet} size="lg" className="w-full">
                     <Wallet className="h-5 w-5 mr-2" />
-                    Connect Wallet to {book.price_bnb === 0 ? 'Download' : 'Purchase'}
+                    Connect Wallet to {bookPrice === 0 ? 'Download' : 'Purchase'}
                   </Button>
                 ) : (
                   <div className="space-y-3">
-                    {book.price_bnb > 0 && !hasPurchased && (
+                    {bookPrice > 0 && !hasPurchased && (
                       <Button
                         onClick={handlePurchase}
                         disabled={purchasing}
@@ -602,8 +640,8 @@ export default function BookDetail() {
                           <>
                             <Wallet className="h-5 w-5 mr-2" />
                             Purchase for {paymentMethod === 'BNB' 
-                              ? `${book.price_bnb} BNB` 
-                              : `${((book.price_bnb * 0.96) * BNB_TO_BOCZ_RATE).toFixed(2)} $BOCZ`}
+                              ? `${priceInBNB.toFixed(4)} BNB` 
+                              : `${priceInBOCZ.toFixed(0)} $BOCZ`}
                           </>
                         )}
                       </Button>
