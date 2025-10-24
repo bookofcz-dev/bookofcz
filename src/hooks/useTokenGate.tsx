@@ -237,7 +237,7 @@ export const useTokenGate = () => {
         }
       };
     }
-  }, [isConnected, walletAddress]);
+  }, []); // Empty deps - event listeners handle state updates internally
 
   return {
     isConnected,
