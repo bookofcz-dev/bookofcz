@@ -220,6 +220,8 @@ export default function BookDetail() {
         platformFee = '0';
         totalPrice = totalBOCZ.toFixed(0);
         pricePaidUSDT = bookPriceUSDT; // No fee, so price is the same
+        
+        console.log(`💰 BOCZ Payment - Will charge ${totalBOCZ.toFixed(0)} $BOCZ tokens (not BNB/USDT)`);
       }
       
       // Validate recipient addresses
@@ -322,10 +324,11 @@ export default function BookDetail() {
         }
       } else {
         // Send BOCZ token payment to creator (100% - no platform fee)
-        toast.info('Confirm $BOCZ payment to creator...');
+        console.log(`🪙 Charging ${creatorAmount} $BOCZ tokens from wallet`);
+        toast.info(`Confirm payment of ${creatorAmount} $BOCZ tokens to creator...`);
         creatorTx = await sendTokenTransaction(book.creator_wallet, parseFloat(creatorAmount));
         
-        toast.info('Processing creator payment...');
+        toast.info('Processing $BOCZ token payment...');
         const creatorReceipt = await creatorTx.wait();
         
         if (!creatorReceipt || creatorReceipt.status !== 1) {

@@ -302,6 +302,8 @@ export const useMarketplaceWallet = () => {
     }
 
     try {
+      // This charges BOCZ tokens from the connected wallet, NOT BNB or USDT
+      console.log(`🪙 Initiating BOCZ token transfer: ${amount} $BOCZ to ${to}`);
       const tokenContract = new ethers.Contract(BOCZ_TOKEN_ADDRESS, ERC20_ABI, signer);
       
       // Get token decimals
