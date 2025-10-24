@@ -54,6 +54,7 @@ export type Database = {
           isbn: string | null
           pdf_url: string
           price_bnb: number
+          price_usdt: number
           publication_date: string | null
           rejection_reason: string | null
           review_count: number | null
@@ -76,6 +77,7 @@ export type Database = {
           isbn?: string | null
           pdf_url: string
           price_bnb?: number
+          price_usdt?: number
           publication_date?: string | null
           rejection_reason?: string | null
           review_count?: number | null
@@ -98,6 +100,7 @@ export type Database = {
           isbn?: string | null
           pdf_url?: string
           price_bnb?: number
+          price_usdt?: number
           publication_date?: string | null
           rejection_reason?: string | null
           review_count?: number | null

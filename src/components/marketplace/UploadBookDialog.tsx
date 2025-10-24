@@ -23,7 +23,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
     description: '',
     author: '',
     category: '',
-    price_bnb: '0',
+    price_usdt: '0',
     isbn: '',
   });
   const [coverFile, setCoverFile] = useState<File | null>(null);
@@ -135,7 +135,8 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
           description: formData.description,
           author: formData.author,
           category: formData.category,
-          price_bnb: parseFloat(formData.price_bnb),
+          price_usdt: parseFloat(formData.price_usdt),
+          price_bnb: 0, // Legacy field
           isbn: formData.isbn || null,
           cover_url: coverUrl.publicUrl,
           pdf_url: pdfPath,
@@ -155,7 +156,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
         description: '',
         author: '',
         category: '',
-        price_bnb: '0',
+        price_usdt: '0',
         isbn: '',
       });
       setCoverFile(null);
@@ -241,17 +242,20 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
             </div>
 
             <div>
-              <Label htmlFor="price">Price (BNB) *</Label>
+              <Label htmlFor="price">Price (USDT) *</Label>
               <Input
                 id="price"
                 type="number"
-                step="0.001"
+                step="0.01"
                 min="0"
                 required
-                value={formData.price_bnb}
-                onChange={(e) => setFormData({ ...formData, price_bnb: e.target.value })}
+                value={formData.price_usdt}
+                onChange={(e) => setFormData({ ...formData, price_usdt: e.target.value })}
                 placeholder="0.00"
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                Set your price in USDT. Buyers can pay with BNB (4% fee) or BOCZ (0% fee)
+              </p>
             </div>
           </div>
 
@@ -290,7 +294,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
           <div className="bg-muted p-4 rounded-md">
             <p className="text-sm text-muted-foreground">
               <strong>Note:</strong> Your book will be reviewed by our admin team before being published.
-              Platform fee: 4% of each sale. You'll receive 96% directly to your wallet.
+              Platform fees: 4% for BNB payments, 0% for BOCZ payments. Direct payment to your wallet.
             </p>
           </div>
 

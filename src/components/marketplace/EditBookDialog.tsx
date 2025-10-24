@@ -17,7 +17,8 @@ interface Book {
   description: string;
   author: string;
   category: string;
-  price_bnb: number;
+  price_usdt: number;
+  price_bnb: number; // Legacy field
   isbn?: string;
   cover_url: string;
   pdf_url: string;
@@ -37,7 +38,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
     description: '',
     author: '',
     category: '',
-    price_bnb: '0',
+    price_usdt: '0',
     isbn: '',
   });
   const [coverFile, setCoverFile] = useState<File | null>(null);
@@ -55,7 +56,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
         description: book.description,
         author: book.author,
         category: book.category,
-        price_bnb: book.price_bnb.toString(),
+        price_usdt: (book.price_usdt || book.price_bnb).toString(),
         isbn: book.isbn || '',
       });
     }
@@ -155,7 +156,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
         _author: formData.author,
         _description: formData.description,
         _category: formData.category,
-        _price_bnb: parseFloat(formData.price_bnb),
+        _price_usdt: parseFloat(formData.price_usdt),
         _isbn: formData.isbn || null,
         _cover_url: coverUrl,
         _pdf_url: pdfUrl,
@@ -256,17 +257,20 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
             </div>
 
             <div>
-              <Label htmlFor="price">Price (BNB) *</Label>
+              <Label htmlFor="price">Price (USDT) *</Label>
               <Input
                 id="price"
                 type="number"
-                step="0.001"
+                step="0.01"
                 min="0"
                 required
-                value={formData.price_bnb}
-                onChange={(e) => setFormData({ ...formData, price_bnb: e.target.value })}
+                value={formData.price_usdt}
+                onChange={(e) => setFormData({ ...formData, price_usdt: e.target.value })}
                 placeholder="0.00"
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                Set your price in USDT. Buyers can pay with BNB (4% fee) or BOCZ (0% fee)
+              </p>
             </div>
           </div>
 
