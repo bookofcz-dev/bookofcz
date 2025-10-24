@@ -143,11 +143,8 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
 
         if (pdfError) throw pdfError;
 
-        const { data: pdfData } = supabase.storage
-          .from('book-pdfs')
-          .getPublicUrl(pdfPath);
-        
-        pdfUrl = pdfData.publicUrl;
+        // Store path only (not public URL) for secure signed URL generation
+        pdfUrl = pdfPath;
       }
 
       // Use secure function to update book

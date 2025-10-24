@@ -400,10 +400,10 @@ export default function BookDetail() {
       if (error) console.error('Error updating download count:', error);
 
       // Generate signed URL for secure PDF download (1 hour expiry)
-      const pdfPath = book.pdf_url.split('/').pop(); // Extract filename from URL
+      // Use the stored path directly (no need to extract, it's already a relative path)
       const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from('book-pdfs')
-        .createSignedUrl(`${book.id}/${pdfPath}`, 3600);
+        .createSignedUrl(book.pdf_url, 3600);
 
       if (signedUrlError) {
         console.error('Error creating signed URL:', signedUrlError);

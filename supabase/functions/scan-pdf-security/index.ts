@@ -52,6 +52,18 @@ serve(async (req) => {
     }
 
     const [, bucket, path] = urlMatch;
+    
+    // Validate bucket is from trusted sources only
+    const allowedBuckets = ['book-pdfs', 'marketplace'];
+    if (!allowedBuckets.includes(bucket)) {
+      return new Response(
+        JSON.stringify({ 
+          error: 'Unauthorized bucket access',
+          message: 'PDF scanning is only allowed for marketplace content'
+        }), 
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
 
     // Download PDF file
     const { data: pdfData, error: downloadError } = await supabase.storage

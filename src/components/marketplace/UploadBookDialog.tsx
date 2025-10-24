@@ -99,6 +99,9 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
     setUploading(true);
 
     try {
+      // Generate book ID upfront for consistent path structure
+      const bookId = crypto.randomUUID();
+      
       // Upload cover image
       const coverExt = coverFile.name.split('.').pop();
       const coverPath = `${creatorWallet}/${Date.now()}-cover.${coverExt}`;
@@ -108,27 +111,25 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
 
       if (coverError) throw coverError;
 
-      // Upload PDF
-      const pdfPath = `${creatorWallet}/${Date.now()}-book.pdf`;
+      // Upload PDF with book_id structure for secure downloads
+      const pdfPath = `${bookId}/${Date.now()}-book.pdf`;
       const { error: pdfError } = await supabase.storage
         .from('book-pdfs')
         .upload(pdfPath, pdfFile);
 
       if (pdfError) throw pdfError;
 
-      // Get public URLs
+      // Get public URL for cover only
       const { data: coverUrl } = supabase.storage
         .from('book-covers')
         .getPublicUrl(coverPath);
 
-      const { data: pdfUrl } = supabase.storage
-        .from('book-pdfs')
-        .getPublicUrl(pdfPath);
-
+      // Store only the path for PDF (not public URL) for secure signed URL generation
       // Insert book record
       const { error: insertError } = await supabase
         .from('marketplace_books')
         .insert({
+          id: bookId,
           creator_wallet: creatorWallet,
           title: formData.title,
           description: formData.description,
@@ -137,7 +138,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
           price_bnb: parseFloat(formData.price_bnb),
           isbn: formData.isbn || null,
           cover_url: coverUrl.publicUrl,
-          pdf_url: pdfUrl.publicUrl,
+          pdf_url: pdfPath,
           approval_status: 'pending',
         });
 
