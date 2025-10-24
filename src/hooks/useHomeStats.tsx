@@ -33,10 +33,16 @@ export const useHomeStats = (boczCollectionCount: number) => {
         .from('marketplace_purchases')
         .select('*', { count: 'exact', head: true });
 
+      // Social media community counts
+      const xFollowers = 500;
+      const telegramMembers = 800;
+      const xCommunityMembers = 160;
+      const socialMediaTotal = xFollowers + telegramMembers + xCommunityMembers;
+
       setStats({
         totalBooks: (marketplaceBooksCount || 0) + boczCollectionCount,
         totalAuthors: uniqueCreators,
-        totalCommunity: purchasesCount || 0,
+        totalCommunity: socialMediaTotal + (purchasesCount || 0),
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
