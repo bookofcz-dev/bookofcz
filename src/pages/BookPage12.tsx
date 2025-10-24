@@ -7,7 +7,7 @@ const BookPage12 = () => {
     <div className="min-h-screen bg-background">
       <Book 
         content={bookContent12} 
-        title="Book of CZ 12: Pardoned - A Story of Redemption" 
+        title="Book of CZ 12: CZ's Pardon - A Story of Redemption" 
         coverImage={bookCover}
         bookId="book12-en"
       />
