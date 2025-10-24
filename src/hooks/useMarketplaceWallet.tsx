@@ -42,6 +42,7 @@ export const useMarketplaceWallet = () => {
       if (accounts.length === 0) {
         // Wallet disconnected
         console.log('❌ Wallet disconnected');
+        localStorage.removeItem('walletConnected');
         setAccount(null);
         setProvider(null);
         setSigner(null);
@@ -65,6 +66,7 @@ export const useMarketplaceWallet = () => {
           
           console.log('✅ Updated to new account:', signerAddress);
           
+          localStorage.setItem('walletConnected', signerAddress);
           setAccount(signerAddress);
           setProvider(browserProvider);
           setSigner(newSigner);
@@ -76,6 +78,7 @@ export const useMarketplaceWallet = () => {
           });
         } catch (error) {
           console.error('❌ Error updating account:', error);
+          localStorage.removeItem('walletConnected');
           setAccount(null);
           setProvider(null);
           setSigner(null);
@@ -84,17 +87,64 @@ export const useMarketplaceWallet = () => {
       }
     };
 
-    const handleChainChanged = (newChainId: string) => {
+    const handleChainChanged = async (newChainId: string) => {
       console.log('🔄 Chain changed:', newChainId);
-      // Reload page on chain change to reset everything
-      window.location.reload();
+      
+      try {
+        // Update chain ID without reloading
+        setChainId(newChainId);
+        
+        // Update provider and signer with new network
+        const browserProvider = new ethers.BrowserProvider(window.ethereum);
+        const newSigner = await browserProvider.getSigner();
+        
+        setProvider(browserProvider);
+        setSigner(newSigner);
+        
+        toast({
+          title: "Network Changed",
+          description: "Your wallet network has been updated",
+        });
+      } catch (error) {
+        console.error('❌ Error handling chain change:', error);
+      }
     };
 
     // Set up event listeners
     window.ethereum.on('accountsChanged', handleAccountsChanged);
     window.ethereum.on('chainChanged', handleChainChanged);
 
-    // DON'T auto-connect on mount - let user explicitly choose which wallet to connect
+    // Auto-reconnect if wallet was previously connected
+    const reconnectWallet = async () => {
+      const wasConnected = localStorage.getItem('walletConnected');
+      if (wasConnected) {
+        console.log('🔄 Auto-reconnecting wallet...');
+        try {
+          const browserProvider = new ethers.BrowserProvider(window.ethereum);
+          const accounts = await browserProvider.listAccounts();
+          
+          if (accounts.length > 0) {
+            const signer = await browserProvider.getSigner();
+            const signerAddress = (await signer.getAddress()).toLowerCase();
+            
+            const network = await browserProvider.getNetwork();
+            const currentChainId = '0x' + network.chainId.toString(16);
+            
+            setAccount(signerAddress);
+            setProvider(browserProvider);
+            setSigner(signer);
+            setChainId(currentChainId);
+            
+            console.log('✅ Auto-reconnected to:', signerAddress);
+          }
+        } catch (error) {
+          console.error('❌ Auto-reconnect failed:', error);
+          localStorage.removeItem('walletConnected');
+        }
+      }
+    };
+    
+    reconnectWallet();
     console.log('👂 Wallet event listeners ready');
 
     return () => {
@@ -134,6 +184,7 @@ export const useMarketplaceWallet = () => {
       const currentChainId = '0x' + network.chainId.toString(16);
 
       // Set all state at once
+      localStorage.setItem('walletConnected', signerAddress);
       setAccount(signerAddress);
       setProvider(browserProvider);
       setSigner(signer);
@@ -150,6 +201,7 @@ export const useMarketplaceWallet = () => {
     } catch (error: any) {
       console.error('❌ Error connecting wallet:', error);
       // Clear state on error
+      localStorage.removeItem('walletConnected');
       setAccount(null);
       setProvider(null);
       setSigner(null);
@@ -203,6 +255,7 @@ export const useMarketplaceWallet = () => {
   };
 
   const disconnectWallet = () => {
+    localStorage.removeItem('walletConnected');
     setAccount(null);
     setProvider(null);
     setSigner(null);
