@@ -16,8 +16,8 @@ export const Navbar = () => {
   const baseNavLinks = [
     { name: 'Home', path: '/' },
     { name: 'Marketplace', path: '/marketplace' },
-    { name: 'Audio', path: '#collection' },
-    { name: 'Roadmap', path: '#roadmap' },
+    { name: 'Audio', path: '/#collection' },
+    { name: 'Roadmap', path: '/#roadmap' },
   ];
 
   // Add creator dashboard link if wallet is connected
@@ -33,14 +33,31 @@ export const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    if (path.startsWith('#')) {
-      e.preventDefault();
-      const element = document.querySelector(path);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+    // Handle hash links - navigate to home page if not already there
+    if (path.includes('#')) {
+      const hash = path.split('#')[1];
+      if (location.pathname !== '/') {
+        // Let React Router navigate to home, then scroll will happen
+        setMobileMenuOpen(false);
+        // After navigation, scroll to element
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        // Already on home page, just scroll
+        e.preventDefault();
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+        setMobileMenuOpen(false);
       }
+    } else {
+      setMobileMenuOpen(false);
     }
-    setMobileMenuOpen(false);
   };
 
   return (
