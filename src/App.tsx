@@ -27,6 +27,8 @@ import BookPage7CN from "./pages/BookPage7CN";
 import BookPage8CN from "./pages/BookPage8CN";
 import BookPage9CN from "./pages/BookPage9CN";
 import BookPage10CN from "./pages/BookPage10CN";
+import BookPage11CN from "./pages/BookPage11CN";
+import BookPage12CN from "./pages/BookPage12CN";
 import BookPageES from "./pages/BookPageES";
 import BookPage2ES from "./pages/BookPage2ES";
 import BookPage3ES from "./pages/BookPage3ES";
@@ -37,6 +39,8 @@ import BookPage7ES from "./pages/BookPage7ES";
 import BookPage8ES from "./pages/BookPage8ES";
 import BookPage9ES from "./pages/BookPage9ES";
 import BookPage10ES from "./pages/BookPage10ES";
+import BookPage11ES from "./pages/BookPage11ES";
+import BookPage12ES from "./pages/BookPage12ES";
 import NotFound from "./pages/NotFound";
 import Marketplace from "./pages/Marketplace";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -76,6 +80,8 @@ const App = () => (
             <Route path="/book8-cn" element={<BookPage8CN />} />
             <Route path="/book9-cn" element={<BookPage9CN />} />
             <Route path="/book10-cn" element={<BookPage10CN />} />
+            <Route path="/book11-cn" element={<BookPage11CN />} />
+            <Route path="/book12-cn" element={<BookPage12CN />} />
             <Route path="/book-es" element={<BookPageES />} />
             <Route path="/book2-es" element={<BookPage2ES />} />
             <Route path="/book3-es" element={<BookPage3ES />} />
@@ -86,6 +92,8 @@ const App = () => (
             <Route path="/book8-es" element={<BookPage8ES />} />
             <Route path="/book9-es" element={<BookPage9ES />} />
             <Route path="/book10-es" element={<BookPage10ES />} />
+            <Route path="/book11-es" element={<BookPage11ES />} />
+            <Route path="/book12-es" element={<BookPage12ES />} />
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/marketplace/book/:bookId" element={<BookDetail />} />
             <Route path="/marketplace/dashboard" element={<CreatorDashboard />} />
