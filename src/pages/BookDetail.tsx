@@ -213,15 +213,17 @@ export default function BookDetail() {
         totalPrice = totalBNB.toFixed(6);
         pricePaidUSDT = bookPriceUSDT;
       } else {
-        // BOCZ payment: 0% platform fee
+        // BOCZ payment: 4% platform fee
         const totalBOCZ = bookPriceUSDT * USDT_TO_BOCZ_RATE;
+        const creatorBOCZ = totalBOCZ * 0.96;
+        const platformFeeBOCZ = totalBOCZ * 0.04;
         
-        creatorAmount = totalBOCZ.toFixed(0);
-        platformFee = '0';
+        creatorAmount = creatorBOCZ.toFixed(0);
+        platformFee = platformFeeBOCZ.toFixed(0);
         totalPrice = totalBOCZ.toFixed(0);
-        pricePaidUSDT = bookPriceUSDT; // No fee, so price is the same
+        pricePaidUSDT = bookPriceUSDT;
         
-        console.log(`💰 BOCZ Payment - Will charge ${totalBOCZ.toFixed(0)} $BOCZ tokens (not BNB/USDT)`);
+        console.log(`💰 BOCZ Payment - Total: ${totalBOCZ.toFixed(0)} $BOCZ (Creator: ${creatorBOCZ.toFixed(0)}, Platform Fee: ${platformFeeBOCZ.toFixed(0)})`);
       }
       
       // Validate recipient addresses
@@ -328,8 +330,8 @@ export default function BookDetail() {
           throw new Error('Platform fee payment failed');
         }
       } else {
-        // Send BOCZ token payment to creator (100% - no platform fee)
-        console.log(`🪙 Charging ${creatorAmount} $BOCZ tokens from wallet`);
+        // Send BOCZ token payment to creator (96%)
+        console.log(`🪙 Charging ${totalPrice} $BOCZ tokens from wallet (${creatorAmount} to creator, ${platformFee} platform fee)`);
         toast.info(`Confirm payment of ${creatorAmount} $BOCZ tokens to creator...`);
         creatorTx = await sendTokenTransaction(book.creator_wallet, parseFloat(creatorAmount));
         
@@ -358,8 +360,20 @@ export default function BookDetail() {
           throw new Error(`Insufficient payment: expected ${creatorAmount} $BOCZ`);
         }
 
-        // No platform fee for BOCZ payments
-        platformTx = creatorTx; // Just use same tx for reference
+        // Send platform fee (4%) in BOCZ to admin wallet
+        if (parseFloat(platformFee) > 0) {
+          toast.info('Confirm platform fee...');
+          platformTx = await sendTokenTransaction(platformWallet, parseFloat(platformFee));
+          
+          toast.info('Processing platform fee...');
+          const platformReceipt = await platformTx.wait();
+          
+          if (!platformReceipt || platformReceipt.status !== 1) {
+            throw new Error('Platform fee payment failed');
+          }
+        } else {
+          platformTx = creatorTx; // Reference tx if no fee
+        }
       }
 
       // Record purchase with verification
