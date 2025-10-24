@@ -32,8 +32,8 @@ const Index = () => {
     { id: 8, route: "/book8", hasTranslations: true },
     { id: 9, route: "/book9", hasTranslations: true },
     { id: 10, route: "/book10", hasTranslations: true },
-    { id: 11, route: "/book11", hasTranslations: false },
-    { id: 12, route: "/book12", hasTranslations: false },
+    { id: 11, route: "/book11", hasTranslations: true },
+    { id: 12, route: "/book12", hasTranslations: true },
   ];
 
   const homeStats = useHomeStats(bookCollection.length);
@@ -483,6 +483,8 @@ const Index = () => {
               <Volume2 className="w-4 h-4" />
               Listen Now
             </Button>
+            <Button onClick={() => navigate("/book11-cn")} size="lg" variant="outline">中文版</Button>
+            <Button onClick={() => navigate("/book11-es")} size="lg" variant="outline">Español</Button>
           </div>
           <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
             <Eye className="h-4 w-4 text-primary" />
@@ -493,9 +495,9 @@ const Index = () => {
         {/* Part 12 */}
         <div className="py-16 border-t border-border/40">
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 12
+            Book of CZ: Part 12: CZ's Pardon
           </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Pardoned</p>
+          <p className="text-xl text-muted-foreground mb-2 font-cta">A Story of Redemption</p>
           <p className="text-foreground/80 mb-6 max-w-2xl">
             The latest chapter in CZ's remarkable journey.
           </p>
@@ -508,6 +510,8 @@ const Index = () => {
               <Volume2 className="w-4 h-4" />
               Listen Now
             </Button>
+            <Button onClick={() => navigate("/book12-cn")} size="lg" variant="outline">中文版</Button>
+            <Button onClick={() => navigate("/book12-es")} size="lg" variant="outline">Español</Button>
           </div>
           <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
             <Eye className="h-4 w-4 text-primary" />
