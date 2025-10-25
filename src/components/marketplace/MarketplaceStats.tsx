@@ -8,27 +8,12 @@ export const MarketplaceStats = () => {
     totalCreators: 0,
     totalSales: 0,
     totalVolume: 0,
+    bnbVolume: 0,
   });
-  const [bnbPrice, setBnbPrice] = useState<number>(0);
 
   useEffect(() => {
-    fetchBnbPrice();
     fetchStats();
   }, []);
-
-  const fetchBnbPrice = async () => {
-    try {
-      const response = await fetch(
-        'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd'
-      );
-      const data = await response.json();
-      const price = data.binancecoin?.usd || 600;
-      setBnbPrice(price);
-    } catch (error) {
-      console.error('Error fetching BNB price:', error);
-      setBnbPrice(600); // Fallback price
-    }
-  };
 
   const fetchStats = async () => {
     try {
@@ -73,15 +58,12 @@ export const MarketplaceStats = () => {
         }
       });
 
-      // Convert USDT volume to BNB and add to BNB volume
-      const usdtToBnb = bnbPrice > 0 ? usdtVolume / bnbPrice : 0;
-      const totalBnbVolume = bnbVolume + usdtToBnb;
-
       setStats({
         totalBooks: booksCount || 0,
         totalCreators: uniqueCreators,
         totalSales: salesCount || 0,
-        totalVolume: Number(totalBnbVolume.toFixed(4)),
+        totalVolume: Number(usdtVolume.toFixed(2)),
+        bnbVolume: Number(bnbVolume.toFixed(4)),
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -109,14 +91,20 @@ export const MarketplaceStats = () => {
     },
     {
       icon: DollarSign,
-      label: 'Volume',
+      label: 'USDT Volume',
       value: stats.totalVolume,
+      suffix: ' USDT',
+    },
+    {
+      icon: DollarSign,
+      label: 'BNB Volume',
+      value: stats.bnbVolume,
       suffix: ' BNB',
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
       {statItems.map((stat, index) => (
         <div
           key={index}
