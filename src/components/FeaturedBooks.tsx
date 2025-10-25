@@ -151,7 +151,7 @@ export const FeaturedBooks = ({ bookViews }: FeaturedBooksProps) => {
 
   const topBooks = books
     .sort((a, b) => b.views - a.views)
-    .slice(0, 3);
+    .slice(0, 5);
 
   return (
     <div className="mt-16 mb-24">
