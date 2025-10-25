@@ -24,6 +24,7 @@ export const MarketplaceStats = () => {
       );
       const data = await response.json();
       const price = data.binancecoin?.usd || 600;
+      console.log('📊 BNB Price fetched:', price);
       setBnbPrice(price);
     } catch (error) {
       console.error('Error fetching BNB price:', error);
@@ -57,6 +58,8 @@ export const MarketplaceStats = () => {
         .from('marketplace_purchases')
         .select('price_paid, marketplace_books(price_bnb, price_usdt)');
 
+      console.log('📦 Purchases with books:', purchasesWithBooks);
+
       // Calculate separate volumes for BNB and USDT
       let usdtVolume = 0;
       let bnbVolume = 0;
@@ -65,18 +68,28 @@ export const MarketplaceStats = () => {
         const book = purchase.marketplace_books;
         const pricePaid = Number(purchase.price_paid);
         
+        console.log('💰 Processing purchase:', { pricePaid, book });
+        
         // If book has price_bnb = 0, it's a USDT purchase
         if (book && Number(book.price_bnb) === 0) {
+          console.log('  → USDT purchase');
           usdtVolume += pricePaid;
         } else {
+          console.log('  → BNB purchase');
           // Otherwise it's a BNB purchase
           bnbVolume += pricePaid;
         }
       });
 
+      console.log('💵 USDT Volume:', usdtVolume);
+      console.log('💎 BNB Volume:', bnbVolume);
+      console.log('💱 BNB Price:', bnbPrice);
+
       // Convert USDT volume to BNB and add to BNB volume counter
       const usdtInBnb = bnbPrice > 0 ? usdtVolume / bnbPrice : 0;
+      console.log('💱 USDT in BNB:', usdtInBnb);
       const totalBnbVolume = bnbVolume + usdtInBnb;
+      console.log('💎 Total BNB Volume:', totalBnbVolume);
 
       setStats({
         totalBooks: booksCount || 0,
