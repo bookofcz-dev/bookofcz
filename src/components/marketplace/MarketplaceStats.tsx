@@ -8,6 +8,7 @@ export const MarketplaceStats = () => {
     totalCreators: 0,
     totalSales: 0,
     totalVolume: 0,
+    bnbVolume: 0,
   });
 
   useEffect(() => {
@@ -35,18 +36,34 @@ export const MarketplaceStats = () => {
         .from('marketplace_purchases')
         .select('*', { count: 'exact', head: true });
 
-      // Get total volume
-      const { data: volumeData } = await supabase
+      // Get purchases with book data to determine currency
+      const { data: purchasesWithBooks } = await supabase
         .from('marketplace_purchases')
-        .select('price_paid');
+        .select('price_paid, marketplace_books(price_bnb, price_usdt)');
 
-      const totalVolume = volumeData?.reduce((sum, p) => sum + Number(p.price_paid), 0) || 0;
+      // Calculate separate volumes for BNB and USDT
+      let usdtVolume = 0;
+      let bnbVolume = 0;
+
+      purchasesWithBooks?.forEach((purchase: any) => {
+        const book = purchase.marketplace_books;
+        const pricePaid = Number(purchase.price_paid);
+        
+        // If book has price_bnb = 0, it's a USDT purchase
+        if (book && Number(book.price_bnb) === 0) {
+          usdtVolume += pricePaid;
+        } else {
+          // Otherwise it's a BNB purchase
+          bnbVolume += pricePaid;
+        }
+      });
 
       setStats({
         totalBooks: booksCount || 0,
         totalCreators: uniqueCreators,
         totalSales: salesCount || 0,
-        totalVolume: Number(totalVolume.toFixed(4)),
+        totalVolume: Number(usdtVolume.toFixed(2)),
+        bnbVolume: Number(bnbVolume.toFixed(4)),
       });
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -74,14 +91,20 @@ export const MarketplaceStats = () => {
     },
     {
       icon: DollarSign,
-      label: 'Volume',
+      label: 'USDT Volume',
       value: stats.totalVolume,
+      suffix: ' USDT',
+    },
+    {
+      icon: DollarSign,
+      label: 'BNB Volume',
+      value: stats.bnbVolume,
       suffix: ' BNB',
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
       {statItems.map((stat, index) => (
         <div
           key={index}
