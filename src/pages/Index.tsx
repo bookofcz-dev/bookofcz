@@ -3,6 +3,15 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Sparkles, Eye, Volume2 } from "lucide-react";
 import { Twitter, MessageCircle, Send } from "lucide-react";
 import logo from "@/assets/book-of-cz-hero.png";
+import book4Cover from "@/assets/book4-cover.png";
+import book5Cover from "@/assets/book5-cover.png";
+import book6Cover from "@/assets/book6-cover.png";
+import book7Cover from "@/assets/book7-cover.png";
+import book8Cover from "@/assets/book8-cover.png";
+import book9Cover from "@/assets/book9-cover.png";
+import book10Cover from "@/assets/book10-cover.png";
+import book11Cover from "@/assets/book11-cover.png";
+import book12Cover from "@/assets/book12-cover.png";
 import { useAllBookViews } from "@/hooks/useBookViews";
 import { useHomeStats } from "@/hooks/useHomeStats";
 import { FeaturedBooks } from "@/components/FeaturedBooks";
@@ -288,11 +297,8 @@ const Index = () => {
 
           {/* Part 4 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">4</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
+              <img src={book4Cover} alt="Book 4 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">44 Wisdom</h3>
@@ -319,11 +325,8 @@ const Index = () => {
 
           {/* Part 5 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">5</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
+              <img src={book5Cover} alt="Book 5 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Love Story</h3>
@@ -350,11 +353,8 @@ const Index = () => {
 
           {/* Part 6 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">6</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
+              <img src={book6Cover} alt="Book 6 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Killing FUD</h3>
@@ -381,11 +381,8 @@ const Index = () => {
 
           {/* Part 7 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">7</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
+              <img src={book7Cover} alt="Book 7 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Selfies</h3>
@@ -412,11 +409,8 @@ const Index = () => {
 
           {/* Part 8 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">8</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
+              <img src={book8Cover} alt="Book 8 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">CZ Bible</h3>
@@ -443,11 +437,8 @@ const Index = () => {
 
           {/* Part 9 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">9</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
+              <img src={book9Cover} alt="Book 9 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Bitcoin Ed</h3>
@@ -474,11 +465,8 @@ const Index = () => {
 
           {/* Part 10 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">10</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
+              <img src={book10Cover} alt="Book 10 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Giggle Academy</h3>
@@ -505,11 +493,8 @@ const Index = () => {
 
           {/* Part 11 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">11</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
+              <img src={book11Cover} alt="Book 11 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Bitcoin vs Gold</h3>
@@ -536,11 +521,8 @@ const Index = () => {
 
           {/* Part 12 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">12</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
+              <img src={book12Cover} alt="Book 12 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">CZ's Pardon</h3>
