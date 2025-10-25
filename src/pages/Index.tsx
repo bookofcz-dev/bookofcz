@@ -190,335 +190,382 @@ const Index = () => {
             <span className="font-cta font-semibold text-sm md:text-base">{bookCollection.length} Books Available • Audio Enabled</span>
           </div>
         </div>
+
+        {/* Books Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          {/* Part 1 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">1</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">The Beginning</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">From humble beginnings to building the world's largest cryptocurrency exchange.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book1").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 2 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">2</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">The Return</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">Witness the triumphant return of CZ and the rebirth of Binance Season.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book2").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book2")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book2")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book2-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book2-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 3 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">3</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">The Awakening</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">How $10M+ donation to Giggle Academy transformed CZ's perspective on meme coins.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book3").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book3")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book3")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book3-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book3-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 4 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">4</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">44 Wisdom</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">Inspiring quotes from CZ that guide millions in their crypto journey.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book4").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book4")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book4")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book4-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book4-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 5 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">5</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Love Story</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">The uncharted romance of CZ and Yi He - the partnership that built Binance.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book5").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book5")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book5")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book5-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book5-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 6 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">6</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Killing FUD</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">How CZ's '4' philosophy and Proof of Reserves built unshakeable trust.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book6").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book6")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book6")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book6-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book6-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 7 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">7</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Selfies</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">20 memorable moments showing the human side of crypto.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book7").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book7")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book7")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book7-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book7-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 8 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">8</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">CZ Bible</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">Sacred wisdom and teachings from CZ's journey in cryptocurrency.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book8").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book8")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book8")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book8-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book8-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 9 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">9</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Bitcoin Ed</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">CZ's vision for Bitcoin and the future of financial freedom.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book9").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book9")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book9")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book9-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book9-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 10 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">10</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Giggle Academy</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">Revolutionizing education, making quality learning accessible to everyone.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book10").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book10")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book10")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book10-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book10-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 11 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">11</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Bitcoin vs Gold</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">CZ's perspective on Bitcoin versus Gold - the ultimate store of value showdown.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book11").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book11")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book11")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book11-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book11-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Part 12 */}
+          <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center p-6">
+              <div className="text-center">
+                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">12</div>
+                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">CZ's Pardon</h3>
+              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">The latest chapter in CZ's remarkable journey - a story of redemption.</p>
+              <div className="flex items-center gap-2 mb-4">
+                <Eye className="h-3 w-3 text-primary" />
+                <span className="text-xs text-muted-foreground">{getTotalViews("book12").toLocaleString()} views</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => navigate("/book12")} size="sm" variant="gold" className="flex-1">
+                  <Sparkles className="w-3 h-3" />
+                  Read
+                </Button>
+                <Button onClick={() => navigate("/book12")} size="sm" variant="outline">
+                  <Volume2 className="w-3 h-3" />
+                </Button>
+              </div>
+              <div className="flex gap-2 mt-2">
+                <Button onClick={() => navigate("/book12-cn")} size="sm" variant="outline" className="flex-1 text-xs">中文</Button>
+                <Button onClick={() => navigate("/book12-es")} size="sm" variant="outline" className="flex-1 text-xs">ES</Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
-
-      {/* All Book Parts */}
-      <div className="container mx-auto px-4 max-w-4xl">
-        
-        {/* Part 1 */}
-        <div className="py-8 md:py-16 border-t border-border/40">
-          <h2 className="font-heading text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 1: The Beginning
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-2 font-cta">The Extraordinary Journey of Changpeng Zhao</p>
-          <p className="text-sm sm:text-base text-foreground/80 mb-4 md:mb-6 max-w-2xl">
-            From humble beginnings to building the world's largest cryptocurrency exchange.
-          </p>
-          <div className="flex flex-wrap gap-2 md:gap-3 mb-3 md:mb-4">
-            <Button onClick={() => navigate("/book")} size="default" className="text-sm md:text-base" variant="gold">
-              <Sparkles className="w-3 h-3 md:w-4 md:h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book")} size="default" className="text-sm md:text-base" variant="outline">
-              <Volume2 className="w-3 h-3 md:w-4 md:h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book-cn")} size="default" className="text-sm md:text-base" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book-es")} size="default" className="text-sm md:text-base" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-3 md:px-4 py-1.5 md:py-2">
-            <Eye className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-            <span className="text-xs md:text-sm">{getTotalViews("book1").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 2 */}
-        <div className="py-8 md:py-16 border-t border-border/40">
-          <h2 className="font-heading text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 2: The Return
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-2 font-cta">The Return & Resurgence</p>
-          <p className="text-sm sm:text-base text-foreground/80 mb-4 md:mb-6 max-w-2xl">
-            Witness the triumphant return of CZ and the rebirth of Binance Season.
-          </p>
-          <div className="flex flex-wrap gap-2 md:gap-3 mb-3 md:mb-4">
-            <Button onClick={() => navigate("/book2")} size="default" className="text-sm md:text-base" variant="gold">
-              <Sparkles className="w-3 h-3 md:w-4 md:h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book2")} size="default" className="text-sm md:text-base" variant="outline">
-              <Volume2 className="w-3 h-3 md:w-4 md:h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book2-cn")} size="default" className="text-sm md:text-base" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book2-es")} size="default" className="text-sm md:text-base" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-3 md:px-4 py-1.5 md:py-2">
-            <Eye className="h-3 w-3 md:h-4 md:w-4 text-primary" />
-            <span className="text-xs md:text-sm">{getTotalViews("book2").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 3 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 3: The Awakening
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">CZ's New Take on Memes</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            How $10M+ donation to Giggle Academy transformed CZ's perspective on meme coins.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book3")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book3")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book3-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book3-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book3").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 4 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 4: Wisdom
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">44 Words of Wisdom</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            Inspiring quotes from CZ that guide millions in their crypto journey.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book4")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book4")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book4-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book4-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book4").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 5 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 5: Love Story
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">The Uncharted Romance of CZ and Yi He</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            The partnership that built Binance—both personal and professional.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book5")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book5")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book5-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book5-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book5").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 6 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 6: Killing the FUD
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Transparency & Trust</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            How CZ's '4' philosophy and Proof of Reserves built unshakeable trust.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book6")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book6")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book6-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book6-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book6").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 7 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 7: Selfies
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Moments with the Community</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            20 memorable moments showing the human side of crypto.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book7")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book7")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book7-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book7-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book7").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 8 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 8: The CZ Bible
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Exclusive Token-Gated Content</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            Sacred wisdom and teachings from CZ's journey in cryptocurrency.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book8")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book8")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book8-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book8-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book8").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 9 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 9: Bitcoin Education
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Educating People About Bitcoin</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            CZ's vision for Bitcoin and the future of financial freedom.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book9")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book9")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book9-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book9-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book9").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 10 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 10: Giggle Academy
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">Reshaping Education</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            Revolutionizing education, making quality learning accessible to everyone.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book10")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book10")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book10-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book10-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book10").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 11 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 11: Bitcoin vs Gold
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">The Ultimate Debate</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            CZ's perspective on Bitcoin versus Gold - the ultimate store of value showdown.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book11")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book11")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book11-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book11-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book11").toLocaleString()} views</span>
-          </div>
-        </div>
-
-        {/* Part 12 */}
-        <div className="py-16 border-t border-border/40">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4 gold-shimmer bg-clip-text text-transparent">
-            Book of CZ: Part 12: CZ's Pardon
-          </h2>
-          <p className="text-xl text-muted-foreground mb-2 font-cta">A Story of Redemption</p>
-          <p className="text-foreground/80 mb-6 max-w-2xl">
-            The latest chapter in CZ's remarkable journey.
-          </p>
-          <div className="flex flex-wrap gap-3 mb-4">
-            <Button onClick={() => navigate("/book12")} size="lg" variant="gold">
-              <Sparkles className="w-4 h-4" />
-              Read Now
-            </Button>
-            <Button onClick={() => navigate("/book12")} size="lg" variant="outline">
-              <Volume2 className="w-4 h-4" />
-              Listen Now
-            </Button>
-            <Button onClick={() => navigate("/book12-cn")} size="lg" variant="outline">中文版</Button>
-            <Button onClick={() => navigate("/book12-es")} size="lg" variant="outline">Español</Button>
-          </div>
-          <div className="inline-flex items-center gap-2 bg-card border border-primary/20 rounded-lg px-4 py-2">
-            <Eye className="h-4 w-4 text-primary" />
-            <span className="text-sm">{getTotalViews("book12").toLocaleString()} views</span>
-          </div>
-        </div>
-      </div>
 
       {/* Roadmap Section */}
       <section id="roadmap" className="container mx-auto px-4 py-12 md:py-20 border-t border-border/40 mt-12 md:mt-20">
