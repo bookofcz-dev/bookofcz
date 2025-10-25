@@ -10,29 +10,25 @@ export const MarketplaceStats = () => {
     totalVolume: 0,
     bnbVolume: 0,
   });
-  const [bnbPrice, setBnbPrice] = useState<number>(0);
 
   useEffect(() => {
-    fetchBnbPrice();
     fetchStats();
   }, []);
 
-  const fetchBnbPrice = async () => {
-    try {
-      const response = await fetch(
-        'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd'
-      );
-      const data = await response.json();
-      const price = data.binancecoin?.usd || 600;
-      setBnbPrice(price);
-    } catch (error) {
-      console.error('Error fetching BNB price:', error);
-      setBnbPrice(600); // Fallback price
-    }
-  };
-
   const fetchStats = async () => {
     try {
+      // Fetch BNB price first
+      let bnbPrice = 600; // fallback
+      try {
+        const response = await fetch(
+          'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd'
+        );
+        const data = await response.json();
+        bnbPrice = data.binancecoin?.usd || 600;
+      } catch (error) {
+        console.error('Error fetching BNB price:', error);
+      }
+
       // Get total approved books
       const { count: booksCount } = await supabase
         .from('marketplace_books')
