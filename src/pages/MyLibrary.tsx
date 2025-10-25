@@ -87,23 +87,27 @@ export default function MyLibrary() {
     }
   };
 
+  const getFilePath = (pdfUrl: string): string => {
+    let filePath = pdfUrl;
+    
+    if (filePath.includes('/storage/v1/object/')) {
+      const urlParts = filePath.split('/storage/v1/object/public/book-pdfs/');
+      if (urlParts.length > 1) {
+        filePath = urlParts[1];
+      }
+    } else if (filePath.startsWith('http')) {
+      const match = filePath.match(/book-pdfs\/(.+)$/);
+      if (match) {
+        filePath = match[1];
+      }
+    }
+    
+    return filePath;
+  };
+
   const handleDownload = async (book: PurchasedBook) => {
     try {
-      // Extract file path from URL if it's a full URL, otherwise use as-is
-      let filePath = book.pdf_url;
-      
-      if (filePath.includes('/storage/v1/object/')) {
-        const urlParts = filePath.split('/storage/v1/object/public/book-pdfs/');
-        if (urlParts.length > 1) {
-          filePath = urlParts[1];
-        }
-      } else if (filePath.startsWith('http')) {
-        const match = filePath.match(/book-pdfs\/(.+)$/);
-        if (match) {
-          filePath = match[1];
-        }
-      }
-
+      const filePath = getFilePath(book.pdf_url);
       console.log('📥 Downloading:', filePath);
 
       // Generate signed URL for secure PDF download (1 hour expiry)
@@ -136,9 +140,31 @@ export default function MyLibrary() {
     }
   };
 
-  const handlePreview = (book: PurchasedBook) => {
-    window.open(book.pdf_url, '_blank');
-    toast.info('Preview opened in new tab');
+  const handlePreview = async (book: PurchasedBook) => {
+    try {
+      const filePath = getFilePath(book.pdf_url);
+      console.log('👁️ Previewing:', filePath);
+
+      // Generate signed URL for secure PDF preview (1 hour expiry)
+      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
+        .from('book-pdfs')
+        .createSignedUrl(filePath, 3600);
+
+      if (signedUrlError) {
+        console.error('Error creating signed URL:', signedUrlError);
+        throw new Error(`Failed to generate preview link: ${signedUrlError.message}`);
+      }
+
+      if (!signedUrlData?.signedUrl) {
+        throw new Error('No preview URL generated');
+      }
+
+      window.open(signedUrlData.signedUrl, '_blank');
+      toast.success('Preview opened in new tab');
+    } catch (error: any) {
+      console.error('Error previewing book:', error);
+      toast.error(error.message || 'Failed to preview book');
+    }
   };
 
   if (!account) {
