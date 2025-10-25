@@ -245,6 +245,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      delete_book_as_admin: {
+        Args: { _admin_wallet: string; _book_id: string }
+        Returns: undefined
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

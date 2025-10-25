@@ -200,11 +200,11 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
 
     setProcessing(true);
     try {
-      // Delete the book record
-      const { error } = await supabase
-        .from('marketplace_books')
-        .delete()
-        .eq('id', book.id);
+      // Use secure function to delete the book
+      const { error } = await supabase.rpc('delete_book_as_admin', {
+        _book_id: book.id,
+        _admin_wallet: account.toLowerCase(),
+      });
 
       if (error) throw error;
       
