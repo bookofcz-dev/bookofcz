@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Wallet, LogOut, Upload, Home, LayoutDashboard, Shield } from 'lucide-react';
+import { Wallet, LogOut, Upload, Home, LayoutDashboard, Shield, BookOpen } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAdminCheck } from '@/hooks/useAdminCheck';
 import logo from '@/assets/bookofcz-logo.png';
@@ -43,6 +43,12 @@ export const MarketplaceHeader = ({
 
             {account && (
               <>
+                <Link to="/my-library">
+                  <Button variant="ghost" size="sm" className="gap-2">
+                    <BookOpen className="h-4 w-4" />
+                    <span className="hidden md:inline">My Library</span>
+                  </Button>
+                </Link>
                 <Button
                   variant="ghost"
                   size="sm"

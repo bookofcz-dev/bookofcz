@@ -20,9 +20,13 @@ export const Navbar = () => {
     { name: 'Roadmap', path: '/#roadmap' },
   ];
 
-  // Add creator dashboard link if wallet is connected
+  // Add links if wallet is connected
   const navLinks = account 
-    ? [...baseNavLinks, { name: 'Creator Dashboard', path: '/marketplace/dashboard' }]
+    ? [
+        ...baseNavLinks, 
+        { name: 'My Library', path: '/my-library' },
+        { name: 'Creator Dashboard', path: '/marketplace/dashboard' }
+      ]
     : baseNavLinks;
 
   // Add admin dashboard link if user is admin
