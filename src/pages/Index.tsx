@@ -206,11 +206,11 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {/* Part 1 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[2/3] bg-gradient-to-br from-primary/5 to-accent/5 p-4 flex items-center justify-center">
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center overflow-hidden">
               <img 
                 src={book1Cover} 
                 alt="Book 1 Cover" 
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="p-6">
@@ -238,11 +238,11 @@ const Index = () => {
 
           {/* Part 2 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[2/3] bg-gradient-to-br from-accent/5 to-primary/5 p-4 flex items-center justify-center">
+            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 flex items-center justify-center overflow-hidden">
               <img 
                 src={book2Cover} 
                 alt="Book 2 Cover" 
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="p-6">
