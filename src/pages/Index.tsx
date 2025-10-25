@@ -297,8 +297,8 @@ const Index = () => {
 
           {/* Part 4 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
-              <img src={book4Cover} alt="Book 4 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-accent/5 to-primary/5 p-4 flex items-center justify-center">
+              <img src={book4Cover} alt="Book 4 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">44 Wisdom</h3>
@@ -325,8 +325,8 @@ const Index = () => {
 
           {/* Part 5 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
-              <img src={book5Cover} alt="Book 5 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-primary/5 to-accent/5 p-4 flex items-center justify-center">
+              <img src={book5Cover} alt="Book 5 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Love Story</h3>
@@ -353,8 +353,8 @@ const Index = () => {
 
           {/* Part 6 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
-              <img src={book6Cover} alt="Book 6 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-accent/5 to-primary/5 p-4 flex items-center justify-center">
+              <img src={book6Cover} alt="Book 6 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Killing FUD</h3>
@@ -381,8 +381,8 @@ const Index = () => {
 
           {/* Part 7 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
-              <img src={book7Cover} alt="Book 7 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-primary/5 to-accent/5 p-4 flex items-center justify-center">
+              <img src={book7Cover} alt="Book 7 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Selfies</h3>
@@ -409,8 +409,8 @@ const Index = () => {
 
           {/* Part 8 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
-              <img src={book8Cover} alt="Book 8 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-accent/5 to-primary/5 p-4 flex items-center justify-center">
+              <img src={book8Cover} alt="Book 8 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">CZ Bible</h3>
@@ -437,8 +437,8 @@ const Index = () => {
 
           {/* Part 9 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
-              <img src={book9Cover} alt="Book 9 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-primary/5 to-accent/5 p-4 flex items-center justify-center">
+              <img src={book9Cover} alt="Book 9 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Bitcoin Ed</h3>
@@ -465,8 +465,8 @@ const Index = () => {
 
           {/* Part 10 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
-              <img src={book10Cover} alt="Book 10 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-accent/5 to-primary/5 p-4 flex items-center justify-center">
+              <img src={book10Cover} alt="Book 10 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Giggle Academy</h3>
@@ -493,8 +493,8 @@ const Index = () => {
 
           {/* Part 11 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
-              <img src={book11Cover} alt="Book 11 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-primary/5 to-accent/5 p-4 flex items-center justify-center">
+              <img src={book11Cover} alt="Book 11 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Bitcoin vs Gold</h3>
@@ -521,8 +521,8 @@ const Index = () => {
 
           {/* Part 12 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-accent/5 to-primary/5 overflow-hidden">
-              <img src={book12Cover} alt="Book 12 Cover" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-[2/3] bg-gradient-to-br from-accent/5 to-primary/5 p-4 flex items-center justify-center">
+              <img src={book12Cover} alt="Book 12 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">CZ's Pardon</h3>
