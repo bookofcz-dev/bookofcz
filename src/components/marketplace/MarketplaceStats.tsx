@@ -112,7 +112,7 @@ export const MarketplaceStats = () => {
         >
           <stat.icon className="h-8 w-8 mx-auto mb-2 text-primary" />
           <div className="text-3xl font-bold mb-1">
-            {stat.value}{stat.suffix}
+            {stat.label === 'BNB Volume' ? stat.value.toFixed(4) : stat.value}{stat.suffix}
           </div>
           <div className="text-sm text-muted-foreground">{stat.label}</div>
         </div>
