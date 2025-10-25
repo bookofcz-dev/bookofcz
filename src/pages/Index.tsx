@@ -5,6 +5,7 @@ import { Twitter, MessageCircle, Send } from "lucide-react";
 import logo from "@/assets/book-of-cz-hero.png";
 import book1Cover from "@/assets/book1-cover.png";
 import book2Cover from "@/assets/book2-cover.png";
+import book3Cover from "@/assets/book3-cover.png";
 import book4Cover from "@/assets/book4-cover.png";
 import book5Cover from "@/assets/book5-cover.png";
 import book6Cover from "@/assets/book6-cover.png";
@@ -270,11 +271,12 @@ const Index = () => {
 
           {/* Part 3 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">3</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-4">
+              <img 
+                src={book3Cover} 
+                alt="Book 3 Cover" 
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="p-6">
               <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">The Awakening</h3>
