@@ -149,13 +149,13 @@ export const FeaturedBooks = ({ bookViews }: FeaturedBooksProps) => {
     },
     {
       id: "book12",
-      title: "Part 12: Binance Coin (BNB)",
-      subtitle: "The Rise of BNB",
-      description: "The evolution of BNB from utility token to ecosystem powerhouse.",
+      title: "Part 12: CZ's Pardon",
+      subtitle: "Freedom & Redemption",
+      description: "The remarkable story of CZ's pardon and triumphant return to freedom.",
       route: "/book12",
       views: getTotalViews("book12"),
-      badge: "🚀 BNB",
-      gradient: "from-yellow-500 to-yellow-600",
+      badge: "🗽 Freedom",
+      gradient: "from-primary to-accent",
     },
   ];
 
