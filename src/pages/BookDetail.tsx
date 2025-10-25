@@ -451,20 +451,41 @@ export default function BookDetail() {
 
       if (error) console.error('Error updating download count:', error);
 
+      // Extract file path from URL if it's a full URL, otherwise use as-is
+      let filePath = book.pdf_url;
+      
+      // If pdf_url is a full Supabase URL, extract just the file path
+      if (filePath.includes('/storage/v1/object/')) {
+        const urlParts = filePath.split('/storage/v1/object/public/book-pdfs/');
+        if (urlParts.length > 1) {
+          filePath = urlParts[1];
+        }
+      } else if (filePath.startsWith('http')) {
+        // If it's some other HTTP URL, try to extract the path after the bucket name
+        const match = filePath.match(/book-pdfs\/(.+)$/);
+        if (match) {
+          filePath = match[1];
+        }
+      }
+
+      console.log('📥 Attempting download with path:', filePath);
+
       // Generate signed URL for secure PDF download (1 hour expiry)
-      // Use the stored path directly (no need to extract, it's already a relative path)
       const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from('book-pdfs')
-        .createSignedUrl(book.pdf_url, 3600);
+        .createSignedUrl(filePath, 3600);
 
       if (signedUrlError) {
         console.error('Error creating signed URL:', signedUrlError);
-        throw new Error('Failed to generate download link');
+        console.error('Attempted file path:', filePath);
+        throw new Error(`Failed to generate download link: ${signedUrlError.message}`);
       }
 
       if (!signedUrlData?.signedUrl) {
         throw new Error('No download URL generated');
       }
+
+      console.log('✅ Download URL generated successfully');
 
       // Create a temporary link to download the file
       const link = document.createElement('a');
@@ -475,10 +496,10 @@ export default function BookDetail() {
       link.click();
       document.body.removeChild(link);
       
-      toast.success('Download started...');
-    } catch (error) {
+      toast.success('Download started!');
+    } catch (error: any) {
       console.error('Error downloading book:', error);
-      toast.error('Failed to download book');
+      toast.error(error.message || 'Failed to download book. Please contact support.');
     }
   };
 
