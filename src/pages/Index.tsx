@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Sparkles, Eye, Volume2 } from "lucide-react";
 import { Twitter, MessageCircle, Send } from "lucide-react";
 import logo from "@/assets/book-of-cz-hero.png";
+import book1Cover from "@/assets/book1-cover.png";
 import book4Cover from "@/assets/book4-cover.png";
 import book5Cover from "@/assets/book5-cover.png";
 import book6Cover from "@/assets/book6-cover.png";
@@ -204,14 +205,15 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {/* Part 1 */}
           <div className="group relative bg-card border border-border/40 rounded-lg overflow-hidden hover:border-primary/40 transition-all duration-300 hover:shadow-[0_0_30px_rgba(217,162,65,0.2)]">
-            <div className="aspect-[3/4] bg-gradient-to-br from-primary/5 to-accent/5 flex items-center justify-center p-6">
-              <div className="text-center">
-                <div className="text-6xl font-heading font-bold gold-shimmer bg-clip-text text-transparent mb-2">1</div>
-                <BookOpen className="h-12 w-12 mx-auto text-primary/60" />
-              </div>
+            <div className="aspect-[2/3] bg-gradient-to-br from-primary/5 to-accent/5 p-4 flex items-center justify-center">
+              <img 
+                src={book1Cover} 
+                alt="Book 1 Cover" 
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">The Beginning</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Who is CZ?</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">From humble beginnings to building the world's largest cryptocurrency exchange.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
