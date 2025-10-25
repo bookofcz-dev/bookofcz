@@ -4,10 +4,21 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/integrations/supabase/client';
-import { CheckCircle, XCircle, ExternalLink, Shield, AlertTriangle } from 'lucide-react';
+import { CheckCircle, XCircle, ExternalLink, Shield, AlertTriangle, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useWallet } from '@/contexts/WalletContext';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface Book {
   id: string;
@@ -181,6 +192,32 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
     }
   };
 
+  const handleDelete = async () => {
+    if (!account) {
+      toast.error('Please connect your wallet');
+      return;
+    }
+
+    setProcessing(true);
+    try {
+      // Delete the book record
+      const { error } = await supabase
+        .from('marketplace_books')
+        .delete()
+        .eq('id', book.id);
+
+      if (error) throw error;
+      
+      toast.success('Book deleted successfully');
+      onStatusChange();
+    } catch (error: any) {
+      console.error('Error deleting book:', error);
+      toast.error(error.message || 'Failed to delete book');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -315,6 +352,36 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
               </Button>
             </div>
           </>
+        )}
+
+        {book.approval_status === 'approved' && (
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="destructive"
+                size="sm"
+                disabled={processing}
+              >
+                <Trash2 className="h-4 w-4 mr-2" />
+                Delete Book
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently delete "{book.title}" from the marketplace.
+                  This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         )}
       </CardContent>
     </Card>

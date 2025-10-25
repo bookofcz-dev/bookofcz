@@ -5,6 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useWallet } from '@/contexts/WalletContext';
 import { useAdminCheck } from '@/hooks/useAdminCheck';
 import { BookReviewCard } from '@/components/admin/BookReviewCard';
+import { PlatformStats } from '@/components/admin/PlatformStats';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArrowLeft, Loader2 } from 'lucide-react';
@@ -119,6 +120,8 @@ export default function AdminDashboard() {
         </header>
 
         <main className="container mx-auto px-4 py-8">
+          <PlatformStats />
+          
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="mb-6">
               <TabsTrigger value="pending">Pending</TabsTrigger>
