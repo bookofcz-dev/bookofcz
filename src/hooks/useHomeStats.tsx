@@ -18,13 +18,15 @@ export const useHomeStats = (boczCollectionCount: number) => {
       const { count: marketplaceBooksCount } = await supabase
         .from('marketplace_books')
         .select('*', { count: 'exact', head: true })
-        .eq('approval_status', 'approved');
+        .eq('approval_status', 'approved')
+        .eq('is_public', true);
 
       // Get unique creators from marketplace
       const { data: creatorsData } = await supabase
         .from('marketplace_books')
         .select('creator_wallet')
-        .eq('approval_status', 'approved');
+        .eq('approval_status', 'approved')
+        .eq('is_public', true);
 
       const uniqueCreators = new Set(creatorsData?.map(b => b.creator_wallet) || []).size;
 

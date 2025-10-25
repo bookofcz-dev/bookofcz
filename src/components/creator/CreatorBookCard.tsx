@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Edit, ExternalLink, TrendingUp } from 'lucide-react';
+import { Edit, ExternalLink, TrendingUp, Eye, EyeOff } from 'lucide-react';
 
 interface Book {
   id: string;
@@ -21,6 +21,7 @@ interface Book {
   review_count: number;
   download_count: number;
   rejection_reason?: string;
+  is_public: boolean;
 }
 
 interface CreatorBookCardProps {
@@ -52,6 +53,19 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
                   book.approval_status === 'rejected' ? 'destructive' : 'secondary'
                 }>
                   {book.approval_status}
+                </Badge>
+                <Badge variant={book.is_public ? 'default' : 'secondary'} className="gap-1">
+                  {book.is_public ? (
+                    <>
+                      <Eye className="h-3 w-3" />
+                      Public
+                    </>
+                  ) : (
+                    <>
+                      <EyeOff className="h-3 w-3" />
+                      Private
+                    </>
+                  )}
                 </Badge>
               </div>
             </div>

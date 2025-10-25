@@ -38,6 +38,7 @@ export const BookGrid = ({ category, searchQuery, account }: BookGridProps) => {
         .from('marketplace_books')
         .select('*')
         .eq('approval_status', 'approved')
+        .eq('is_public', true)
         .order('created_at', { ascending: false });
 
       if (category !== 'all') {

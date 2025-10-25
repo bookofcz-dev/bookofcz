@@ -5,9 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Save, Loader2 } from 'lucide-react';
+import { Save, Loader2, Eye, EyeOff } from 'lucide-react';
 import { bookUploadSchema, fileValidation } from '@/lib/validation/bookSchemas';
 import { useWallet } from '@/contexts/WalletContext';
 
@@ -22,6 +23,7 @@ interface Book {
   isbn?: string;
   cover_url: string;
   pdf_url: string;
+  is_public: boolean;
 }
 
 interface EditBookDialogProps {
@@ -40,6 +42,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
     category: '',
     price_usdt: '0',
     isbn: '',
+    is_public: true,
   });
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -58,6 +61,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
         category: book.category,
         price_usdt: (book.price_usdt || book.price_bnb).toString(),
         isbn: book.isbn || '',
+        is_public: book.is_public ?? true,
       });
     }
   }, [book]);
@@ -160,6 +164,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
         _isbn: formData.isbn || null,
         _cover_url: coverUrl,
         _pdf_url: pdfUrl,
+        _is_public: formData.is_public,
       });
 
       if (updateError) throw updateError;
@@ -281,6 +286,25 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
               value={formData.isbn}
               onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
               placeholder="Enter ISBN if applicable"
+            />
+          </div>
+
+          <div className="flex items-center justify-between p-4 border rounded-lg">
+            <div className="space-y-0.5">
+              <Label htmlFor="visibility" className="flex items-center gap-2">
+                {formData.is_public ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                Book Visibility
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                {formData.is_public 
+                  ? 'Your book is visible in the marketplace' 
+                  : 'Your book is hidden from the marketplace'}
+              </p>
+            </div>
+            <Switch
+              id="visibility"
+              checked={formData.is_public}
+              onCheckedChange={(checked) => setFormData({ ...formData, is_public: checked })}
             />
           </div>
 

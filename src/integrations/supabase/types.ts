@@ -51,6 +51,7 @@ export type Database = {
           download_count: number | null
           id: string
           ipfs_hash: string | null
+          is_public: boolean
           isbn: string | null
           pdf_url: string
           price_bnb: number
@@ -74,6 +75,7 @@ export type Database = {
           download_count?: number | null
           id?: string
           ipfs_hash?: string | null
+          is_public?: boolean
           isbn?: string | null
           pdf_url: string
           price_bnb?: number
@@ -97,6 +99,7 @@ export type Database = {
           download_count?: number | null
           id?: string
           ipfs_hash?: string | null
+          is_public?: boolean
           isbn?: string | null
           pdf_url?: string
           price_bnb?: number
@@ -269,21 +272,38 @@ export type Database = {
         }
         Returns: undefined
       }
-      update_book_as_creator: {
-        Args: {
-          _author: string
-          _book_id: string
-          _category: string
-          _cover_url: string
-          _creator_wallet: string
-          _description: string
-          _isbn: string
-          _pdf_url: string
-          _price_usdt: number
-          _title: string
-        }
-        Returns: undefined
-      }
+      update_book_as_creator:
+        | {
+            Args: {
+              _author: string
+              _book_id: string
+              _category: string
+              _cover_url: string
+              _creator_wallet: string
+              _description: string
+              _is_public: boolean
+              _isbn: string
+              _pdf_url: string
+              _price_usdt: number
+              _title: string
+            }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              _author: string
+              _book_id: string
+              _category: string
+              _cover_url: string
+              _creator_wallet: string
+              _description: string
+              _isbn: string
+              _pdf_url: string
+              _price_usdt: number
+              _title: string
+            }
+            Returns: undefined
+          }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"

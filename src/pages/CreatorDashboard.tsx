@@ -29,6 +29,7 @@ interface Book {
   review_count: number;
   download_count: number;
   rejection_reason?: string;
+  is_public: boolean;
 }
 
 export default function CreatorDashboard() {
