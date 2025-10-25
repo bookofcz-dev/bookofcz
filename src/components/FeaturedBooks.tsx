@@ -147,6 +147,16 @@ export const FeaturedBooks = ({ bookViews }: FeaturedBooksProps) => {
       badge: "⚡ Debate",
       gradient: "from-yellow-500 via-orange-500 to-yellow-600",
     },
+    {
+      id: "book12",
+      title: "Part 12: Binance Coin (BNB)",
+      subtitle: "The Rise of BNB",
+      description: "The evolution of BNB from utility token to ecosystem powerhouse.",
+      route: "/book12",
+      views: getTotalViews("book12"),
+      badge: "🚀 BNB",
+      gradient: "from-yellow-500 to-yellow-600",
+    },
   ];
 
   const topBooks = books
