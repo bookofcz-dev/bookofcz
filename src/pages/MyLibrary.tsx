@@ -20,7 +20,11 @@ interface PurchasedBook {
   category: string;
   price_paid: number;
   purchase_date: string;
+  transaction_hash: string;
+  download_count: number;
 }
+
+const DOWNLOAD_LIMIT = 5;
 
 export default function MyLibrary() {
   const navigate = useNavigate();
@@ -48,6 +52,8 @@ export default function MyLibrary() {
         .select(`
           price_paid,
           purchase_date,
+          transaction_hash,
+          download_count,
           marketplace_books (
             id,
             title,
@@ -76,6 +82,8 @@ export default function MyLibrary() {
           category: purchase.marketplace_books.category,
           price_paid: purchase.price_paid,
           purchase_date: purchase.purchase_date,
+          transaction_hash: purchase.transaction_hash,
+          download_count: purchase.download_count || 0,
         }));
 
       setBooks(purchasedBooks);
@@ -107,34 +115,61 @@ export default function MyLibrary() {
 
   const handleDownload = async (book: PurchasedBook) => {
     try {
-      const filePath = getFilePath(book.pdf_url);
-      console.log('📥 Downloading:', filePath);
-
-      // Generate signed URL for secure PDF download (1 hour expiry)
-      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
-        .from('book-pdfs')
-        .createSignedUrl(filePath, 3600);
-
-      if (signedUrlError) {
-        console.error('Error creating signed URL:', signedUrlError);
-        throw new Error(`Failed to generate download link: ${signedUrlError.message}`);
+      // Check download limit
+      if (book.download_count >= DOWNLOAD_LIMIT) {
+        toast.error(`Download limit reached (${DOWNLOAD_LIMIT} downloads per purchase)`);
+        return;
       }
 
-      if (!signedUrlData?.signedUrl) {
-        throw new Error('No download URL generated');
+      toast.loading('Generating watermarked file...');
+      
+      const isEpub = book.pdf_url.toLowerCase().endsWith('.epub');
+      const functionName = isEpub ? 'watermark-epub' : 'watermark-pdf';
+
+      // Call watermarking function
+      const { data: watermarkData, error: watermarkError } = await supabase.functions.invoke(
+        functionName,
+        {
+          body: {
+            bookId: book.id,
+            buyerWallet: account,
+            transactionHash: book.transaction_hash,
+          }
+        }
+      );
+
+      if (watermarkError || !watermarkData?.downloadUrl) {
+        throw new Error(watermarkError?.message || 'Failed to generate watermarked file');
       }
 
-      // Create a temporary link to download the file
+      // Increment download count
+      const { error: updateError } = await supabase
+        .from('marketplace_purchases')
+        .update({ download_count: book.download_count + 1 })
+        .eq('book_id', book.id)
+        .eq('buyer_wallet', account.toLowerCase());
+
+      if (updateError) {
+        console.error('Failed to update download count:', updateError);
+      }
+
+      // Download the watermarked file
       const link = document.createElement('a');
-      link.href = signedUrlData.signedUrl;
-      link.download = `${book.title}.pdf`;
+      link.href = watermarkData.downloadUrl;
+      const fileExt = isEpub ? 'epub' : 'pdf';
+      link.download = `${book.title}.${fileExt}`;
       link.target = '_blank';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       
-      toast.success('Download started!');
+      toast.dismiss();
+      toast.success(`Download started! (${book.download_count + 1}/${DOWNLOAD_LIMIT} downloads used)`);
+      
+      // Refresh library to show updated count
+      fetchPurchasedBooks();
     } catch (error: any) {
+      toast.dismiss();
       console.error('Error downloading book:', error);
       toast.error(error.message || 'Failed to download book');
     }
@@ -143,9 +178,17 @@ export default function MyLibrary() {
   const handlePreview = async (book: PurchasedBook) => {
     try {
       const filePath = getFilePath(book.pdf_url);
+      const isEpub = book.pdf_url.toLowerCase().endsWith('.epub');
+      
       console.log('👁️ Previewing:', filePath);
 
-      // Generate signed URL for secure PDF preview (1 hour expiry)
+      // For EPUB, navigate to book detail page with viewer
+      if (isEpub) {
+        navigate(`/book/${book.id}`);
+        return;
+      }
+
+      // For PDF, generate signed URL and open in new tab
       const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from('book-pdfs')
         .createSignedUrl(filePath, 3600);
@@ -298,14 +341,24 @@ export default function MyLibrary() {
                         Purchased: {new Date(book.purchase_date).toLocaleDateString()}
                       </div>
 
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                        <span>Downloads: {book.download_count}/{DOWNLOAD_LIMIT}</span>
+                        {book.download_count >= DOWNLOAD_LIMIT && (
+                          <Badge variant="destructive" className="text-xs">
+                            Limit Reached
+                          </Badge>
+                        )}
+                      </div>
+
                       <div className="space-y-2 pt-2">
                         <Button
                           onClick={() => handleDownload(book)}
                           size="sm"
                           className="w-full"
+                          disabled={book.download_count >= DOWNLOAD_LIMIT}
                         >
                           <Download className="h-4 w-4 mr-2" />
-                          Download
+                          Download Watermarked
                         </Button>
                         
                         <Button
@@ -314,8 +367,8 @@ export default function MyLibrary() {
                           size="sm"
                           className="w-full"
                         >
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Preview
+                          <BookOpen className="h-4 w-4 mr-2" />
+                          Read in Browser
                         </Button>
                       </div>
                     </CardContent>

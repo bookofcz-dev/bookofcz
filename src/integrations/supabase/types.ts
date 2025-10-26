@@ -118,6 +118,7 @@ export type Database = {
           book_id: string
           buyer_wallet: string
           creator_amount: number
+          download_count: number
           id: string
           platform_fee: number
           price_paid: number
@@ -128,6 +129,7 @@ export type Database = {
           book_id: string
           buyer_wallet: string
           creator_amount: number
+          download_count?: number
           id?: string
           platform_fee: number
           price_paid: number
@@ -138,6 +140,7 @@ export type Database = {
           book_id?: string
           buyer_wallet?: string
           creator_amount?: number
+          download_count?: number
           id?: string
           platform_fee?: number
           price_paid?: number

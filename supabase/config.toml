@@ -11,3 +11,6 @@ verify_jwt = true
 
 [functions.watermark-epub]
 verify_jwt = false
+
+[functions.watermark-pdf]
+verify_jwt = false
