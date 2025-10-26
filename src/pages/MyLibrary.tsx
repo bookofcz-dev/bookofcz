@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Download, ExternalLink, Loader2, BookOpen, ShoppingBag, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { EpubViewer } from '@/components/marketplace/EpubViewer';
+import { PdfViewer } from '@/components/marketplace/PdfViewer';
 
 interface PurchasedBook {
   id: string;
@@ -200,16 +201,10 @@ export default function MyLibrary() {
         throw new Error('No preview URL generated');
       }
 
-      // For EPUB, show viewer in modal
-      if (isEpub) {
-        setViewerUrl(signedUrlData.signedUrl);
-        setViewerTitle(book.title);
-        setShowViewer(true);
-      } else {
-        // For PDF, open in new tab
-        window.open(signedUrlData.signedUrl, '_blank');
-        toast.success('Preview opened in new tab');
-      }
+      // Show viewer in modal for both EPUB and PDF
+      setViewerUrl(signedUrlData.signedUrl);
+      setViewerTitle(book.title);
+      setShowViewer(true);
     } catch (error: any) {
       console.error('Error previewing book:', error);
       toast.error(error.message || 'Failed to preview book');
@@ -294,7 +289,11 @@ export default function MyLibrary() {
                 Close Reader
               </Button>
             </div>
-            <EpubViewer fileUrl={viewerUrl} title={viewerTitle} />
+            {viewerUrl.toLowerCase().endsWith('.epub') ? (
+              <EpubViewer fileUrl={viewerUrl} title={viewerTitle} />
+            ) : (
+              <PdfViewer fileUrl={viewerUrl} title={viewerTitle} />
+            )}
           </div>
         </div>
       )}
