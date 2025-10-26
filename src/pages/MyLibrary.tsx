@@ -37,6 +37,7 @@ export default function MyLibrary() {
   const [showViewer, setShowViewer] = useState(false);
   const [viewerUrl, setViewerUrl] = useState("");
   const [viewerTitle, setViewerTitle] = useState("");
+  const [viewerBook, setViewerBook] = useState<PurchasedBook | null>(null);
 
   useEffect(() => {
     if (account) {
@@ -204,6 +205,7 @@ export default function MyLibrary() {
       // Show viewer in modal for both EPUB and PDF
       setViewerUrl(signedUrlData.signedUrl);
       setViewerTitle(book.title);
+      setViewerBook(book);
       setShowViewer(true);
     } catch (error: any) {
       console.error('Error previewing book:', error);
@@ -276,23 +278,42 @@ export default function MyLibrary() {
         <meta name="description" content="Access your purchased books" />
       </Helmet>
 
-      {showViewer && (
+      {showViewer && viewerBook && (
         <div className="fixed inset-0 bg-background z-50 overflow-auto">
           <div className="container mx-auto px-4 py-8">
             <div className="flex justify-between items-center mb-4">
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setShowViewer(false)}
+                onClick={() => {
+                  setShowViewer(false);
+                  fetchPurchasedBooks(); // Refresh to show updated download count
+                }}
               >
                 <X className="h-4 w-4 mr-2" />
                 Close Reader
               </Button>
             </div>
             {viewerUrl.toLowerCase().endsWith('.epub') ? (
-              <EpubViewer fileUrl={viewerUrl} title={viewerTitle} />
+              <EpubViewer 
+                fileUrl={viewerUrl} 
+                title={viewerTitle}
+                bookId={viewerBook.id}
+                buyerWallet={account!}
+                transactionHash={viewerBook.transaction_hash}
+                downloadCount={viewerBook.download_count}
+                downloadLimit={DOWNLOAD_LIMIT}
+              />
             ) : (
-              <PdfViewer fileUrl={viewerUrl} title={viewerTitle} />
+              <PdfViewer 
+                fileUrl={viewerUrl} 
+                title={viewerTitle}
+                bookId={viewerBook.id}
+                buyerWallet={account!}
+                transactionHash={viewerBook.transaction_hash}
+                downloadCount={viewerBook.download_count}
+                downloadLimit={DOWNLOAD_LIMIT}
+              />
             )}
           </div>
         </div>

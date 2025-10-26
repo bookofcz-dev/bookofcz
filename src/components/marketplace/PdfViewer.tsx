@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Download, Loader2 } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
 // Set up PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -9,26 +11,87 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 interface PdfViewerProps {
   fileUrl: string;
   title: string;
+  bookId: string;
+  buyerWallet: string;
+  transactionHash: string;
+  downloadCount: number;
+  downloadLimit: number;
 }
 
-export const PdfViewer = ({ fileUrl, title }: PdfViewerProps) => {
+export const PdfViewer = ({ 
+  fileUrl, 
+  title, 
+  bookId, 
+  buyerWallet, 
+  transactionHash,
+  downloadCount,
+  downloadLimit 
+}: PdfViewerProps) => {
   const [loading, setLoading] = useState(true);
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
+  const [downloading, setDownloading] = useState(false);
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
     setLoading(false);
   };
 
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = fileUrl;
-    link.download = `${title}.pdf`;
-    link.target = '_blank';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = async () => {
+    if (downloadCount >= downloadLimit) {
+      toast.error(`Download limit reached (${downloadLimit} downloads per purchase)`);
+      return;
+    }
+
+    try {
+      setDownloading(true);
+      toast.loading('Generating watermarked file...');
+
+      // Call watermarking function
+      const { data: watermarkData, error: watermarkError } = await supabase.functions.invoke(
+        'watermark-pdf',
+        {
+          body: {
+            bookId,
+            buyerWallet,
+            transactionHash,
+          }
+        }
+      );
+
+      if (watermarkError || !watermarkData?.downloadUrl) {
+        throw new Error(watermarkError?.message || 'Failed to generate watermarked file');
+      }
+
+      // Increment download count
+      const { error: updateError } = await supabase
+        .from('marketplace_purchases')
+        .update({ download_count: downloadCount + 1 })
+        .eq('book_id', bookId)
+        .eq('buyer_wallet', buyerWallet.toLowerCase());
+
+      if (updateError) {
+        console.error('Failed to update download count:', updateError);
+      }
+
+      // Download the watermarked file
+      const link = document.createElement('a');
+      link.href = watermarkData.downloadUrl;
+      link.download = `${title}.pdf`;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toast.dismiss();
+      toast.success(`Download started! (${downloadCount + 1}/${downloadLimit} downloads used)`);
+    } catch (error: any) {
+      toast.dismiss();
+      console.error('Error downloading book:', error);
+      toast.error(error.message || 'Failed to download book');
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return (
@@ -59,9 +122,10 @@ export const PdfViewer = ({ fileUrl, title }: PdfViewerProps) => {
             variant="outline"
             size="sm"
             onClick={handleDownload}
+            disabled={downloading || downloadCount >= downloadLimit}
           >
             <Download className="h-4 w-4 mr-2" />
-            Download
+            Download ({downloadCount}/{downloadLimit})
           </Button>
         </div>
       </div>
