@@ -44,8 +44,24 @@ serve(async (req) => {
       );
     }
 
+    // Extract file path from URL if it's a full URL
+    let filePath = book.pdf_url;
+    if (filePath.includes('/storage/v1/object/')) {
+      const urlParts = filePath.split('/storage/v1/object/public/book-pdfs/');
+      if (urlParts.length > 1) {
+        filePath = urlParts[1];
+      }
+    } else if (filePath.startsWith('http')) {
+      const match = filePath.match(/book-pdfs\/(.+)$/);
+      if (match) {
+        filePath = match[1];
+      }
+    }
+
+    console.log('📥 Downloading file from path:', filePath);
+
     // Check if file is EPUB
-    if (!book.pdf_url.endsWith('.epub')) {
+    if (!filePath.endsWith('.epub')) {
       return new Response(
         JSON.stringify({ error: 'Not an EPUB file' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -55,7 +71,7 @@ serve(async (req) => {
     // Download the EPUB file
     const { data: epubData, error: downloadError } = await supabase.storage
       .from('book-pdfs')
-      .download(book.pdf_url);
+      .download(filePath);
 
     if (downloadError || !epubData) {
       console.error('Failed to download EPUB:', downloadError);

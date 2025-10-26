@@ -45,8 +45,24 @@ serve(async (req) => {
       );
     }
 
+    // Extract file path from URL if it's a full URL
+    let filePath = book.pdf_url;
+    if (filePath.includes('/storage/v1/object/')) {
+      const urlParts = filePath.split('/storage/v1/object/public/book-pdfs/');
+      if (urlParts.length > 1) {
+        filePath = urlParts[1];
+      }
+    } else if (filePath.startsWith('http')) {
+      const match = filePath.match(/book-pdfs\/(.+)$/);
+      if (match) {
+        filePath = match[1];
+      }
+    }
+
+    console.log('📥 Downloading file from path:', filePath);
+
     // Check if file is PDF
-    if (!book.pdf_url.endsWith('.pdf')) {
+    if (!filePath.endsWith('.pdf')) {
       return new Response(
         JSON.stringify({ error: 'Not a PDF file' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -56,7 +72,7 @@ serve(async (req) => {
     // Download the PDF file
     const { data: pdfData, error: downloadError } = await supabase.storage
       .from('book-pdfs')
-      .download(book.pdf_url);
+      .download(filePath);
 
     if (downloadError || !pdfData) {
       console.error('Failed to download PDF:', downloadError);

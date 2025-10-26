@@ -6,11 +6,12 @@ import { useWallet } from '@/contexts/WalletContext';
 import { MarketplaceHeader } from '@/components/marketplace/MarketplaceHeader';
 import { ReviewForm } from '@/components/marketplace/ReviewForm';
 import { ReviewList } from '@/components/marketplace/ReviewList';
+import { EpubViewer } from '@/components/marketplace/EpubViewer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, Download, Star, Wallet, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Download, Star, Wallet, ExternalLink, BookOpen, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import { createPurchaseMessage, requestWalletSignature, verifyWalletSignature } from '@/lib/walletSecurity';
@@ -56,6 +57,8 @@ export default function BookDetail() {
   const [boczBalance, setBoczBalance] = useState<string>('0');
   const [boczPriceInBnb, setBoczPriceInBnb] = useState<number>(0);
   const [bnbPriceInUsdt, setBnbPriceInUsdt] = useState<number>(0);
+  const [showViewer, setShowViewer] = useState(false);
+  const [viewerUrl, setViewerUrl] = useState<string>('');
   
   // Calculate conversion rates
   const USDT_TO_BNB_RATE = bnbPriceInUsdt > 0 ? 1 / bnbPriceInUsdt : 0;
@@ -503,10 +506,60 @@ export default function BookDetail() {
     }
   };
 
-  const handlePreview = () => {
-    if (!book) return;
-    window.open(book.pdf_url, '_blank');
-    toast.info('Preview opened in new tab');
+  const handlePreview = async () => {
+    if (!book || !account) return;
+
+    const bookPrice = book.price_usdt || book.price_bnb;
+    if (bookPrice > 0 && !hasPurchased) {
+      toast.error('Please purchase the book first');
+      return;
+    }
+
+    try {
+      // Extract file path from URL if it's a full URL
+      let filePath = book.pdf_url;
+      if (filePath.includes('/storage/v1/object/')) {
+        const urlParts = filePath.split('/storage/v1/object/public/book-pdfs/');
+        if (urlParts.length > 1) {
+          filePath = urlParts[1];
+        }
+      } else if (filePath.startsWith('http')) {
+        const match = filePath.match(/book-pdfs\/(.+)$/);
+        if (match) {
+          filePath = match[1];
+        }
+      }
+
+      const isEpub = filePath.toLowerCase().endsWith('.epub');
+
+      // Generate signed URL for secure file access
+      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
+        .from('book-pdfs')
+        .createSignedUrl(filePath, 3600);
+
+      if (signedUrlError) {
+        console.error('Error creating signed URL:', signedUrlError);
+        throw new Error(`Failed to generate preview link: ${signedUrlError.message}`);
+      }
+
+      if (!signedUrlData?.signedUrl) {
+        throw new Error('No preview URL generated');
+      }
+
+      if (isEpub) {
+        // Show EPUB viewer in browser
+        setViewerUrl(signedUrlData.signedUrl);
+        setShowViewer(true);
+        toast.success('Opening EPUB reader...');
+      } else {
+        // Open PDF in new tab
+        window.open(signedUrlData.signedUrl, '_blank');
+        toast.success('Preview opened in new tab');
+      }
+    } catch (error: any) {
+      console.error('Error previewing book:', error);
+      toast.error(error.message || 'Failed to preview book');
+    }
   };
 
   if (loading) {
@@ -711,10 +764,12 @@ export default function BookDetail() {
                       </Button>
                     )}
 
-                    <Button onClick={handlePreview} size="lg" className="w-full" variant="outline">
-                      <ExternalLink className="h-5 w-5 mr-2" />
-                      Preview Book
-                    </Button>
+                    {canDownload && (
+                      <Button onClick={handlePreview} size="lg" className="w-full" variant="outline">
+                        <BookOpen className="h-5 w-5 mr-2" />
+                        Read in Browser
+                      </Button>
+                    )}
 
                     {hasPurchased && (
                       <p className="text-sm text-center text-green-600 font-medium">
@@ -770,6 +825,30 @@ export default function BookDetail() {
             <ReviewList reviews={reviews} />
           </div>
         </main>
+
+        {/* EPUB Viewer Modal */}
+        {showViewer && viewerUrl && (
+          <div className="fixed inset-0 z-50 bg-background">
+            <div className="h-full flex flex-col">
+              <div className="flex items-center justify-between p-4 border-b">
+                <h2 className="text-xl font-semibold">{book?.title}</h2>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    setShowViewer(false);
+                    setViewerUrl('');
+                  }}
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+              <div className="flex-1 overflow-hidden">
+                <EpubViewer fileUrl={viewerUrl} title={book?.title || 'Book'} />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
