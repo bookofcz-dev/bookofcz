@@ -71,6 +71,32 @@ export const fileValidation = {
       }
       return null;
     }
+  },
+  epub: {
+    maxSize: 50 * 1024 * 1024, // 50MB
+    allowedTypes: ['application/epub+zip'],
+    getMessage: (file: File) => {
+      if (file.size > fileValidation.epub.maxSize) {
+        return 'EPUB must be less than 50MB';
+      }
+      if (!fileValidation.epub.allowedTypes.includes(file.type)) {
+        return 'File must be EPUB format';
+      }
+      return null;
+    }
+  },
+  bookFile: {
+    maxSize: 50 * 1024 * 1024, // 50MB
+    allowedTypes: ['application/pdf', 'application/epub+zip'],
+    getMessage: (file: File) => {
+      if (file.size > fileValidation.bookFile.maxSize) {
+        return 'Book file must be less than 50MB';
+      }
+      if (!fileValidation.bookFile.allowedTypes.includes(file.type)) {
+        return 'File must be PDF or EPUB format';
+      }
+      return null;
+    }
   }
 };
 

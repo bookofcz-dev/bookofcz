@@ -27,7 +27,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
     isbn: '',
   });
   const [coverFile, setCoverFile] = useState<File | null>(null);
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [bookFile, setBookFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
@@ -47,10 +47,10 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
       return;
     }
 
-    if (!coverFile || !pdfFile) {
+    if (!coverFile || !bookFile) {
       toast({
         title: "Missing Files",
-        description: "Please upload both cover image and PDF file",
+        description: "Please upload both cover image and book file (PDF or EPUB)",
         variant: "destructive",
       });
       return;
@@ -85,12 +85,12 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
       return;
     }
 
-    // Validate PDF file
-    const pdfError = fileValidation.pdf.getMessage(pdfFile);
-    if (pdfError) {
+    // Validate book file (PDF or EPUB)
+    const bookError = fileValidation.bookFile.getMessage(bookFile);
+    if (bookError) {
       toast({
-        title: "Invalid PDF File",
-        description: pdfError,
+        title: "Invalid Book File",
+        description: bookError,
         variant: "destructive",
       });
       return;
@@ -111,20 +111,21 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
 
       if (coverError) throw coverError;
 
-      // Upload PDF with book_id structure for secure downloads
-      const pdfPath = `${bookId}/${Date.now()}-book.pdf`;
-      const { error: pdfError } = await supabase.storage
+      // Upload book file (PDF or EPUB) with book_id structure for secure downloads
+      const fileExt = bookFile.name.split('.').pop();
+      const bookPath = `${bookId}/${Date.now()}-book.${fileExt}`;
+      const { error: bookUploadError } = await supabase.storage
         .from('book-pdfs')
-        .upload(pdfPath, pdfFile);
+        .upload(bookPath, bookFile);
 
-      if (pdfError) throw pdfError;
+      if (bookUploadError) throw bookUploadError;
 
       // Get public URL for cover only
       const { data: coverUrl } = supabase.storage
         .from('book-covers')
         .getPublicUrl(coverPath);
 
-      // Store only the path for PDF (not public URL) for secure signed URL generation
+      // Store only the path for book file (not public URL) for secure signed URL generation
       // Insert book record
       const { error: insertError } = await supabase
         .from('marketplace_books')
@@ -139,7 +140,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
           price_bnb: 0, // Legacy field
           isbn: formData.isbn || null,
           cover_url: coverUrl.publicUrl,
-          pdf_url: pdfPath,
+          pdf_url: bookPath,
           approval_status: 'pending',
         });
 
@@ -160,7 +161,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
         isbn: '',
       });
       setCoverFile(null);
-      setPdfFile(null);
+      setBookFile(null);
       setErrors({});
       onOpenChange(false);
     } catch (error: any) {
@@ -281,14 +282,17 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
           </div>
 
           <div>
-            <Label htmlFor="pdf">Book PDF *</Label>
+            <Label htmlFor="bookFile">Book File * (PDF or EPUB)</Label>
             <Input
-              id="pdf"
+              id="bookFile"
               type="file"
-              accept="application/pdf"
+              accept="application/pdf,application/epub+zip"
               required
-              onChange={(e) => setPdfFile(e.target.files?.[0] || null)}
+              onChange={(e) => setBookFile(e.target.files?.[0] || null)}
             />
+            <p className="text-xs text-muted-foreground mt-1">
+              Upload PDF for layout-critical books or EPUB for better mobile reading
+            </p>
           </div>
 
           <div className="bg-muted p-4 rounded-md">

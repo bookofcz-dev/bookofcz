@@ -45,7 +45,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
     is_public: true,
   });
   const [coverFile, setCoverFile] = useState<File | null>(null);
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [bookFile, setBookFile] = useState<File | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
   const { account } = useWallet();
@@ -103,13 +103,13 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
       }
     }
 
-    // Validate PDF file if provided
-    if (pdfFile) {
-      const pdfError = fileValidation.pdf.getMessage(pdfFile);
-      if (pdfError) {
+    // Validate book file if provided (PDF or EPUB)
+    if (bookFile) {
+      const bookError = fileValidation.bookFile.getMessage(bookFile);
+      if (bookError) {
         toast({
-          title: "Invalid PDF File",
-          description: pdfError,
+          title: "Invalid Book File",
+          description: bookError,
           variant: "destructive",
         });
         return;
@@ -139,17 +139,18 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
         coverUrl = coverData.publicUrl;
       }
 
-      // Upload new PDF if provided
-      if (pdfFile) {
-        const pdfPath = `${book.id}/${Date.now()}-book.pdf`;
-        const { error: pdfError } = await supabase.storage
+      // Upload new book file if provided (PDF or EPUB)
+      if (bookFile) {
+        const fileExt = bookFile.name.split('.').pop();
+        const bookPath = `${book.id}/${Date.now()}-book.${fileExt}`;
+        const { error: bookUploadError } = await supabase.storage
           .from('book-pdfs')
-          .upload(pdfPath, pdfFile);
+          .upload(bookPath, bookFile);
 
-        if (pdfError) throw pdfError;
+        if (bookUploadError) throw bookUploadError;
 
         // Store path only (not public URL) for secure signed URL generation
-        pdfUrl = pdfPath;
+        pdfUrl = bookPath;
       }
 
       // Use secure function to update book
@@ -175,7 +176,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
       });
 
       setCoverFile(null);
-      setPdfFile(null);
+      setBookFile(null);
       setErrors({});
       onBookUpdated();
       onOpenChange(false);
@@ -322,15 +323,15 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
           </div>
 
           <div>
-            <Label htmlFor="pdf">New Book PDF - Optional</Label>
+            <Label htmlFor="bookFile">New Book File (PDF or EPUB) - Optional</Label>
             <Input
-              id="pdf"
+              id="bookFile"
               type="file"
-              accept="application/pdf"
-              onChange={(e) => setPdfFile(e.target.files?.[0] || null)}
+              accept="application/pdf,application/epub+zip"
+              onChange={(e) => setBookFile(e.target.files?.[0] || null)}
             />
             <p className="text-xs text-muted-foreground mt-1">
-              Leave empty to keep current PDF
+              Upload PDF or EPUB to replace current file. Leave empty to keep existing.
             </p>
           </div>
 
