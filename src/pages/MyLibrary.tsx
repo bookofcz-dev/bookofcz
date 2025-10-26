@@ -7,8 +7,9 @@ import { MarketplaceHeader } from '@/components/marketplace/MarketplaceHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Download, ExternalLink, Loader2, BookOpen, ShoppingBag } from 'lucide-react';
+import { Download, ExternalLink, Loader2, BookOpen, ShoppingBag, X } from 'lucide-react';
 import { toast } from 'sonner';
+import { EpubViewer } from '@/components/marketplace/EpubViewer';
 
 interface PurchasedBook {
   id: string;
@@ -32,6 +33,9 @@ export default function MyLibrary() {
   const [books, setBooks] = useState<PurchasedBook[]>([]);
   const [loading, setLoading] = useState(true);
   const [showUpload, setShowUpload] = useState(false);
+  const [showViewer, setShowViewer] = useState(false);
+  const [viewerUrl, setViewerUrl] = useState("");
+  const [viewerTitle, setViewerTitle] = useState("");
 
   useEffect(() => {
     if (account) {
@@ -182,13 +186,7 @@ export default function MyLibrary() {
       
       console.log('👁️ Previewing:', filePath);
 
-      // For EPUB, navigate to book detail page with viewer
-      if (isEpub) {
-        navigate(`/book/${book.id}`);
-        return;
-      }
-
-      // For PDF, generate signed URL and open in new tab
+      // Generate signed URL for the file
       const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from('book-pdfs')
         .createSignedUrl(filePath, 3600);
@@ -202,8 +200,16 @@ export default function MyLibrary() {
         throw new Error('No preview URL generated');
       }
 
-      window.open(signedUrlData.signedUrl, '_blank');
-      toast.success('Preview opened in new tab');
+      // For EPUB, show viewer in modal
+      if (isEpub) {
+        setViewerUrl(signedUrlData.signedUrl);
+        setViewerTitle(book.title);
+        setShowViewer(true);
+      } else {
+        // For PDF, open in new tab
+        window.open(signedUrlData.signedUrl, '_blank');
+        toast.success('Preview opened in new tab');
+      }
     } catch (error: any) {
       console.error('Error previewing book:', error);
       toast.error(error.message || 'Failed to preview book');
@@ -274,6 +280,24 @@ export default function MyLibrary() {
         <title>My Library - BOCZ Marketplace</title>
         <meta name="description" content="Access your purchased books" />
       </Helmet>
+
+      {showViewer && (
+        <div className="fixed inset-0 bg-background z-50 overflow-auto">
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex justify-between items-center mb-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowViewer(false)}
+              >
+                <X className="h-4 w-4 mr-2" />
+                Close Reader
+              </Button>
+            </div>
+            <EpubViewer fileUrl={viewerUrl} title={viewerTitle} />
+          </div>
+        </div>
+      )}
 
       <div className="min-h-screen bg-background">
         <MarketplaceHeader
