@@ -40,24 +40,35 @@ serve(async (req) => {
 
     console.log('Scanning PDF:', pdfUrl);
     console.log('PDF URL type:', typeof pdfUrl);
-    console.log('PDF URL length:', pdfUrl.length);
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Extract bucket and path from URL (handles both full URLs and relative paths)
-    console.log('Attempting to parse PDF URL...');
-    const urlMatch = pdfUrl.match(/(?:https?:\/\/[^\/]+)?\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
-    console.log('URL match result:', urlMatch);
-    
-    if (!urlMatch) {
-      console.error('Failed to parse PDF URL. URL received:', pdfUrl);
-      throw new Error('Invalid PDF URL format');
-    }
+    // Extract bucket and path from URL
+    // Handle three formats:
+    // 1. Full URL: https://xxx.supabase.co/storage/v1/object/public/bucket/path
+    // 2. Relative URL: /storage/v1/object/public/bucket/path  
+    // 3. Just path: bucket/path or uuid/filename
+    let bucket: string;
+    let path: string;
 
-    const [, bucket, path] = urlMatch;
+    const fullUrlMatch = pdfUrl.match(/https?:\/\/[^\/]+\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
+    const relativeUrlMatch = pdfUrl.match(/^\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
+    
+    if (fullUrlMatch) {
+      [, bucket, path] = fullUrlMatch;
+      console.log('Parsed as full URL - Bucket:', bucket, 'Path:', path);
+    } else if (relativeUrlMatch) {
+      [, bucket, path] = relativeUrlMatch;
+      console.log('Parsed as relative URL - Bucket:', bucket, 'Path:', path);
+    } else {
+      // Assume it's just a path - try marketplace bucket first, then book-pdfs
+      path = pdfUrl;
+      bucket = 'marketplace';
+      console.log('Parsed as direct path - Trying bucket:', bucket, 'Path:', path);
+    }
     
     // Validate bucket is from trusted sources only
     const allowedBuckets = ['book-pdfs', 'marketplace'];

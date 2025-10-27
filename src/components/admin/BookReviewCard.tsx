@@ -94,14 +94,25 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
 
   const handleDownloadPdf = async () => {
     try {
-      // Extract bucket and path from URL (handles both full URLs and relative paths)
-      const urlMatch = book.pdf_url.match(/(?:https?:\/\/[^\/]+)?\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
-      if (!urlMatch) {
-        toast.error('Invalid PDF URL format');
-        return;
-      }
+      // Handle three URL formats:
+      // 1. Full URL: https://xxx.supabase.co/storage/v1/object/public/bucket/path
+      // 2. Relative URL: /storage/v1/object/public/bucket/path
+      // 3. Just path: uuid/filename
+      let bucket: string;
+      let path: string;
 
-      const [, bucket, path] = urlMatch;
+      const fullUrlMatch = book.pdf_url.match(/https?:\/\/[^\/]+\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
+      const relativeUrlMatch = book.pdf_url.match(/^\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
+      
+      if (fullUrlMatch) {
+        [, bucket, path] = fullUrlMatch;
+      } else if (relativeUrlMatch) {
+        [, bucket, path] = relativeUrlMatch;
+      } else {
+        // Assume it's just a path in marketplace bucket
+        bucket = 'marketplace';
+        path = book.pdf_url;
+      }
       
       // Download file from storage
       const { data, error } = await supabase.storage
