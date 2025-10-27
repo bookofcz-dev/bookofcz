@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Edit, ExternalLink, TrendingUp, Eye, EyeOff } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Book {
   id: string;
@@ -30,8 +31,30 @@ interface CreatorBookCardProps {
 }
 
 export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
+  const [actualEarnings, setActualEarnings] = useState(0);
+  const [actualSales, setActualSales] = useState(0);
+
+  useEffect(() => {
+    const fetchBookEarnings = async () => {
+      const { data, error } = await supabase
+        .from('marketplace_purchases')
+        .select('creator_amount')
+        .eq('book_id', book.id);
+
+      if (error) {
+        console.error('Error fetching book earnings:', error);
+        return;
+      }
+
+      const earnings = data?.reduce((sum, p) => sum + Number(p.creator_amount), 0) || 0;
+      setActualEarnings(earnings);
+      setActualSales(data?.length || 0);
+    };
+
+    fetchBookEarnings();
+  }, [book.id]);
+
   const priceUSDT = book.price_usdt || book.price_bnb;
-  const totalEarnings = (book.download_count * priceUSDT * 0.96).toFixed(2);
 
   return (
     <Card>
@@ -79,8 +102,8 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
             <p className="font-semibold">{priceUSDT} USDT</p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground mb-1">Downloads</p>
-            <p className="font-semibold">{book.download_count || 0}</p>
+            <p className="text-sm text-muted-foreground mb-1">Sales</p>
+            <p className="font-semibold">{actualSales}</p>
           </div>
           <div>
             <p className="text-sm text-muted-foreground mb-1">Rating</p>
@@ -89,8 +112,8 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
             </p>
           </div>
           <div>
-            <p className="text-sm text-muted-foreground mb-1">Earnings (96%)</p>
-            <p className="font-semibold text-primary">{totalEarnings} USDT</p>
+            <p className="text-sm text-muted-foreground mb-1">Earnings</p>
+            <p className="font-semibold text-primary">{actualEarnings.toFixed(2)} USDT</p>
           </div>
         </div>
 

@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, DollarSign, Download, Star } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface Book {
   id: string;
@@ -15,9 +17,34 @@ interface CreatorStatsProps {
 }
 
 export const CreatorStats = ({ books }: CreatorStatsProps) => {
+  const [totalEarnings, setTotalEarnings] = useState(0);
+  const [totalSales, setTotalSales] = useState(0);
+
+  useEffect(() => {
+    const fetchEarnings = async () => {
+      if (books.length === 0) return;
+
+      const bookIds = books.map(b => b.id);
+      
+      const { data, error } = await supabase
+        .from('marketplace_purchases')
+        .select('creator_amount, book_id')
+        .in('book_id', bookIds);
+
+      if (error) {
+        console.error('Error fetching earnings:', error);
+        return;
+      }
+
+      const earnings = data?.reduce((sum, p) => sum + Number(p.creator_amount), 0) || 0;
+      setTotalEarnings(earnings);
+      setTotalSales(data?.length || 0);
+    };
+
+    fetchEarnings();
+  }, [books]);
+
   const approvedBooks = books.filter(b => b.approval_status === 'approved').length;
-  const totalDownloads = books.reduce((sum, b) => sum + (b.download_count || 0), 0);
-  const totalEarnings = books.reduce((sum, b) => sum + (b.download_count || 0) * b.price_bnb * 0.96, 0);
   const avgRating = books.length > 0
     ? books.reduce((sum, b) => sum + (b.average_rating || 0), 0) / books.length
     : 0;
@@ -31,15 +58,15 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
       color: 'text-blue-500',
     },
     {
-      title: 'Total Downloads',
-      value: totalDownloads.toString(),
+      title: 'Total Sales',
+      value: totalSales.toString(),
       subtitle: 'All time',
       icon: Download,
       color: 'text-green-500',
     },
     {
       title: 'Total Earnings',
-      value: `${totalEarnings.toFixed(4)} BNB`,
+      value: `${totalEarnings.toFixed(2)} USDT`,
       subtitle: 'After 4% platform fee',
       icon: DollarSign,
       color: 'text-yellow-500',
