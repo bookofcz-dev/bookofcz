@@ -7,6 +7,7 @@ import { MarketplaceHeader } from '@/components/marketplace/MarketplaceHeader';
 import { ReviewForm } from '@/components/marketplace/ReviewForm';
 import { ReviewList } from '@/components/marketplace/ReviewList';
 import { EpubViewer } from '@/components/marketplace/EpubViewer';
+import { PdfViewer } from '@/components/marketplace/PdfViewer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -60,6 +61,10 @@ export default function BookDetail() {
   const [bnbPriceInUsdt, setBnbPriceInUsdt] = useState<number>(0);
   const [showViewer, setShowViewer] = useState(false);
   const [viewerUrl, setViewerUrl] = useState<string>('');
+  const [viewerTitle, setViewerTitle] = useState<string>('');
+  const [purchaseData, setPurchaseData] = useState<{ transaction_hash: string; download_count: number } | null>(null);
+  
+  const DOWNLOAD_LIMIT = 5;
   
   // Calculate conversion rates
   const USDT_TO_BNB_RATE = bnbPriceInUsdt > 0 ? 1 / bnbPriceInUsdt : 0;
@@ -155,13 +160,19 @@ export default function BookDetail() {
     try {
       const { data, error } = await supabase
         .from('marketplace_purchases')
-        .select('id')
+        .select('id, transaction_hash, download_count')
         .eq('book_id', bookId)
         .eq('buyer_wallet', account.toLowerCase())
         .maybeSingle();
 
       if (error) throw error;
       setHasPurchased(!!data);
+      if (data) {
+        setPurchaseData({
+          transaction_hash: data.transaction_hash,
+          download_count: data.download_count || 0
+        });
+      }
     } catch (error) {
       console.error('Error checking purchase:', error);
     }
@@ -485,7 +496,7 @@ export default function BookDetail() {
   };
 
   const handleDownload = async () => {
-    if (!book || !account) return;
+    if (!book || !account || !purchaseData) return;
 
     const bookPrice = book.price_usdt || book.price_bnb;
     if (bookPrice > 0 && !hasPurchased) {
@@ -494,88 +505,71 @@ export default function BookDetail() {
     }
 
     try {
-      // For free books, create a purchase record if it doesn't exist
-      if (bookPrice === 0 && !hasPurchased) {
-        const { error: purchaseError } = await supabase
-          .from('marketplace_purchases')
-          .insert({
-            book_id: book.id,
-            buyer_wallet: account.toLowerCase(),
-            price_paid: 0,
-            creator_amount: 0,
-            platform_fee: 0,
-            transaction_hash: `free-download-${Date.now()}`,
-          });
-
-        if (purchaseError && !purchaseError.message.includes('duplicate')) {
-          throw purchaseError;
-        }
-
-        setHasPurchased(true);
+      // Check download limit
+      if (purchaseData.download_count >= DOWNLOAD_LIMIT) {
+        toast.error(`Download limit reached (${DOWNLOAD_LIMIT} downloads per purchase)`);
+        return;
       }
 
-      // Update download count
-      const { error } = await supabase
-        .from('marketplace_books')
-        .update({ download_count: (book.download_count || 0) + 1 })
-        .eq('id', book.id);
-
-      if (error) console.error('Error updating download count:', error);
-
-      // Extract file path from URL if it's a full URL, otherwise use as-is
-      let filePath = book.pdf_url;
+      toast.loading('Generating watermarked file...');
       
-      // If pdf_url is a full Supabase URL, extract just the file path
-      if (filePath.includes('/storage/v1/object/')) {
-        const urlParts = filePath.split('/storage/v1/object/public/book-pdfs/');
-        if (urlParts.length > 1) {
-          filePath = urlParts[1];
+      const isEpub = book.pdf_url.toLowerCase().endsWith('.epub');
+      const functionName = isEpub ? 'watermark-epub' : 'watermark-pdf';
+
+      // Call watermarking function
+      const { data: watermarkData, error: watermarkError } = await supabase.functions.invoke(
+        functionName,
+        {
+          body: {
+            bookId: book.id,
+            buyerWallet: account,
+            transactionHash: purchaseData.transaction_hash,
+          }
         }
-      } else if (filePath.startsWith('http')) {
-        // If it's some other HTTP URL, try to extract the path after the bucket name
-        const match = filePath.match(/book-pdfs\/(.+)$/);
-        if (match) {
-          filePath = match[1];
-        }
+      );
+
+      if (watermarkError || !watermarkData?.downloadUrl) {
+        throw new Error(watermarkError?.message || 'Failed to generate watermarked file');
       }
 
-      console.log('📥 Attempting download with path:', filePath);
+      // Increment download count
+      const { error: updateError } = await supabase
+        .from('marketplace_purchases')
+        .update({ download_count: purchaseData.download_count + 1 })
+        .eq('book_id', book.id)
+        .eq('buyer_wallet', account.toLowerCase());
 
-      // Generate signed URL for secure PDF download (1 hour expiry)
-      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
-        .from('book-pdfs')
-        .createSignedUrl(filePath, 3600);
-
-      if (signedUrlError) {
-        console.error('Error creating signed URL:', signedUrlError);
-        console.error('Attempted file path:', filePath);
-        throw new Error(`Failed to generate download link: ${signedUrlError.message}`);
+      if (updateError) {
+        console.error('Failed to update download count:', updateError);
       }
 
-      if (!signedUrlData?.signedUrl) {
-        throw new Error('No download URL generated');
-      }
-
-      console.log('✅ Download URL generated successfully');
-
-      // Create a temporary link to download the file
+      // Download the watermarked file
       const link = document.createElement('a');
-      link.href = signedUrlData.signedUrl;
-      link.download = `${book.title}.pdf`;
+      link.href = watermarkData.downloadUrl;
+      const fileExt = isEpub ? 'epub' : 'pdf';
+      link.download = `${book.title}.${fileExt}`;
       link.target = '_blank';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       
-      toast.success('Download started!');
+      toast.dismiss();
+      toast.success(`Download started! (${purchaseData.download_count + 1}/${DOWNLOAD_LIMIT} downloads used)`);
+      
+      // Update local state
+      setPurchaseData({
+        ...purchaseData,
+        download_count: purchaseData.download_count + 1
+      });
     } catch (error: any) {
+      toast.dismiss();
       console.error('Error downloading book:', error);
-      toast.error(error.message || 'Failed to download book. Please contact support.');
+      toast.error(error.message || 'Failed to download book');
     }
   };
 
   const handlePreview = async () => {
-    if (!book || !account) return;
+    if (!book || !account || !purchaseData) return;
 
     const bookPrice = book.price_usdt || book.price_bnb;
     if (bookPrice > 0 && !hasPurchased) {
@@ -598,9 +592,9 @@ export default function BookDetail() {
         }
       }
 
-      const isEpub = filePath.toLowerCase().endsWith('.epub');
+      console.log('👁️ Previewing:', filePath);
 
-      // Generate signed URL for secure file access
+      // Generate signed URL for the file
       const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from('book-pdfs')
         .createSignedUrl(filePath, 3600);
@@ -614,16 +608,10 @@ export default function BookDetail() {
         throw new Error('No preview URL generated');
       }
 
-      if (isEpub) {
-        // Show EPUB viewer in browser
-        setViewerUrl(signedUrlData.signedUrl);
-        setShowViewer(true);
-        toast.success('Opening EPUB reader...');
-      } else {
-        // Open PDF in new tab
-        window.open(signedUrlData.signedUrl, '_blank');
-        toast.success('Preview opened in new tab');
-      }
+      // Show viewer in modal for both EPUB and PDF
+      setViewerUrl(signedUrlData.signedUrl);
+      setViewerTitle(book.title);
+      setShowViewer(true);
     } catch (error: any) {
       console.error('Error previewing book:', error);
       toast.error(error.message || 'Failed to preview book');
@@ -847,11 +835,27 @@ export default function BookDetail() {
                       </Button>
                     )}
 
-                    {canDownload && (
-                      <Button onClick={handleDownload} size="lg" className="w-full" variant="default">
-                        <Download className="h-5 w-5 mr-2" />
-                        Download Book
-                      </Button>
+                    {canDownload && purchaseData && (
+                      <>
+                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                          <span>Downloads: {purchaseData.download_count}/{DOWNLOAD_LIMIT}</span>
+                          {purchaseData.download_count >= DOWNLOAD_LIMIT && (
+                            <Badge variant="destructive" className="text-xs">
+                              Limit Reached
+                            </Badge>
+                          )}
+                        </div>
+                        <Button 
+                          onClick={handleDownload} 
+                          size="lg" 
+                          className="w-full" 
+                          variant="default"
+                          disabled={purchaseData.download_count >= DOWNLOAD_LIMIT}
+                        >
+                          <Download className="h-5 w-5 mr-2" />
+                          Download Watermarked
+                        </Button>
+                      </>
                     )}
 
                     {canDownload && (
@@ -922,26 +926,44 @@ export default function BookDetail() {
           </div>
         </main>
 
-        {/* EPUB Viewer Modal */}
-        {showViewer && viewerUrl && (
-          <div className="fixed inset-0 z-50 bg-background">
-            <div className="h-full flex flex-col">
-              <div className="flex items-center justify-between p-4 border-b">
-                <h2 className="text-xl font-semibold">{book?.title}</h2>
+        {/* Book Viewer Modal */}
+        {showViewer && viewerUrl && book && purchaseData && (
+          <div className="fixed inset-0 z-50 bg-background overflow-auto">
+            <div className="container mx-auto px-4 py-8">
+              <div className="flex justify-between items-center mb-4">
                 <Button
                   variant="ghost"
-                  size="icon"
+                  size="sm"
                   onClick={() => {
                     setShowViewer(false);
-                    setViewerUrl('');
+                    checkPurchase(); // Refresh to show updated download count
                   }}
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4 mr-2" />
+                  Close Reader
                 </Button>
               </div>
-              <div className="flex-1 overflow-hidden">
-                <EpubViewer fileUrl={viewerUrl} title={book?.title || 'Book'} />
-              </div>
+              {viewerUrl.toLowerCase().endsWith('.epub') ? (
+                <EpubViewer 
+                  fileUrl={viewerUrl} 
+                  title={viewerTitle}
+                  bookId={book.id}
+                  buyerWallet={account!}
+                  transactionHash={purchaseData.transaction_hash}
+                  downloadCount={purchaseData.download_count}
+                  downloadLimit={DOWNLOAD_LIMIT}
+                />
+              ) : (
+                <PdfViewer 
+                  fileUrl={viewerUrl} 
+                  title={viewerTitle}
+                  bookId={book.id}
+                  buyerWallet={account!}
+                  transactionHash={purchaseData.transaction_hash}
+                  downloadCount={purchaseData.download_count}
+                  downloadLimit={DOWNLOAD_LIMIT}
+                />
+              )}
             </div>
           </div>
         )}
