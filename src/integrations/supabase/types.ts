@@ -255,6 +255,14 @@ export type Database = {
         Args: { _admin_wallet: string; _book_id: string }
         Returns: undefined
       }
+      get_marketplace_stats: {
+        Args: never
+        Returns: {
+          bnb_volume: number
+          total_sales: number
+          usdt_volume: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

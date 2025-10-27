@@ -17,18 +17,6 @@ export const MarketplaceStats = () => {
 
   const fetchStats = async () => {
     try {
-      // Fetch BNB price first
-      let bnbPrice = 600; // fallback
-      try {
-        const response = await fetch(
-          'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd'
-        );
-        const data = await response.json();
-        bnbPrice = data.binancecoin?.usd || 600;
-      } catch (error) {
-        console.error('Error fetching BNB price:', error);
-      }
-
       // Get total approved books
       const { count: booksCount } = await supabase
         .from('marketplace_books')
@@ -45,42 +33,37 @@ export const MarketplaceStats = () => {
 
       const uniqueCreators = new Set(creatorsData?.map(b => b.creator_wallet) || []).size;
 
-      // Get total sales
-      const { count: salesCount } = await supabase
-        .from('marketplace_purchases')
-        .select('*', { count: 'exact', head: true });
+      // Get aggregate stats using secure function (bypasses RLS for public stats)
+      const { data: statsData, error: statsError } = await supabase
+        .rpc('get_marketplace_stats');
 
-      // Get purchases with book data to determine currency
-      const { data: purchasesWithBooks } = await supabase
-        .from('marketplace_purchases')
-        .select('price_paid, marketplace_books(price_bnb, price_usdt)');
+      if (statsError) {
+        console.error('Error fetching marketplace stats:', statsError);
+      }
 
-      // Calculate separate volumes for BNB and USDT
-      let usdtVolume = 0;
-      let bnbVolume = 0;
+      const purchaseStats = statsData?.[0] || { total_sales: 0, usdt_volume: 0, bnb_volume: 0 };
 
-      purchasesWithBooks?.forEach((purchase: any) => {
-        const book = purchase.marketplace_books;
-        const pricePaid = Number(purchase.price_paid);
-        
-        // If book has price_bnb = 0, it's a USDT purchase
-        if (book && Number(book.price_bnb) === 0) {
-          usdtVolume += pricePaid;
-        } else {
-          // Otherwise it's a BNB purchase
-          bnbVolume += pricePaid;
-        }
-      });
+      // Fetch BNB price for conversion display
+      let bnbPrice = 600; // fallback
+      try {
+        const response = await fetch(
+          'https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd'
+        );
+        const data = await response.json();
+        bnbPrice = data.binancecoin?.usd || 600;
+      } catch (error) {
+        console.error('Error fetching BNB price:', error);
+      }
 
-      // Convert USDT volume to BNB and add to BNB volume counter
-      const usdtInBnb = bnbPrice > 0 ? usdtVolume / bnbPrice : 0;
-      const totalBnbVolume = bnbVolume + usdtInBnb;
+      // Convert USDT volume to BNB for the BNB volume display
+      const usdtInBnb = bnbPrice > 0 ? Number(purchaseStats.usdt_volume) / bnbPrice : 0;
+      const totalBnbVolume = Number(purchaseStats.bnb_volume) + usdtInBnb;
 
       setStats({
         totalBooks: booksCount || 0,
         totalCreators: uniqueCreators,
-        totalSales: salesCount || 0,
-        totalVolume: Number(usdtVolume.toFixed(2)),
+        totalSales: Number(purchaseStats.total_sales) || 0,
+        totalVolume: Number(Number(purchaseStats.usdt_volume).toFixed(2)),
         bnbVolume: Number(totalBnbVolume.toFixed(4)),
       });
     } catch (error) {
