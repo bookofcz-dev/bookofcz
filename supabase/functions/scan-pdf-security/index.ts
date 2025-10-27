@@ -45,8 +45,8 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Extract bucket and path from URL
-    const urlMatch = pdfUrl.match(/\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
+    // Extract bucket and path from URL (handles both full URLs and relative paths)
+    const urlMatch = pdfUrl.match(/(?:https?:\/\/[^\/]+)?\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
     if (!urlMatch) {
       throw new Error('Invalid PDF URL format');
     }
@@ -109,12 +109,12 @@ serve(async (req) => {
     }
 
     // Check 2: File size validation
-    const maxSize = 50 * 1024 * 1024; // 50MB
+    const maxSize = 100 * 1024 * 1024; // 100MB
     if (fileSize > maxSize) {
       report.issues.push({
         severity: 'medium',
         category: 'File Size',
-        message: `File size (${(fileSize / 1024 / 1024).toFixed(2)}MB) exceeds recommended maximum (50MB)`
+        message: `File size (${(fileSize / 1024 / 1024).toFixed(2)}MB) exceeds recommended maximum (100MB)`
       });
       report.score -= 10;
     }

@@ -94,8 +94,8 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
 
   const handleDownloadPdf = async () => {
     try {
-      // Extract bucket and path from URL
-      const urlMatch = book.pdf_url.match(/\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
+      // Extract bucket and path from URL (handles both full URLs and relative paths)
+      const urlMatch = book.pdf_url.match(/(?:https?:\/\/[^\/]+)?\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
       if (!urlMatch) {
         toast.error('Invalid PDF URL format');
         return;
