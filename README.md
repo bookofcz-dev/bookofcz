@@ -1,73 +1,142 @@
-# Welcome to your Lovable project
+# BookofCZ Marketplace
 
-## Project info
+A decentralized digital book marketplace built on **BNB Smart Chain (BSC)** where creators can publish, sell, and earn from their digital books with transparent on-chain transactions and a 96/4 creator-platform revenue split.
 
-**URL**: https://lovable.dev/projects/213e7147-2c30-45a9-a939-ff0bf31d7907
+## Technology Stack
 
-## How can I edit this code?
+- **Blockchain**: BNB Smart Chain (BSC)
+- **Smart Contracts**: Direct wallet-to-wallet transfers with ERC20 token support
+- **Frontend**: React 18 + TypeScript + Vite
+- **UI Framework**: Tailwind CSS + shadcn-ui components
+- **Web3 Integration**: ethers.js v6 + MetaMask
+- **Backend**: Lovable Cloud (Supabase) with PostgreSQL + Edge Functions + Storage
+- **State Management**: TanStack Query (React Query)
+- **Routing**: React Router DOM v6
 
-There are several ways of editing your application.
+## Supported Networks
 
-**Use Lovable**
+- **BNB Smart Chain Mainnet** (Chain ID: 56)
+- **BNB Smart Chain Testnet** (Chain ID: 97)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/213e7147-2c30-45a9-a939-ff0bf31d7907) and start prompting.
+## Contract Addresses
 
-Changes made via Lovable will be committed automatically to this repo.
+| Network     | BOCZ Token | USDT Token | Platform Fee Wallet |
+|-------------|------------|------------|---------------------|
+| BSC Mainnet | `0x701bE97c604A35aB7BCF6C75cA6de3aba0704444` | `0x55d398326f99059fF775485246999027B3197955` | `0x55dEa7A2f92Db5f96Aeb0eDf589Ddc8c83D54004` |
+| BSC Testnet | `0x701bE97c604A35aB7BCF6C75cA6de3aba0704444` | `0x55d398326f99059fF775485246999027B3197955` | `0x55dEa7A2f92Db5f96Aeb0eDf589Ddc8c83D54004` |
 
-**Use your preferred IDE**
+## Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Decentralized Book Marketplace**: Browse, purchase, and sell digital books (PDF/EPUB) on BSC
+- **Multi-Token Support**: Pay with BNB, USDT, or BOCZ tokens
+- **Creator-First Economics**: 96% revenue goes to creators, 4% platform fee
+- **Wallet-Based Authentication**: Secure MetaMask integration with signature-based auth
+- **Token-Gated Access**: BOCZ token holders get exclusive access to premium content
+- **Real-Time Price Oracle**: Live BNB and BOCZ price feeds via CoinGecko API
+- **Review & Rating System**: Community-driven book reviews with verified purchase validation
+- **Creator Dashboard**: Track earnings, sales, and book performance analytics
+- **Secure File Storage**: Encrypted PDF/EPUB storage with watermarking capabilities
+- **Admin Moderation**: Book approval workflow with rejection reasons
+- **Gas-Efficient Design**: Optimized for BNB Smart Chain's low transaction costs
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Getting Started
 
-Follow these steps:
+### Prerequisites
+
+- Node.js 16+ and npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- MetaMask browser extension
+- BNB tokens for gas fees
+
+### Installation
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# Clone the repository
 git clone <YOUR_GIT_URL>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to the project directory
+cd bookofcz-marketplace
 
-# Step 3: Install the necessary dependencies.
+# Install dependencies
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The project uses Lovable Cloud backend. Environment variables are automatically configured:
 
-**Use GitHub Codespaces**
+- `VITE_SUPABASE_URL` - Lovable Cloud backend URL
+- `VITE_SUPABASE_PUBLISHABLE_KEY` - Public API key
+- `VITE_SUPABASE_PROJECT_ID` - Project identifier
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/        # React components
+│   ├── marketplace/  # Marketplace-specific components
+│   ├── creator/      # Creator dashboard components
+│   ├── admin/        # Admin dashboard components
+│   └── ui/           # Reusable UI components (shadcn)
+├── hooks/            # Custom React hooks
+├── lib/              # Utility functions and book content
+├── pages/            # Route pages
+├── contexts/         # React contexts (WalletContext)
+└── integrations/     # Lovable Cloud integration
 
-This project is built with:
+supabase/
+├── functions/        # Edge functions for serverless logic
+└── config.toml       # Supabase configuration
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Key Integrations
 
-## How can I deploy this project?
+- **Lovable Cloud**: Backend-as-a-Service providing database, storage, and serverless functions
+- **MetaMask**: Web3 wallet for transaction signing and authentication
+- **CoinGecko API**: Real-time cryptocurrency price feeds
+- **ElevenLabs**: Text-to-speech for audiobook generation (optional)
 
-Simply open [Lovable](https://lovable.dev/projects/213e7147-2c30-45a9-a939-ff0bf31d7907) and click on Share -> Publish.
+## Development
 
-## Can I connect a custom domain to my Lovable project?
+**Use Lovable AI Editor**
 
-Yes, you can!
+Visit the [Lovable Project](https://lovable.dev/projects/213e7147-2c30-45a9-a939-ff0bf31d7907) to edit using AI prompts. Changes are automatically committed to this repo.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+**Use Your Preferred IDE**
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Clone the repo and push changes. Pushed changes sync automatically to Lovable.
+
+**GitHub Codespaces**
+
+Open the repo in Codespaces for a cloud-based development environment.
+
+## Deployment
+
+Deploy via Lovable: Project → Share → Publish
+
+## Custom Domain
+
+Navigate to Project → Settings → Domains → Connect Domain
+
+[Learn more about custom domains](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Security
+
+- Row Level Security (RLS) policies on all database tables
+- Wallet signature verification for authentication
+- Secure file storage with access control
+- Token balance verification for gated content
+- Admin role-based permissions
+
+## License
+
+MIT
+
+## Resources
+
+- [Lovable Documentation](https://docs.lovable.dev)
+- [BNB Smart Chain Docs](https://docs.bnbchain.org)
+- [ethers.js Documentation](https://docs.ethers.org/v6/)
+- [Supabase Documentation](https://supabase.com/docs)
