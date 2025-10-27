@@ -31,14 +31,14 @@ interface CreatorBookCardProps {
 }
 
 export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
-  const [actualEarnings, setActualEarnings] = useState(0);
+  const [earningsByurrency, setEarningsByCurrency] = useState({ bnb: 0, usdt: 0, bocz: 0 });
   const [actualSales, setActualSales] = useState(0);
 
   useEffect(() => {
     const fetchBookEarnings = async () => {
-      const { data, error } = await supabase
+      const { data: purchases, error } = await supabase
         .from('marketplace_purchases')
-        .select('creator_amount')
+        .select('creator_amount, book_id')
         .eq('book_id', book.id);
 
       if (error) {
@@ -46,13 +46,21 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
         return;
       }
 
-      const earnings = data?.reduce((sum, p) => sum + Number(p.creator_amount), 0) || 0;
-      setActualEarnings(earnings);
-      setActualSales(data?.length || 0);
+      // Determine currency based on book pricing
+      const bnbEarnings = book.price_bnb > 0 
+        ? purchases?.reduce((sum, p) => sum + Number(p.creator_amount), 0) || 0
+        : 0;
+      
+      const usdtEarnings = book.price_usdt > 0 && book.price_bnb === 0
+        ? purchases?.reduce((sum, p) => sum + Number(p.creator_amount), 0) || 0
+        : 0;
+
+      setEarningsByCurrency({ bnb: bnbEarnings, usdt: usdtEarnings, bocz: 0 });
+      setActualSales(purchases?.length || 0);
     };
 
     fetchBookEarnings();
-  }, [book.id]);
+  }, [book.id, book.price_bnb, book.price_usdt]);
 
   const priceUSDT = book.price_usdt || book.price_bnb;
 
@@ -96,10 +104,12 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
           <div>
             <p className="text-sm text-muted-foreground mb-1">Price</p>
-            <p className="font-semibold">{priceUSDT} USDT</p>
+            <p className="font-semibold">
+              {book.price_bnb > 0 ? `${book.price_bnb} BNB` : `${priceUSDT} USDT`}
+            </p>
           </div>
           <div>
             <p className="text-sm text-muted-foreground mb-1">Sales</p>
@@ -111,9 +121,22 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
               {book.average_rating > 0 ? `${book.average_rating.toFixed(1)} ⭐` : 'No ratings'}
             </p>
           </div>
-          <div>
-            <p className="text-sm text-muted-foreground mb-1">Earnings</p>
-            <p className="font-semibold text-primary">{actualEarnings.toFixed(2)} USDT</p>
+          <div className="col-span-2">
+            <p className="text-sm text-muted-foreground mb-1">Total Earnings</p>
+            <div className="flex gap-3 flex-wrap">
+              {earningsByurrency.bnb > 0 && (
+                <p className="font-semibold text-primary">{earningsByurrency.bnb.toFixed(4)} BNB</p>
+              )}
+              {earningsByurrency.usdt > 0 && (
+                <p className="font-semibold text-primary">{earningsByurrency.usdt.toFixed(2)} USDT</p>
+              )}
+              {earningsByurrency.bocz > 0 && (
+                <p className="font-semibold text-primary">{earningsByurrency.bocz.toFixed(2)} BOCZ</p>
+              )}
+              {earningsByurrency.bnb === 0 && earningsByurrency.usdt === 0 && earningsByurrency.bocz === 0 && (
+                <p className="font-semibold text-muted-foreground">0.00</p>
+              )}
+            </div>
           </div>
         </div>
 

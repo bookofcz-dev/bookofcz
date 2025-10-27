@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 interface Book {
   id: string;
   price_bnb: number;
+  price_usdt: number;
   approval_status: string;
   average_rating: number;
   review_count: number;
@@ -17,7 +18,7 @@ interface CreatorStatsProps {
 }
 
 export const CreatorStats = ({ books }: CreatorStatsProps) => {
-  const [totalEarnings, setTotalEarnings] = useState(0);
+  const [totalEarnings, setTotalEarnings] = useState({ bnb: 0, usdt: 0, bocz: 0 });
   const [totalSales, setTotalSales] = useState(0);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
 
       const bookIds = books.map(b => b.id);
       
-      const { data, error } = await supabase
+      const { data: purchases, error } = await supabase
         .from('marketplace_purchases')
         .select('creator_amount, book_id')
         .in('book_id', bookIds);
@@ -36,9 +37,23 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
         return;
       }
 
-      const earnings = data?.reduce((sum, p) => sum + Number(p.creator_amount), 0) || 0;
-      setTotalEarnings(earnings);
-      setTotalSales(data?.length || 0);
+      // Calculate earnings by currency
+      let bnbTotal = 0;
+      let usdtTotal = 0;
+
+      purchases?.forEach(purchase => {
+        const book = books.find(b => b.id === purchase.book_id);
+        if (book) {
+          if (book.price_bnb > 0) {
+            bnbTotal += Number(purchase.creator_amount);
+          } else if (book.price_usdt > 0) {
+            usdtTotal += Number(purchase.creator_amount);
+          }
+        }
+      });
+
+      setTotalEarnings({ bnb: bnbTotal, usdt: usdtTotal, bocz: 0 });
+      setTotalSales(purchases?.length || 0);
     };
 
     fetchEarnings();
@@ -66,7 +81,11 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
     },
     {
       title: 'Total Earnings',
-      value: `${totalEarnings.toFixed(2)} USDT`,
+      value: [
+        totalEarnings.bnb > 0 ? `${totalEarnings.bnb.toFixed(4)} BNB` : null,
+        totalEarnings.usdt > 0 ? `${totalEarnings.usdt.toFixed(2)} USDT` : null,
+        totalEarnings.bocz > 0 ? `${totalEarnings.bocz.toFixed(2)} BOCZ` : null,
+      ].filter(Boolean).join(' + ') || '0.00',
       subtitle: 'After 4% platform fee',
       icon: DollarSign,
       color: 'text-yellow-500',
