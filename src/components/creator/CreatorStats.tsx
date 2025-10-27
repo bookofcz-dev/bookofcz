@@ -20,6 +20,14 @@ interface CreatorStatsProps {
 export const CreatorStats = ({ books }: CreatorStatsProps) => {
   const [totalEarnings, setTotalEarnings] = useState({ bnb: 0, usdt: 0, bocz: 0 });
   const [totalSales, setTotalSales] = useState(0);
+  const [bnbPriceUSDT, setBnbPriceUSDT] = useState(600); // Default BNB price in USDT
+
+  useEffect(() => {
+    // Fetch current BNB price (using a reasonable estimate for now)
+    // In production, this would fetch from a price oracle or API
+    const estimatedBnbPrice = 600; // ~$600 USDT per BNB
+    setBnbPriceUSDT(estimatedBnbPrice);
+  }, []);
 
   useEffect(() => {
     const fetchEarnings = async () => {
@@ -67,6 +75,12 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
     ? books.reduce((sum, b) => sum + (b.average_rating || 0), 0) / books.length
     : 0;
 
+  // Calculate total earnings in USDT (converting BNB to USDT)
+  const totalEarningsUSDT = 
+    (totalEarnings.bnb * bnbPriceUSDT) + 
+    totalEarnings.usdt + 
+    totalEarnings.bocz;
+
   const stats = [
     {
       title: 'Total Books',
@@ -105,8 +119,8 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
     },
     {
       title: 'Total Earnings (USDT)',
-      value: `${totalEarnings.usdt.toFixed(2)} USDT`,
-      subtitle: 'USDT + BOCZ combined',
+      value: `${totalEarningsUSDT.toFixed(2)} USDT`,
+      subtitle: `BNB + USDT + BOCZ converted`,
       icon: DollarSign,
       color: 'text-primary',
     },
