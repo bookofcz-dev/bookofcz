@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
+import { z } from 'https://deno.land/x/zod@v3.22.4/mod.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -13,21 +14,62 @@ serve(async (req) => {
   }
 
   try {
-    const { bookId, buyerWallet, transactionHash } = await req.json();
+    // Validate input parameters
+    const requestSchema = z.object({
+      bookId: z.string().uuid('Invalid book ID format'),
+      buyerWallet: z.string().regex(/^0x[a-fA-F0-9]{40}$/, 'Invalid Ethereum wallet address'),
+      transactionHash: z.string().regex(/^0x[a-fA-F0-9]{64}$/, 'Invalid transaction hash')
+    });
 
-    if (!bookId || !buyerWallet || !transactionHash) {
+    const body = await req.json();
+    const validation = requestSchema.safeParse(body);
+    
+    if (!validation.success) {
+      console.error('Validation error:', validation.error.format());
       return new Response(
-        JSON.stringify({ error: 'Missing required parameters' }),
+        JSON.stringify({ 
+          error: 'Invalid input parameters',
+          details: validation.error.format()
+        }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log('Watermarking EPUB for:', { bookId, buyerWallet, transactionHash });
+    const { bookId, buyerWallet, transactionHash } = validation.data;
+    console.log('Watermarking EPUB for:', { bookId, buyerWallet: buyerWallet.substring(0, 10) + '...' });
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseKey);
+
+    // SECURITY: Verify purchase exists and check download limits
+    const { data: purchase, error: purchaseError } = await supabase
+      .from('marketplace_purchases')
+      .select('download_count')
+      .eq('book_id', bookId)
+      .eq('buyer_wallet', buyerWallet.toLowerCase())
+      .eq('transaction_hash', transactionHash)
+      .single();
+
+    if (purchaseError || !purchase) {
+      console.error('Purchase verification failed:', purchaseError);
+      return new Response(
+        JSON.stringify({ error: 'Purchase not found or invalid. Please ensure you have purchased this book.' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Check download limit
+    if (purchase.download_count >= 5) {
+      console.error('Download limit exceeded for purchase');
+      return new Response(
+        JSON.stringify({ error: 'Download limit exceeded. You have reached the maximum of 5 downloads for this purchase.' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log('✅ Purchase verified. Download count:', purchase.download_count);
 
     // Get book details
     const { data: book, error: bookError } = await supabase

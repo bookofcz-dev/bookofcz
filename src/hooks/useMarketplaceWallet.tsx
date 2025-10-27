@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { useToast } from '@/hooks/use-toast';
+import { createWalletAuthSession, signOutWalletAuth } from '@/lib/walletAuth';
 
 const BSC_CHAIN_ID = '0x38'; // BSC Mainnet = 56 (0x38 in hex)
 const BSC_TESTNET_CHAIN_ID = '0x61'; // BSC Testnet = 97 (0x61 in hex)
@@ -45,6 +46,7 @@ export const useMarketplaceWallet = () => {
       if (accounts.length === 0) {
         // Wallet disconnected
         console.log('❌ Wallet disconnected');
+        await signOutWalletAuth();
         localStorage.removeItem('walletConnected');
         setAccount(null);
         setProvider(null);
@@ -69,6 +71,9 @@ export const useMarketplaceWallet = () => {
           
           console.log('✅ Updated to new account:', signerAddress);
           
+          // Create new auth session for the new wallet
+          await createWalletAuthSession(signerAddress, browserProvider);
+          
           localStorage.setItem('walletConnected', signerAddress);
           setAccount(signerAddress);
           setProvider(browserProvider);
@@ -81,6 +86,7 @@ export const useMarketplaceWallet = () => {
           });
         } catch (error) {
           console.error('❌ Error updating account:', error);
+          await signOutWalletAuth();
           localStorage.removeItem('walletConnected');
           setAccount(null);
           setProvider(null);
@@ -193,6 +199,17 @@ export const useMarketplaceWallet = () => {
       setSigner(signer);
       setChainId(currentChainId);
 
+      // Create Supabase auth session for wallet
+      const authResult = await createWalletAuthSession(signerAddress, browserProvider);
+      if (!authResult.success) {
+        console.warn('⚠️ Failed to create auth session:', authResult.error);
+        toast({
+          title: "Authentication Warning",
+          description: "Wallet connected but auth session failed. Some features may be limited.",
+          variant: "destructive",
+        });
+      }
+
       if (currentChainId !== BSC_CHAIN_ID && currentChainId !== BSC_TESTNET_CHAIN_ID) {
         await switchToBSC();
       } else {
@@ -257,8 +274,12 @@ export const useMarketplaceWallet = () => {
     }
   };
 
-  const disconnectWallet = () => {
+  const disconnectWallet = async () => {
     console.log('🔌 Manually disconnecting wallet');
+    
+    // Sign out from Supabase auth session
+    await signOutWalletAuth();
+    
     localStorage.removeItem('walletConnected');
     setAccount(null);
     setProvider(null);
