@@ -283,8 +283,9 @@ export default function BookDetail() {
       const signature = await requestWalletSignature(provider, message);
       
       // Verify signature freshness (prevent replay attacks)
+      // Extended to 5 minutes to accommodate BSC transaction latency
       const timeSinceSign = Date.now() - timestamp;
-      if (timeSinceSign > 60000) { // 1 minute expiry
+      if (timeSinceSign > 300000) { // 5 minutes expiry
         throw new Error('Signature expired. Please try again.');
       }
       
