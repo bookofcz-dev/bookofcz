@@ -109,8 +109,8 @@ export const BookReviewCard = ({ book, onStatusChange }: BookReviewCardProps) =>
       } else if (relativeUrlMatch) {
         [, bucket, path] = relativeUrlMatch;
       } else {
-        // Assume it's just a path in marketplace bucket
-        bucket = 'marketplace';
+        // Assume it's just a path in book-pdfs bucket (current default)
+        bucket = 'book-pdfs';
         path = book.pdf_url;
       }
       

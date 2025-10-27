@@ -64,9 +64,9 @@ serve(async (req) => {
       [, bucket, path] = relativeUrlMatch;
       console.log('Parsed as relative URL - Bucket:', bucket, 'Path:', path);
     } else {
-      // Assume it's just a path - try marketplace bucket first, then book-pdfs
+      // Assume it's just a path - try book-pdfs bucket (current default for uploads)
       path = pdfUrl;
-      bucket = 'marketplace';
+      bucket = 'book-pdfs';
       console.log('Parsed as direct path - Trying bucket:', bucket, 'Path:', path);
     }
     
