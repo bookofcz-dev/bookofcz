@@ -104,7 +104,7 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-4">
           <div>
             <p className="text-sm text-muted-foreground mb-1">Price</p>
             <p className="font-semibold">
@@ -121,22 +121,23 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
               {book.average_rating > 0 ? `${book.average_rating.toFixed(1)} ⭐` : 'No ratings'}
             </p>
           </div>
-          <div className="col-span-2">
-            <p className="text-sm text-muted-foreground mb-1">Total Earnings</p>
-            <div className="flex gap-3 flex-wrap">
-              {earningsByurrency.bnb > 0 && (
-                <p className="font-semibold text-primary">{earningsByurrency.bnb.toFixed(4)} BNB</p>
-              )}
-              {earningsByurrency.usdt > 0 && (
-                <p className="font-semibold text-primary">{earningsByurrency.usdt.toFixed(2)} USDT</p>
-              )}
-              {earningsByurrency.bocz > 0 && (
-                <p className="font-semibold text-primary">{earningsByurrency.bocz.toFixed(2)} BOCZ</p>
-              )}
-              {earningsByurrency.bnb === 0 && earningsByurrency.usdt === 0 && earningsByurrency.bocz === 0 && (
-                <p className="font-semibold text-muted-foreground">0.00</p>
-              )}
-            </div>
+          <div>
+            <p className="text-sm text-muted-foreground mb-1">Earnings (BNB)</p>
+            <p className="font-semibold text-primary">
+              {earningsByurrency.bnb > 0 ? `${earningsByurrency.bnb.toFixed(4)}` : '0.0000'}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground mb-1">Earnings (USDT)</p>
+            <p className="font-semibold text-primary">
+              {earningsByurrency.usdt > 0 ? `${earningsByurrency.usdt.toFixed(2)}` : '0.00'}
+            </p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground mb-1">Earnings (BOCZ)</p>
+            <p className="font-semibold text-primary">
+              {earningsByurrency.bocz > 0 ? `${earningsByurrency.bocz.toFixed(2)}` : '0.00'}
+            </p>
           </div>
         </div>
 
