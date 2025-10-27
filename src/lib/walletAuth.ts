@@ -30,6 +30,7 @@ export async function createWalletAuthSession(
     }
 
     // Store wallet address in secure table (not user_metadata)
+    // Use wallet_address as conflict target to prevent duplicate sessions for same wallet
     const { error: walletError } = await supabase
       .from('wallet_sessions')
       .upsert({
@@ -38,7 +39,7 @@ export async function createWalletAuthSession(
         signature: signature,
         updated_at: new Date().toISOString()
       }, {
-        onConflict: 'user_id'
+        onConflict: 'wallet_address'
       });
 
     if (walletError) {
