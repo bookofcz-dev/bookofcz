@@ -246,6 +246,33 @@ export type Database = {
         }
         Relationships: []
       }
+      wallet_sessions: {
+        Row: {
+          created_at: string | null
+          id: string
+          signature: string
+          updated_at: string | null
+          user_id: string
+          wallet_address: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          signature: string
+          updated_at?: string | null
+          user_id: string
+          wallet_address: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          signature?: string
+          updated_at?: string | null
+          user_id?: string
+          wallet_address?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -263,6 +290,7 @@ export type Database = {
           usdt_volume: number
         }[]
       }
+      get_user_wallet: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

@@ -25,18 +25,25 @@ export async function createWalletAuthSession(
       return { success: false, error: authError.message };
     }
 
-    // Store wallet address in user metadata
-    const { error: updateError } = await supabase.auth.updateUser({
-      data: { 
-        wallet_address: walletAddress.toLowerCase(),
-        wallet_signature: signature,
-        auth_timestamp: Date.now()
-      }
-    });
+    if (!authData.user) {
+      return { success: false, error: 'No user created' };
+    }
 
-    if (updateError) {
-      console.error('Failed to update user metadata:', updateError);
-      return { success: false, error: updateError.message };
+    // Store wallet address in secure table (not user_metadata)
+    const { error: walletError } = await supabase
+      .from('wallet_sessions')
+      .upsert({
+        user_id: authData.user.id,
+        wallet_address: walletAddress.toLowerCase(),
+        signature: signature,
+        updated_at: new Date().toISOString()
+      }, {
+        onConflict: 'user_id'
+      });
+
+    if (walletError) {
+      console.error('Failed to store wallet session:', walletError);
+      return { success: false, error: walletError.message };
     }
 
     console.log('✅ Wallet auth session created successfully');
@@ -75,8 +82,14 @@ export async function verifyWalletAuthSession(
       return false;
     }
 
-    const storedWallet = session.user.user_metadata?.wallet_address;
-    return storedWallet?.toLowerCase() === walletAddress.toLowerCase();
+    // Check wallet_sessions table instead of user_metadata
+    const { data: walletSession } = await supabase
+      .from('wallet_sessions')
+      .select('wallet_address')
+      .eq('user_id', session.user.id)
+      .single();
+
+    return walletSession?.wallet_address?.toLowerCase() === walletAddress.toLowerCase();
   } catch (error) {
     console.error('Error verifying auth session:', error);
     return false;
