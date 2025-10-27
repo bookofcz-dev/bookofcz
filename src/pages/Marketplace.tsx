@@ -37,9 +37,20 @@ export default function Marketplace() {
             <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 gold-shimmer bg-clip-text text-transparent">
               BOCZ Marketplace
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8 font-body">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6 font-body">
               The first decentralized marketplace for crypto books on Binance Smart Chain
             </p>
+            <div className="flex justify-center mb-8">
+              <a href="https://www.producthunt.com/products/bocz-marketplace?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-bocz-marketplace" target="_blank" rel="noopener noreferrer">
+                <img 
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1031248&theme=light&t=1761549653462" 
+                  alt="BOCZ Marketplace - The 1st Web3 marketplace for digital books built on BSC. | Product Hunt" 
+                  style={{ width: '250px', height: '54px' }} 
+                  width="250" 
+                  height="54" 
+                />
+              </a>
+            </div>
             <div className="flex flex-wrap justify-center gap-4">
               {!account ? (
                 <Button
