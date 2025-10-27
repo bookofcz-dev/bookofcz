@@ -1,7 +1,34 @@
 # Security Documentation - BSC Web3 Integration
 
 ## Overview
-This document outlines the security measures implemented for the Book of CZ token-gated access system.
+This document outlines the security measures implemented for the Book of CZ token-gated marketplace with wallet-based authentication.
+
+## Recent Security Enhancements (2025-10-27)
+
+### 1. Wallet-Based Supabase Authentication
+- **Anonymous Auth Sessions**: When users connect their wallet, the app creates a Supabase auth session
+- **JWT Token Generation**: Each wallet connection generates a JWT token with wallet address in metadata
+- **Session Persistence**: Auth sessions are maintained across page reloads and reconnections
+- **Automatic Cleanup**: Sessions are properly cleaned up on wallet disconnection or account switching
+
+### 2. Server-Side Purchase Verification
+- **Edge Function Protection**: Both watermark-pdf and watermark-epub functions now verify purchases server-side
+- **Download Limit Enforcement**: 5-download limit is enforced at the backend, not just client-side
+- **Transaction Validation**: All watermark requests validate that the purchase exists with matching transaction hash
+
+### 3. Input Validation with Zod
+- **Parameter Validation**: All edge function inputs are validated using Zod schemas
+- **UUID Validation**: bookId must be valid UUID format
+- **Wallet Address Validation**: Validates Ethereum address format (0x + 40 hex characters)
+- **Transaction Hash Validation**: Ensures transaction hashes are properly formatted (0x + 64 hex characters)
+- **Path Traversal Prevention**: Input validation prevents directory traversal attacks in storage paths
+
+### 4. Row-Level Security (RLS) Policies
+- **Purchase Data Protection**: Removed public access to purchase records
+- **Buyer Access**: Users can only view their own purchases via JWT claims
+- **Creator Access**: Book creators can view purchases of their books
+- **Admin Access**: Admins with proper roles can view all purchases
+- **Authenticated Inserts**: Purchase records can only be created by authenticated wallets
 
 ## Security Features
 
@@ -108,5 +135,20 @@ If you discover a security vulnerability, please report it responsibly:
 
 ---
 
-**Last Updated**: 2025-10-17
-**Version**: 1.0.0
+**Last Updated**: 2025-10-27
+**Version**: 2.0.0
+
+## Changelog
+
+### v2.0.0 (2025-10-27)
+- **CRITICAL**: Implemented wallet-based Supabase authentication with JWT tokens
+- **CRITICAL**: Added server-side purchase verification to watermark edge functions
+- **HIGH**: Added comprehensive input validation with Zod to all edge functions
+- **CRITICAL**: Restricted purchase data access via RLS policies based on JWT claims
+- **MEDIUM**: Enforced 5-download limit at backend level
+- **LOW**: Enhanced error messages for security failures
+
+### v1.0.0 (2025-10-17)
+- Initial security documentation
+- Read-only blockchain operations
+- Basic wallet connection flow
