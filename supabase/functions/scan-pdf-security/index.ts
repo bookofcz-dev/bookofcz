@@ -39,6 +39,8 @@ serve(async (req) => {
     }
 
     console.log('Scanning PDF:', pdfUrl);
+    console.log('PDF URL type:', typeof pdfUrl);
+    console.log('PDF URL length:', pdfUrl.length);
 
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
@@ -46,8 +48,12 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Extract bucket and path from URL (handles both full URLs and relative paths)
+    console.log('Attempting to parse PDF URL...');
     const urlMatch = pdfUrl.match(/(?:https?:\/\/[^\/]+)?\/storage\/v1\/object\/public\/([^/]+)\/(.+)/);
+    console.log('URL match result:', urlMatch);
+    
     if (!urlMatch) {
+      console.error('Failed to parse PDF URL. URL received:', pdfUrl);
       throw new Error('Invalid PDF URL format');
     }
 
