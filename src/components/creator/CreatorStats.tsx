@@ -83,27 +83,44 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
       color: 'text-green-500',
     },
     {
-      title: 'Total Earnings',
-      value: [
-        totalEarnings.bnb > 0 ? `${totalEarnings.bnb.toFixed(4)} BNB` : null,
-        totalEarnings.usdt > 0 ? `${totalEarnings.usdt.toFixed(2)} USDT` : null,
-        totalEarnings.bocz > 0 ? `${totalEarnings.bocz.toFixed(2)} BOCZ` : null,
-      ].filter(Boolean).join(' + ') || '0.00',
+      title: 'BNB Earnings',
+      value: totalEarnings.bnb > 0 ? `${totalEarnings.bnb.toFixed(4)} BNB` : '0.0000 BNB',
       subtitle: 'After 4% platform fee',
       icon: DollarSign,
       color: 'text-yellow-500',
+    },
+    {
+      title: 'USDT Earnings',
+      value: totalEarnings.usdt > 0 ? `${totalEarnings.usdt.toFixed(2)} USDT` : '0.00 USDT',
+      subtitle: 'After 4% platform fee',
+      icon: DollarSign,
+      color: 'text-green-500',
+    },
+    {
+      title: 'BOCZ Earnings',
+      value: totalEarnings.bocz > 0 ? `${totalEarnings.bocz.toFixed(2)} BOCZ` : '0.00 BOCZ',
+      subtitle: 'After 4% platform fee',
+      icon: DollarSign,
+      color: 'text-purple-500',
+    },
+    {
+      title: 'Total Earnings (USDT)',
+      value: `${totalEarnings.usdt.toFixed(2)} USDT`,
+      subtitle: 'USDT + BOCZ combined',
+      icon: DollarSign,
+      color: 'text-primary',
     },
     {
       title: 'Average Rating',
       value: avgRating > 0 ? avgRating.toFixed(1) : 'N/A',
       subtitle: `${books.reduce((sum, b) => sum + (b.review_count || 0), 0)} reviews`,
       icon: Star,
-      color: 'text-purple-500',
+      color: 'text-orange-500',
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
       {stats.map((stat) => (
         <Card key={stat.title}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
