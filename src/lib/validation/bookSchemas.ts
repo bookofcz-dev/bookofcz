@@ -60,11 +60,11 @@ export const fileValidation = {
     }
   },
   pdf: {
-    maxSize: 50 * 1024 * 1024, // 50MB
+    maxSize: 100 * 1024 * 1024, // 100MB
     allowedTypes: ['application/pdf'],
     getMessage: (file: File) => {
       if (file.size > fileValidation.pdf.maxSize) {
-        return 'PDF must be less than 50MB';
+        return 'PDF must be less than 100MB';
       }
       if (!fileValidation.pdf.allowedTypes.includes(file.type)) {
         return 'File must be PDF format';
@@ -73,11 +73,11 @@ export const fileValidation = {
     }
   },
   epub: {
-    maxSize: 50 * 1024 * 1024, // 50MB
+    maxSize: 100 * 1024 * 1024, // 100MB
     allowedTypes: ['application/epub+zip'],
     getMessage: (file: File) => {
       if (file.size > fileValidation.epub.maxSize) {
-        return 'EPUB must be less than 50MB';
+        return 'EPUB must be less than 100MB';
       }
       if (!fileValidation.epub.allowedTypes.includes(file.type)) {
         return 'File must be EPUB format';
@@ -86,11 +86,11 @@ export const fileValidation = {
     }
   },
   bookFile: {
-    maxSize: 50 * 1024 * 1024, // 50MB
+    maxSize: 100 * 1024 * 1024, // 100MB
     allowedTypes: ['application/pdf', 'application/epub+zip'],
     getMessage: (file: File) => {
       if (file.size > fileValidation.bookFile.maxSize) {
-        return 'Book file must be less than 50MB';
+        return 'Book file must be less than 100MB';
       }
       if (!fileValidation.bookFile.allowedTypes.includes(file.type)) {
         return 'File must be PDF or EPUB format';
