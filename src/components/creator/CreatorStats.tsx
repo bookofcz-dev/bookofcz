@@ -20,13 +20,34 @@ interface CreatorStatsProps {
 export const CreatorStats = ({ books }: CreatorStatsProps) => {
   const [totalEarnings, setTotalEarnings] = useState({ bnb: 0, usdt: 0, bocz: 0 });
   const [totalSales, setTotalSales] = useState(0);
-  const [bnbPriceUSDT, setBnbPriceUSDT] = useState(600); // Default BNB price in USDT
+  const [bnbPriceUSDT, setBnbPriceUSDT] = useState(600);
+  const [boczPriceUSDT, setBoczPriceUSDT] = useState(0);
 
   useEffect(() => {
-    // Fetch current BNB price (using a reasonable estimate for now)
-    // In production, this would fetch from a price oracle or API
-    const estimatedBnbPrice = 600; // ~$600 USDT per BNB
-    setBnbPriceUSDT(estimatedBnbPrice);
+    const fetchTokenPrices = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke('get-token-prices');
+        
+        if (error) {
+          console.error('Error fetching token prices:', error);
+          return;
+        }
+
+        if (data) {
+          setBnbPriceUSDT(data.bnb || 600);
+          setBoczPriceUSDT(data.bocz || 0);
+          console.log('Token prices updated:', data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch token prices:', error);
+      }
+    };
+
+    fetchTokenPrices();
+    // Refresh prices every 5 minutes
+    const interval = setInterval(fetchTokenPrices, 5 * 60 * 1000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -75,11 +96,11 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
     ? books.reduce((sum, b) => sum + (b.average_rating || 0), 0) / books.length
     : 0;
 
-  // Calculate total earnings in USDT (converting BNB to USDT)
+  // Calculate total earnings in USDT (converting BNB and BOCZ to USDT)
   const totalEarningsUSDT = 
     (totalEarnings.bnb * bnbPriceUSDT) + 
     totalEarnings.usdt + 
-    totalEarnings.bocz;
+    (totalEarnings.bocz * boczPriceUSDT);
 
   const stats = [
     {

@@ -1,5 +1,8 @@
 project_id = "mowupnhjeghhbafjacza"
 
+[functions.get-token-prices]
+verify_jwt = false
+
 [functions.increment-view]
 verify_jwt = false
 
