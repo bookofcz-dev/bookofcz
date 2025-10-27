@@ -13,7 +13,8 @@ interface WalletContextType {
   switchToBSC: () => Promise<void>;
   sendTransaction: (to: string, valueInBNB: string) => Promise<any>;
   sendTokenTransaction: (to: string, amount: number) => Promise<any>;
-  getTokenBalance: (walletAddress: string) => Promise<string>;
+  sendUsdtTransaction: (to: string, amount: number) => Promise<any>;
+  getTokenBalance: (walletAddress: string, tokenAddress?: string) => Promise<string>;
   isOnBSC: boolean;
 }
 

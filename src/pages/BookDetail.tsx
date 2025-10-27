@@ -45,7 +45,7 @@ interface Review {
 export default function BookDetail() {
   const { bookId } = useParams();
   const navigate = useNavigate();
-  const { account, connectWallet, disconnectWallet, isConnecting, sendTransaction, sendTokenTransaction, getTokenBalance, provider } = useWallet();
+  const { account, connectWallet, disconnectWallet, isConnecting, sendTransaction, sendTokenTransaction, sendUsdtTransaction, getTokenBalance, provider } = useWallet();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
   const [purchasing, setPurchasing] = useState(false);
@@ -53,8 +53,9 @@ export default function BookDetail() {
   const [showUpload, setShowUpload] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [hasReviewed, setHasReviewed] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<'BNB' | 'BOCZ'>('BNB');
+  const [paymentMethod, setPaymentMethod] = useState<'BNB' | 'BOCZ' | 'USDT'>('USDT');
   const [boczBalance, setBoczBalance] = useState<string>('0');
+  const [usdtBalance, setUsdtBalance] = useState<string>('0');
   const [boczPriceInBnb, setBoczPriceInBnb] = useState<number>(0);
   const [bnbPriceInUsdt, setBnbPriceInUsdt] = useState<number>(0);
   const [showViewer, setShowViewer] = useState(false);
@@ -79,6 +80,7 @@ export default function BookDetail() {
         checkPurchase();
         checkReview();
         loadBoczBalance();
+        loadUsdtBalance();
       }
     }
   }, [bookId, account]);
@@ -116,6 +118,14 @@ export default function BookDetail() {
     if (account && getTokenBalance) {
       const balance = await getTokenBalance(account);
       setBoczBalance(parseFloat(balance).toFixed(2));
+    }
+  };
+
+  const loadUsdtBalance = async () => {
+    if (account && getTokenBalance) {
+      const USDT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+      const balance = await getTokenBalance(account, USDT_ADDRESS);
+      setUsdtBalance(parseFloat(balance).toFixed(2));
     }
   };
 
@@ -205,7 +215,19 @@ export default function BookDetail() {
       let totalPrice: string;
       let pricePaidUSDT: number;
       
-      if (paymentMethod === 'BNB') {
+      if (paymentMethod === 'USDT') {
+        // USDT payment: Direct 1:1 with book price, 4% platform fee
+        const totalUSDT = bookPriceUSDT;
+        const creatorUSDT = totalUSDT * 0.96;
+        const platformFeeUSDT = totalUSDT * 0.04;
+        
+        creatorAmount = creatorUSDT.toFixed(2);
+        platformFee = platformFeeUSDT.toFixed(2);
+        totalPrice = totalUSDT.toFixed(2);
+        pricePaidUSDT = bookPriceUSDT;
+        
+        console.log(`💵 USDT Payment - Total: ${totalUSDT} USDT (Creator: ${creatorUSDT.toFixed(2)}, Platform Fee: ${platformFeeUSDT.toFixed(2)})`);
+      } else if (paymentMethod === 'BNB') {
         // BNB payment: 4% platform fee
         const totalBNB = bookPriceUSDT * USDT_TO_BNB_RATE;
         const creatorBNB = totalBNB * 0.96;
@@ -243,7 +265,7 @@ export default function BookDetail() {
         book.id, 
         totalPrice, 
         timestamp, 
-        paymentMethod === 'BNB' ? 'BNB' : '$BOCZ'
+        paymentMethod === 'BNB' ? 'BNB' : paymentMethod === 'USDT' ? 'USDT' : '$BOCZ'
       );
       
       toast.info('Please sign the message to verify your purchase...');
@@ -294,7 +316,51 @@ export default function BookDetail() {
       let creatorTx: any;
       let platformTx: any;
 
-      if (paymentMethod === 'BNB') {
+      if (paymentMethod === 'USDT') {
+        // Send USDT payment to creator (96%)
+        toast.info('Confirm USDT payment to creator...');
+        creatorTx = await sendUsdtTransaction(book.creator_wallet, parseFloat(creatorAmount));
+        
+        toast.info('Processing creator payment...');
+        const creatorReceipt = await creatorTx.wait();
+        
+        if (!creatorReceipt || creatorReceipt.status !== 1) {
+          throw new Error('Creator payment failed');
+        }
+
+        // Verify USDT token transfer amount on-chain
+        const TRANSFER_EVENT_SIGNATURE = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
+        const transferLog = creatorReceipt.logs.find(
+          log => log.topics[0] === TRANSFER_EVENT_SIGNATURE
+        );
+
+        if (!transferLog) {
+          throw new Error('Token transfer event not found');
+        }
+
+        // Parse transfer amount from event data (USDT has 18 decimals on BSC)
+        const actualAmount = ethers.toBigInt(transferLog.data);
+        const expectedAmount = ethers.parseUnits(creatorAmount, 18);
+
+        if (actualAmount < expectedAmount) {
+          throw new Error(`Insufficient payment: expected ${creatorAmount} USDT`);
+        }
+
+        // Send platform fee (4%) in USDT
+        if (parseFloat(platformFee) > 0) {
+          toast.info('Confirm platform fee...');
+          platformTx = await sendUsdtTransaction(platformWallet, parseFloat(platformFee));
+          
+          toast.info('Processing platform fee...');
+          const platformReceipt = await platformTx.wait();
+          
+          if (!platformReceipt || platformReceipt.status !== 1) {
+            throw new Error('Platform fee payment failed');
+          }
+        } else {
+          platformTx = creatorTx;
+        }
+      } else if (paymentMethod === 'BNB') {
         // Send BNB payment to creator (96%)
         toast.info('Confirm payment to creator...');
         creatorTx = await sendTransaction(book.creator_wallet, creatorAmount);
@@ -404,9 +470,11 @@ export default function BookDetail() {
       toast.success('Purchase successful! You can now download the book.');
       setHasPurchased(true);
       
-      // Refresh BOCZ balance if paid with BOCZ
+      // Refresh balance if paid with BOCZ or USDT
       if (paymentMethod === 'BOCZ') {
         loadBoczBalance();
+      } else if (paymentMethod === 'USDT') {
+        loadUsdtBalance();
       }
     } catch (error: any) {
       console.error('Error purchasing book:', error);
@@ -660,14 +728,16 @@ export default function BookDetail() {
 
               {/* Price and Actions */}
               <div className="space-y-4">
-                <div className="space-y-2">
+                 <div className="space-y-2">
                   <div className="text-4xl font-bold text-primary">
                     {bookPrice === 0 ? 'FREE' : `$${bookPrice.toFixed(2)} USDT`}
                   </div>
                   {bookPrice > 0 && (
                     <>
                       <div className="text-lg text-muted-foreground">
-                        {paymentMethod === 'BNB' 
+                        {paymentMethod === 'USDT'
+                          ? `${bookPrice.toFixed(2)} USDT (incl. 4% fee)`
+                          : paymentMethod === 'BNB' 
                           ? `≈ ${priceInBNB.toFixed(4)} BNB (incl. 4% fee)` 
                           : `≈ ${priceInBOCZ.toFixed(0)} $BOCZ (0% fee)`}
                       </div>
@@ -683,6 +753,16 @@ export default function BookDetail() {
                           )}
                         </div>
                       )}
+                      {paymentMethod === 'USDT' && account && (
+                        <div className="space-y-1">
+                          <div className="text-sm text-muted-foreground">
+                            Your USDT balance: {usdtBalance}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            Includes 4% platform fee (${(bookPrice * 0.04).toFixed(2)} USDT)
+                          </div>
+                        </div>
+                      )}
                       {paymentMethod === 'BNB' && (
                         <div className="text-sm text-muted-foreground">
                           Includes 4% platform fee (≈ {(priceInBNB * 0.04).toFixed(4)} BNB)
@@ -695,6 +775,14 @@ export default function BookDetail() {
                 {bookPrice > 0 && account && (
                   <div className="space-y-2">
                     <div className="flex gap-2 p-2 bg-muted rounded-lg">
+                      <Button
+                        variant={paymentMethod === 'USDT' ? 'default' : 'outline'}
+                        onClick={() => setPaymentMethod('USDT')}
+                        className="flex-1"
+                        size="sm"
+                      >
+                        Pay with USDT
+                      </Button>
                       <Button
                         variant={paymentMethod === 'BNB' ? 'default' : 'outline'}
                         onClick={() => setPaymentMethod('BNB')}
@@ -749,7 +837,9 @@ export default function BookDetail() {
                         ) : (
                           <>
                             <Wallet className="h-5 w-5 mr-2" />
-                            Purchase for {paymentMethod === 'BNB' 
+                            Purchase for {paymentMethod === 'USDT' 
+                              ? `${bookPrice.toFixed(2)} USDT`
+                              : paymentMethod === 'BNB' 
                               ? `${priceInBNB.toFixed(4)} BNB` 
                               : `${priceInBOCZ.toFixed(0)} $BOCZ`}
                           </>
@@ -781,7 +871,13 @@ export default function BookDetail() {
               </div>
 
               <div className="text-xs text-muted-foreground">
-                {paymentMethod === 'BNB' ? (
+                {paymentMethod === 'USDT' ? (
+                  <>
+                    <p>• 96% goes to creator</p>
+                    <p>• 4% platform fee</p>
+                    <p>• Direct stablecoin payment</p>
+                  </>
+                ) : paymentMethod === 'BNB' ? (
                   <>
                     <p>• 96% goes to creator</p>
                     <p>• 4% platform fee</p>

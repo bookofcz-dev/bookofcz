@@ -17,6 +17,9 @@ export const PLATFORM_WALLET = '0x6e22449bEbc5C719fA7ADB39bc2576B9E6F11bd8';
 // BOCZ Token contract address
 export const BOCZ_TOKEN_ADDRESS = '0x701bE97c604A35aB7BCF6C75cA6de3aba0704444';
 
+// USDT Token contract address on BSC
+export const USDT_TOKEN_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+
 // Minimal ERC20 ABI for token operations
 const ERC20_ABI = [
   'function transfer(address to, uint256 amount) returns (bool)',
@@ -320,11 +323,39 @@ export const useMarketplaceWallet = () => {
     }
   };
 
-  const getTokenBalance = async (walletAddress: string) => {
+  const sendUsdtTransaction = async (to: string, amount: number) => {
+    if (!signer) {
+      throw new Error('Wallet not connected');
+    }
+
+    // Validate recipient address
+    if (!ethers.isAddress(to)) {
+      throw new Error('Invalid recipient address');
+    }
+
+    try {
+      console.log(`💵 Initiating USDT transfer: ${amount} USDT to ${to}`);
+      const tokenContract = new ethers.Contract(USDT_TOKEN_ADDRESS, ERC20_ABI, signer);
+      
+      // USDT has 18 decimals on BSC
+      const decimals = await tokenContract.decimals();
+      const tokenAmount = ethers.parseUnits(amount.toString(), decimals);
+
+      // Send token transfer
+      const tx = await tokenContract.transfer(to, tokenAmount);
+
+      return tx;
+    } catch (error: any) {
+      console.error('USDT transaction error:', error);
+      throw new Error(error.message || 'Failed to send USDT transaction');
+    }
+  };
+
+  const getTokenBalance = async (walletAddress: string, tokenAddress: string = BOCZ_TOKEN_ADDRESS) => {
     try {
       // Use public BSC RPC for read-only operations to avoid API key requirements
       const publicProvider = new ethers.JsonRpcProvider(BSC_RPC_URLS[0]);
-      const tokenContract = new ethers.Contract(BOCZ_TOKEN_ADDRESS, ERC20_ABI, publicProvider);
+      const tokenContract = new ethers.Contract(tokenAddress, ERC20_ABI, publicProvider);
       const balance = await tokenContract.balanceOf(walletAddress);
       const decimals = await tokenContract.decimals();
       return ethers.formatUnits(balance, decimals);
@@ -345,6 +376,7 @@ export const useMarketplaceWallet = () => {
     switchToBSC,
     sendTransaction,
     sendTokenTransaction,
+    sendUsdtTransaction,
     getTokenBalance,
     isOnBSC: chainId === BSC_CHAIN_ID || chainId === BSC_TESTNET_CHAIN_ID,
   };
