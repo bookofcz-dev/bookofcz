@@ -46,21 +46,30 @@ export const CreatorBookCard = ({ book, onEdit }: CreatorBookCardProps) => {
         return;
       }
 
-      // Determine currency based on book pricing
-      const bnbEarnings = book.price_bnb > 0 
-        ? purchases?.reduce((sum, p) => sum + Number(p.creator_amount), 0) || 0
-        : 0;
-      
-      const usdtEarnings = book.price_usdt > 0 && book.price_bnb === 0
-        ? purchases?.reduce((sum, p) => sum + Number(p.creator_amount), 0) || 0
-        : 0;
+      // Infer currency from purchase amounts
+      // BNB amounts are typically < 1, USDT amounts are typically > 1
+      let bnbEarnings = 0;
+      let usdtEarnings = 0;
+      let boczEarnings = 0;
 
-      setEarningsByCurrency({ bnb: bnbEarnings, usdt: usdtEarnings, bocz: 0 });
+      purchases?.forEach(purchase => {
+        const amount = Number(purchase.creator_amount);
+        if (amount < 1 && amount > 0) {
+          // Likely BNB (small decimal amounts)
+          bnbEarnings += amount;
+        } else if (amount >= 1) {
+          // Likely USDT (amounts over 1)
+          usdtEarnings += amount;
+        }
+        // BOCZ would be handled here if implemented
+      });
+
+      setEarningsByCurrency({ bnb: bnbEarnings, usdt: usdtEarnings, bocz: boczEarnings });
       setActualSales(purchases?.length || 0);
     };
 
     fetchBookEarnings();
-  }, [book.id, book.price_bnb, book.price_usdt]);
+  }, [book.id]);
 
   const priceUSDT = book.price_usdt || book.price_bnb;
 

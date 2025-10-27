@@ -37,22 +37,25 @@ export const CreatorStats = ({ books }: CreatorStatsProps) => {
         return;
       }
 
-      // Calculate earnings by currency
+      // Infer currency from purchase amounts
+      // BNB amounts are typically < 1, USDT amounts are typically > 1
       let bnbTotal = 0;
       let usdtTotal = 0;
+      let boczTotal = 0;
 
       purchases?.forEach(purchase => {
-        const book = books.find(b => b.id === purchase.book_id);
-        if (book) {
-          if (book.price_bnb > 0) {
-            bnbTotal += Number(purchase.creator_amount);
-          } else if (book.price_usdt > 0) {
-            usdtTotal += Number(purchase.creator_amount);
-          }
+        const amount = Number(purchase.creator_amount);
+        if (amount < 1 && amount > 0) {
+          // Likely BNB (small decimal amounts)
+          bnbTotal += amount;
+        } else if (amount >= 1) {
+          // Likely USDT (amounts over 1)
+          usdtTotal += amount;
         }
+        // BOCZ would be handled here if implemented
       });
 
-      setTotalEarnings({ bnb: bnbTotal, usdt: usdtTotal, bocz: 0 });
+      setTotalEarnings({ bnb: bnbTotal, usdt: usdtTotal, bocz: boczTotal });
       setTotalSales(purchases?.length || 0);
     };
 
