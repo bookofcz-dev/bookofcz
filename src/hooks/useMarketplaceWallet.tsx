@@ -13,7 +13,7 @@ const BSC_RPC_URLS = [
 ];
 
 // Platform fee wallet (4% goes here)
-export const PLATFORM_WALLET = '0x6e22449bEbc5C719fA7ADB39bc2576B9E6F11bd8';
+export const PLATFORM_WALLET = '0x91A1A54b1420000864400909da92445f54A95d4c';
 
 // BOCZ Token contract address
 export const BOCZ_TOKEN_ADDRESS = '0x701bE97c604A35aB7BCF6C75cA6de3aba0704444';

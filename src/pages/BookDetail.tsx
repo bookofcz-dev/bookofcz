@@ -218,7 +218,7 @@ export default function BookDetail() {
 
     setPurchasing(true);
     try {
-      const platformWallet = '0x6e22449bEbc5C719fA7ADB39bc2576B9E6F11bd8';
+      const platformWallet = '0x91A1A54b1420000864400909da92445f54A95d4c';
       const bookPriceUSDT = book.price_usdt || book.price_bnb; // Fallback to price_bnb for legacy books
       
       let creatorAmount: string;
