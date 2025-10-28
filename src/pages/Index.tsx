@@ -84,7 +84,7 @@ const Index = () => {
               BOOK OF CZ
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 font-body px-4 md:px-0">
-              Discover and submit books documenting the journey of CZ.
+              Books reimagined for the Web3 era — where every story lives on-chain.
             </p>
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center md:justify-start px-4 md:px-0">
               <Button
