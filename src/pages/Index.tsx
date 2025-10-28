@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Sparkles, Eye, Volume2 } from "lucide-react";
-import { Twitter, MessageCircle, Send } from "lucide-react";
+import { Twitter, MessageCircle, Send, Mail } from "lucide-react";
 import logo from "@/assets/book-of-cz-hero.png";
 import book1Cover from "@/assets/book1-cover.png";
 import book2Cover from "@/assets/book2-cover.png";
@@ -711,6 +711,10 @@ const Index = () => {
               <Send className="h-6 w-6" />
             </a>
           </div>
+          <a href="mailto:support@bookofcz.live" className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2">
+            <Mail className="h-4 w-4" />
+            support@bookofcz.live
+          </a>
           <p className="text-sm text-muted-foreground font-body">
             © 2025 Book of CZ. All rights reserved.
           </p>
