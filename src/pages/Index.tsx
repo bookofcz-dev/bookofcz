@@ -553,6 +553,19 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Explore Marketplace CTA */}
+        <div className="flex justify-center mt-12">
+          <Button
+            onClick={() => navigate("/marketplace")}
+            size="lg"
+            variant="gold"
+            className="gap-2 font-cta"
+          >
+            <BookOpen className="w-5 h-5" />
+            Explore Marketplace
+          </Button>
+        </div>
       </section>
 
       {/* Roadmap Section */}
