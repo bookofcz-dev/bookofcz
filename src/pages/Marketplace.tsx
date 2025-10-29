@@ -8,6 +8,7 @@ import { UploadBookDialog } from '@/components/marketplace/UploadBookDialog';
 import { MarketplaceStats } from '@/components/marketplace/MarketplaceStats';
 import { Navbar } from '@/components/Navbar';
 import logo from '@/assets/bookofcz-logo.png';
+import dappbayLogo from '@/assets/dappbay-logo.png';
 
 export default function Marketplace() {
   const { account, connectWallet, disconnectWallet, isConnecting } = useWallet();
@@ -40,7 +41,7 @@ export default function Marketplace() {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6 font-body">
               The first decentralized marketplace for crypto books on Binance Smart Chain
             </p>
-            <div className="flex justify-center mb-8">
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
               <a href="https://www.producthunt.com/products/bocz-marketplace?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-bocz-marketplace" target="_blank" rel="noopener noreferrer">
                 <img 
                   src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1031248&theme=light&t=1761549653462" 
@@ -48,6 +49,16 @@ export default function Marketplace() {
                   style={{ width: '250px', height: '54px' }} 
                   width="250" 
                   height="54" 
+                />
+              </a>
+              <a href="https://dappbay.bnbchain.org/detail/bocz-marketplace" target="_blank" rel="noopener noreferrer" className="inline-block">
+                <img 
+                  src={dappbayLogo} 
+                  alt="Find us on BNB Chain DappBay" 
+                  style={{ width: '250px', height: '54px' }} 
+                  width="250" 
+                  height="54"
+                  className="object-contain"
                 />
               </a>
             </div>
