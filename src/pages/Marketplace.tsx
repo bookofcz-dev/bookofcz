@@ -46,18 +46,18 @@ export default function Marketplace() {
                 <img 
                   src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1031248&theme=light&t=1761549653462" 
                   alt="BOCZ Marketplace - The 1st Web3 marketplace for digital books built on BSC. | Product Hunt" 
-                  style={{ width: '250px', height: '54px' }} 
-                  width="250" 
-                  height="54" 
+                  style={{ width: '320px', height: '70px' }} 
+                  width="320" 
+                  height="70" 
                 />
               </a>
               <a href="https://dappbay.bnbchain.org/detail/bocz-marketplace" target="_blank" rel="noopener noreferrer" className="inline-block">
                 <img 
                   src={dappbayLogo} 
                   alt="Find us on BNB Chain DappBay" 
-                  style={{ width: '250px', height: '54px' }} 
-                  width="250" 
-                  height="54"
+                  style={{ width: '320px', height: '70px' }} 
+                  width="320" 
+                  height="70"
                   className="object-contain"
                 />
               </a>
