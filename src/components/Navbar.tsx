@@ -16,6 +16,7 @@ export const Navbar = () => {
   const baseNavLinks = [
     { name: 'Home', path: '/' },
     { name: 'Marketplace', path: '/marketplace' },
+    { name: 'Swap', path: '/swap' },
     { name: 'Audio', path: '/#collection' },
     { name: 'Roadmap', path: '/#roadmap' },
   ];
