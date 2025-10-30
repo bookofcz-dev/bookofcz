@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
+import { TokenSelector } from './TokenSelector';
 
 export const SwapInterface = () => {
   const { account, connectWallet, isConnecting, isOnBSC, switchToBSC, provider, signer } = useWallet();
@@ -21,10 +22,13 @@ export const SwapInterface = () => {
     isSwapping,
     priceImpact,
     exchangeRate,
+    setFromToken,
+    setToToken,
     setFromAmount,
     setSlippage,
     calculateOutputAmount,
     executeSwap,
+    switchTokens,
   } = useSwap();
 
   const [balance, setBalance] = useState<string>('0');
@@ -142,18 +146,25 @@ export const SwapInterface = () => {
                   MAX
                 </Button>
               )}
-              <div className="flex items-center gap-2 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 px-4 py-2 rounded-full border border-amber-500/20">
-                <span className="font-bold text-amber-600 dark:text-amber-400">{fromToken.symbol}</span>
-              </div>
+              <TokenSelector 
+                selectedToken={fromToken} 
+                onSelectToken={setFromToken}
+                otherToken={toToken}
+              />
             </div>
           </div>
         </div>
 
         {/* Switch Button */}
         <div className="flex justify-center -my-3 relative z-10">
-          <div className="bg-background p-2 rounded-full border-2 border-primary/20">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={switchTokens}
+            className="rounded-full border-2 border-primary/20 bg-background hover:bg-primary/10 hover:border-primary/40 transition-all"
+          >
             <ArrowDownUp className="h-5 w-5 text-primary" />
-          </div>
+          </Button>
         </div>
 
         {/* To Token */}
@@ -171,9 +182,11 @@ export const SwapInterface = () => {
               className="text-3xl h-20 pr-32 font-bold bg-muted/30 border-2 border-dashed"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
-              <div className="flex items-center gap-2 bg-gradient-to-r from-primary/20 to-primary/10 px-4 py-2 rounded-full border-2 border-primary/30">
-                <span className="font-bold text-primary">{toToken.symbol}</span>
-              </div>
+              <TokenSelector 
+                selectedToken={toToken} 
+                onSelectToken={setToToken}
+                otherToken={fromToken}
+              />
             </div>
           </div>
         </div>
