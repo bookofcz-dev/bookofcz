@@ -1,256 +1,189 @@
-import { useState, useCallback, useEffect } from 'react';
-import { Contract, parseUnits, formatUnits } from 'ethers';
-import { useWallet } from '@/contexts/WalletContext';
-import { toast } from 'sonner';
-import { BOCZ_TOKEN_ADDRESS } from '@/hooks/useMarketplaceWallet';
+import { useState } from 'react';
+import { ethers } from 'ethers';
+import { toast } from '@/hooks/use-toast';
 
-// PancakeSwap Router V2 on BSC Mainnet
-const PANCAKE_ROUTER_ADDRESS = '0x10ED43C718714eb63d5aA57B78B54704E256024E';
+export const BOCZ_TOKEN_ADDRESS = '0x701bE97c604A35aB7BCF6C75cA6de3aba0704444';
 
-// Token addresses on BSC
 export const TOKENS = {
   BNB: {
-    address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // Native BNB
+    address: 'BNB',
     symbol: 'BNB',
     decimals: 18,
-    name: 'BNB',
+    name: 'Binance Coin',
   },
   BOCZ: {
     address: BOCZ_TOKEN_ADDRESS,
     symbol: 'BOCZ',
     decimals: 18,
-    name: 'BOCZ Token',
-  },
-  USDT: {
-    address: '0x55d398326f99059fF775485246999027B3197955',
-    symbol: 'USDT',
-    decimals: 18,
-    name: 'Tether USD',
-  },
-  BUSD: {
-    address: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
-    symbol: 'BUSD',
-    decimals: 18,
-    name: 'Binance USD',
+    name: 'Book of CZ',
   },
 };
 
-// Wrapped BNB address for router interactions
+// PancakeSwap Router V2 on BSC
+const PANCAKE_ROUTER_ADDRESS = '0x10ED43C718714eb63d5aA57B78B54704E256024E';
 const WBNB_ADDRESS = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
 
 const ROUTER_ABI = [
   'function getAmountsOut(uint amountIn, address[] memory path) public view returns (uint[] memory amounts)',
-  'function swapExactTokensForTokens(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline) external returns (uint[] memory amounts)',
   'function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts)',
-  'function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] calldata path, address to, uint deadline) external returns (uint[] memory amounts)',
-];
-
-const ERC20_ABI = [
-  'function approve(address spender, uint256 amount) external returns (bool)',
-  'function allowance(address owner, address spender) external view returns (uint256)',
-  'function balanceOf(address account) external view returns (uint256)',
-  'function decimals() external view returns (uint8)',
 ];
 
 export const useSwap = () => {
-  const { provider, signer, account, isOnBSC } = useWallet();
-  const [fromToken, setFromToken] = useState(TOKENS.BNB);
-  const [toToken, setToToken] = useState(TOKENS.BOCZ);
+  const [fromToken] = useState(TOKENS.BNB);
+  const [toToken] = useState(TOKENS.BOCZ);
   const [fromAmount, setFromAmount] = useState('');
   const [toAmount, setToAmount] = useState('');
-  const [slippage, setSlippage] = useState('0.5');
+  const [slippage, setSlippage] = useState(0.5);
   const [isCalculating, setIsCalculating] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
-  const [priceImpact, setPriceImpact] = useState('0');
+  const [priceImpact, setPriceImpact] = useState<number | null>(null);
+  const [exchangeRate, setExchangeRate] = useState<number | null>(null);
 
-  // Calculate output amount
-  const calculateOutputAmount = useCallback(async () => {
-    if (!provider || !fromAmount || parseFloat(fromAmount) <= 0) {
+  const calculateOutputAmount = async (amount: string) => {
+    if (!amount || parseFloat(amount) <= 0) {
       setToAmount('');
+      setPriceImpact(null);
+      setExchangeRate(null);
       return;
     }
 
     setIsCalculating(true);
     try {
-      const router = new Contract(PANCAKE_ROUTER_ADDRESS, ROUTER_ABI, provider);
-      const amountIn = parseUnits(fromAmount, fromToken.decimals);
-      
-      // Build path - convert BNB to WBNB
-      const path = [];
-      if (fromToken.address === TOKENS.BNB.address) {
-        path.push(WBNB_ADDRESS);
-      } else {
-        path.push(fromToken.address);
-      }
-      
-      if (toToken.address === TOKENS.BNB.address) {
-        path.push(WBNB_ADDRESS);
-      } else {
-        path.push(toToken.address);
-      }
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const routerContract = new ethers.Contract(
+        PANCAKE_ROUTER_ADDRESS,
+        ROUTER_ABI,
+        provider
+      );
 
-      console.log('Swap path:', path);
-      console.log('Amount in:', amountIn.toString());
+      const amountIn = ethers.parseEther(amount);
+      const path = [WBNB_ADDRESS, toToken.address];
 
-      const amounts = await router.getAmountsOut(amountIn, path);
-      const outputAmount = formatUnits(amounts[amounts.length - 1], toToken.decimals);
+      // Get amounts out from PancakeSwap
+      const amounts = await routerContract.getAmountsOut(amountIn, path);
+      const amountOut = amounts[1];
+      const outputAmount = ethers.formatEther(amountOut);
+      
       setToAmount(outputAmount);
 
-      // Calculate price impact by comparing with a small reference trade
-      try {
-        const referenceAmount = parseUnits('0.001', fromToken.decimals); // Small reference amount
-        const referenceAmounts = await router.getAmountsOut(referenceAmount, path);
-        
-        const referenceRate = parseFloat(formatUnits(referenceAmounts[referenceAmounts.length - 1], toToken.decimals)) / 0.001;
-        const actualRate = parseFloat(outputAmount) / parseFloat(fromAmount);
-        const impact = Math.abs(((actualRate - referenceRate) / referenceRate) * 100);
-        
-        setPriceImpact(impact.toFixed(2));
-      } catch (e) {
-        // If reference calculation fails, set impact to 0
-        setPriceImpact('0');
-      }
-    } catch (error: any) {
-      console.error('Error calculating output:', error);
+      // Calculate exchange rate
+      const rate = parseFloat(outputAmount) / parseFloat(amount);
+      setExchangeRate(rate);
+
+      // Calculate price impact
+      const smallAmountIn = ethers.parseEther('0.001');
+      const smallAmounts = await routerContract.getAmountsOut(smallAmountIn, path);
+      const smallAmountOut = smallAmounts[1];
+      const spotRate = parseFloat(ethers.formatEther(smallAmountOut)) / 0.001;
       
-      if (error.code === 'CALL_EXCEPTION' || error.message?.includes('execution reverted')) {
-        toast.error('No liquidity pool found. Token may be on PancakeSwap V3.');
-      } else {
-        toast.error('Failed to calculate swap amount');
-      }
+      const impact = ((spotRate - rate) / spotRate) * 100;
+      setPriceImpact(Math.max(0, impact));
+
+    } catch (error: any) {
+      console.error('Error calculating output amount:', error);
+      toast({
+        title: "Calculation Error",
+        description: "Unable to fetch price from PancakeSwap",
+        variant: "destructive",
+      });
       setToAmount('');
-      setPriceImpact('0');
+      setPriceImpact(null);
+      setExchangeRate(null);
     } finally {
       setIsCalculating(false);
     }
-  }, [provider, fromAmount, fromToken, toToken]);
+  };
 
-  // Debounce calculation
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (fromAmount) {
-        calculateOutputAmount();
-      }
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [fromAmount, calculateOutputAmount]);
-
-  // Execute swap
-  const executeSwap = useCallback(async () => {
-    if (!signer || !account || !fromAmount || !toAmount) {
-      toast.error('Please connect wallet and enter amounts');
-      return;
-    }
-
-    if (!isOnBSC) {
-      toast.error('Please switch to BSC network');
+  const executeSwap = async (walletAddress: string, provider: ethers.BrowserProvider, signer: ethers.Signer) => {
+    if (!fromAmount || !toAmount) {
+      toast({
+        title: "Invalid Amount",
+        description: "Please enter an amount to swap",
+        variant: "destructive",
+      });
       return;
     }
 
     setIsSwapping(true);
     try {
-      const router = new Contract(PANCAKE_ROUTER_ADDRESS, ROUTER_ABI, signer);
-      const amountIn = parseUnits(fromAmount, fromToken.decimals);
-      const slippageMultiplier = 1 - parseFloat(slippage) / 100;
-      const amountOutMin = parseUnits(
-        (parseFloat(toAmount) * slippageMultiplier).toFixed(toToken.decimals),
-        toToken.decimals
+      // Check BNB balance
+      const balance = await provider.getBalance(walletAddress);
+      const amountIn = ethers.parseEther(fromAmount);
+      
+      if (balance < amountIn) {
+        toast({
+          title: "Insufficient Balance",
+          description: "You don't have enough BNB for this swap",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const routerContract = new ethers.Contract(
+        PANCAKE_ROUTER_ADDRESS,
+        ROUTER_ABI,
+        signer
       );
+
+      // Calculate minimum amount out with slippage
+      const amountOutMin = ethers.parseEther(toAmount);
+      const slippageMultiplier = (100 - slippage) / 100;
+      const minAmountOut = (amountOutMin * BigInt(Math.floor(slippageMultiplier * 1000))) / BigInt(1000);
+
+      const path = [WBNB_ADDRESS, toToken.address];
       const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes
 
-      // Build path - same as calculation
-      const path = [];
-      if (fromToken.address === TOKENS.BNB.address) {
-        path.push(WBNB_ADDRESS);
-      } else {
-        path.push(fromToken.address);
-      }
-      
-      if (toToken.address === TOKENS.BNB.address) {
-        path.push(WBNB_ADDRESS);
-      } else {
-        path.push(toToken.address);
-      }
+      toast({
+        title: "Swap Initiated",
+        description: "Please confirm the transaction in your wallet",
+      });
 
-      let tx;
-      
-      // Handle BNB as input (native token)
-      if (fromToken.address === TOKENS.BNB.address) {
-        tx = await router.swapExactETHForTokens(
-          amountOutMin,
-          path,
-          account,
-          deadline,
-          { value: amountIn }
-        );
-      }
-      // Handle BNB as output
-      else if (toToken.address === TOKENS.BNB.address) {
-        // Approve token first
-        const tokenContract = new Contract(fromToken.address, ERC20_ABI, signer);
-        const allowance = await tokenContract.allowance(account, PANCAKE_ROUTER_ADDRESS);
-        
-        if (allowance < amountIn) {
-          toast.info('Approving token...');
-          const approveTx = await tokenContract.approve(PANCAKE_ROUTER_ADDRESS, amountIn);
-          await approveTx.wait();
-        }
+      // Execute swap
+      const tx = await routerContract.swapExactETHForTokens(
+        minAmountOut,
+        path,
+        walletAddress,
+        deadline,
+        { value: amountIn }
+      );
 
-        tx = await router.swapExactTokensForETH(
-          amountIn,
-          amountOutMin,
-          path,
-          account,
-          deadline
-        );
-      }
-      // Handle token to token swap
-      else {
-        // Approve token first
-        const tokenContract = new Contract(fromToken.address, ERC20_ABI, signer);
-        const allowance = await tokenContract.allowance(account, PANCAKE_ROUTER_ADDRESS);
-        
-        if (allowance < amountIn) {
-          toast.info('Approving token...');
-          const approveTx = await tokenContract.approve(PANCAKE_ROUTER_ADDRESS, amountIn);
-          await approveTx.wait();
-        }
+      toast({
+        title: "Transaction Submitted",
+        description: "Waiting for confirmation...",
+      });
 
-        tx = await router.swapExactTokensForTokens(
-          amountIn,
-          amountOutMin,
-          path,
-          account,
-          deadline
-        );
-      }
-
-      toast.info('Swap transaction submitted...');
       await tx.wait();
-      toast.success('Swap completed successfully!');
-      
+
+      toast({
+        title: "Swap Successful! 🎉",
+        description: `Swapped ${fromAmount} BNB for ${parseFloat(toAmount).toFixed(2)} BOCZ`,
+      });
+
       // Reset form
       setFromAmount('');
       setToAmount('');
+      setPriceImpact(null);
+      setExchangeRate(null);
+
     } catch (error: any) {
       console.error('Swap error:', error);
+      
+      let errorMessage = "Failed to execute swap";
       if (error.code === 'ACTION_REJECTED') {
-        toast.error('Transaction rejected');
-      } else {
-        toast.error(error.reason || 'Swap failed');
+        errorMessage = "Transaction was rejected";
+      } else if (error.message?.includes('insufficient funds')) {
+        errorMessage = "Insufficient funds for gas";
       }
+
+      toast({
+        title: "Swap Failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
     } finally {
       setIsSwapping(false);
     }
-  }, [signer, account, fromAmount, toAmount, fromToken, toToken, slippage, isOnBSC]);
-
-  // Switch tokens
-  const switchTokens = useCallback(() => {
-    setFromToken(toToken);
-    setToToken(fromToken);
-    setFromAmount(toAmount);
-    setToAmount(fromAmount);
-  }, [fromToken, toToken, fromAmount, toAmount]);
+  };
 
   return {
     fromToken,
@@ -261,11 +194,10 @@ export const useSwap = () => {
     isCalculating,
     isSwapping,
     priceImpact,
-    setFromToken,
-    setToToken,
+    exchangeRate,
     setFromAmount,
     setSlippage,
+    calculateOutputAmount,
     executeSwap,
-    switchTokens,
   };
 };
