@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Contract, parseUnits, formatUnits } from 'ethers';
 import { useWallet } from '@/contexts/WalletContext';
 import { toast } from 'sonner';
+import { BOCZ_TOKEN_ADDRESS } from '@/hooks/useMarketplaceWallet';
 
 // PancakeSwap Router V2 on BSC Mainnet
 const PANCAKE_ROUTER_ADDRESS = '0x10ED43C718714eb63d5aA57B78B54704E256024E';
@@ -15,7 +16,7 @@ export const TOKENS = {
     name: 'BNB',
   },
   BOCZ: {
-    address: '0x68e84a62952d58661f691e274b433f0ffa0c2f14',
+    address: BOCZ_TOKEN_ADDRESS,
     symbol: 'BOCZ',
     decimals: 18,
     name: 'BOCZ Token',
