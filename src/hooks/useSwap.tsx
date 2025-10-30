@@ -75,47 +75,24 @@ export const useSwap = () => {
       const router = new Contract(PANCAKE_ROUTER_ADDRESS, ROUTER_ABI, provider);
       const amountIn = parseUnits(fromAmount, fromToken.decimals);
       
-      // Helper to create token address for path
-      const getTokenAddress = (token: typeof TOKENS[keyof typeof TOKENS]) => {
-        return token.address === TOKENS.BNB.address ? WBNB_ADDRESS : token.address;
-      };
-
-      const fromAddr = getTokenAddress(fromToken);
-      const toAddr = getTokenAddress(toToken);
-
-      // Try different paths in order of preference
-      const pathsToTry = [
-        // Direct path
-        [fromAddr, toAddr],
-        // Through USDT
-        [fromAddr, TOKENS.USDT.address, toAddr],
-        // Through BUSD
-        [fromAddr, TOKENS.BUSD.address, toAddr],
-        // Through BNB (WBNB)
-        [fromAddr, WBNB_ADDRESS, toAddr],
-      ];
-
-      let amounts;
-      let successfulPath;
-
-      for (const path of pathsToTry) {
-        // Skip if path has duplicates
-        if (new Set(path).size !== path.length) continue;
-        
-        try {
-          amounts = await router.getAmountsOut(amountIn, path);
-          successfulPath = path;
-          break;
-        } catch (e) {
-          // Try next path
-          continue;
-        }
+      // Build path - convert BNB to WBNB
+      const path = [];
+      if (fromToken.address === TOKENS.BNB.address) {
+        path.push(WBNB_ADDRESS);
+      } else {
+        path.push(fromToken.address);
+      }
+      
+      if (toToken.address === TOKENS.BNB.address) {
+        path.push(WBNB_ADDRESS);
+      } else {
+        path.push(toToken.address);
       }
 
-      if (!amounts || !successfulPath) {
-        throw new Error('No valid swap route found');
-      }
+      console.log('Swap path:', path);
+      console.log('Amount in:', amountIn.toString());
 
+      const amounts = await router.getAmountsOut(amountIn, path);
       const outputAmount = formatUnits(amounts[amounts.length - 1], toToken.decimals);
       setToAmount(outputAmount);
 
@@ -125,7 +102,12 @@ export const useSwap = () => {
       setPriceImpact(impact.toFixed(2));
     } catch (error: any) {
       console.error('Error calculating output:', error);
-      toast.error('No liquidity available for this token pair');
+      
+      if (error.code === 'CALL_EXCEPTION' || error.message?.includes('execution reverted')) {
+        toast.error('No liquidity pool found. Token may be on PancakeSwap V3.');
+      } else {
+        toast.error('Failed to calculate swap amount');
+      }
       setToAmount('');
       setPriceImpact('0');
     } finally {
@@ -166,36 +148,18 @@ export const useSwap = () => {
       );
       const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes
 
-      // Helper to create token address for path
-      const getTokenAddress = (token: typeof TOKENS[keyof typeof TOKENS]) => {
-        return token.address === TOKENS.BNB.address ? WBNB_ADDRESS : token.address;
-      };
-
-      const fromAddr = getTokenAddress(fromToken);
-      const toAddr = getTokenAddress(toToken);
-
-      // Try to find best path using same logic as calculateOutputAmount
-      const pathsToTry = [
-        [fromAddr, toAddr],
-        [fromAddr, TOKENS.USDT.address, toAddr],
-        [fromAddr, TOKENS.BUSD.address, toAddr],
-        [fromAddr, WBNB_ADDRESS, toAddr],
-      ];
-
-      let path;
-      for (const testPath of pathsToTry) {
-        if (new Set(testPath).size !== testPath.length) continue;
-        try {
-          await router.getAmountsOut(amountIn, testPath);
-          path = testPath;
-          break;
-        } catch (e) {
-          continue;
-        }
+      // Build path - same as calculation
+      const path = [];
+      if (fromToken.address === TOKENS.BNB.address) {
+        path.push(WBNB_ADDRESS);
+      } else {
+        path.push(fromToken.address);
       }
-
-      if (!path) {
-        throw new Error('No valid swap route found');
+      
+      if (toToken.address === TOKENS.BNB.address) {
+        path.push(WBNB_ADDRESS);
+      } else {
+        path.push(toToken.address);
       }
 
       let tx;
