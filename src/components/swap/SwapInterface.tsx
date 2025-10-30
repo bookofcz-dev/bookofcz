@@ -32,14 +32,35 @@ export const SwapInterface = () => {
   } = useSwap();
 
   const [balance, setBalance] = useState<string>('0');
+  const { getTokenBalance } = useWallet();
 
   useEffect(() => {
-    if (account && provider) {
-      provider.getBalance(account).then((bal) => {
-        setBalance((parseFloat(bal.toString()) / 1e18).toFixed(6));
-      });
-    }
-  }, [account, provider]);
+    const fetchBalance = async () => {
+      if (!account) {
+        setBalance('0');
+        return;
+      }
+
+      try {
+        if (fromToken.address === 'BNB') {
+          // For BNB, use provider.getBalance
+          if (provider) {
+            const bal = await provider.getBalance(account);
+            setBalance((parseFloat(bal.toString()) / 1e18).toFixed(6));
+          }
+        } else {
+          // For tokens, use getTokenBalance with the token address
+          const tokenBal = await getTokenBalance(account, fromToken.address);
+          setBalance(parseFloat(tokenBal).toFixed(6));
+        }
+      } catch (error) {
+        console.error('Error fetching balance:', error);
+        setBalance('0');
+      }
+    };
+
+    fetchBalance();
+  }, [account, provider, fromToken, getTokenBalance]);
 
   useEffect(() => {
     if (fromAmount) {
