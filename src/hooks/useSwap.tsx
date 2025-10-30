@@ -74,21 +74,47 @@ export const useSwap = () => {
       const router = new Contract(PANCAKE_ROUTER_ADDRESS, ROUTER_ABI, provider);
       const amountIn = parseUnits(fromAmount, fromToken.decimals);
       
-      // Create path for swap
-      const path = [];
-      if (fromToken.address === TOKENS.BNB.address) {
-        path.push(WBNB_ADDRESS);
-      } else {
-        path.push(fromToken.address);
-      }
-      
-      if (toToken.address === TOKENS.BNB.address) {
-        path.push(WBNB_ADDRESS);
-      } else {
-        path.push(toToken.address);
+      // Helper to create token address for path
+      const getTokenAddress = (token: typeof TOKENS[keyof typeof TOKENS]) => {
+        return token.address === TOKENS.BNB.address ? WBNB_ADDRESS : token.address;
+      };
+
+      const fromAddr = getTokenAddress(fromToken);
+      const toAddr = getTokenAddress(toToken);
+
+      // Try different paths in order of preference
+      const pathsToTry = [
+        // Direct path
+        [fromAddr, toAddr],
+        // Through USDT
+        [fromAddr, TOKENS.USDT.address, toAddr],
+        // Through BUSD
+        [fromAddr, TOKENS.BUSD.address, toAddr],
+        // Through BNB (WBNB)
+        [fromAddr, WBNB_ADDRESS, toAddr],
+      ];
+
+      let amounts;
+      let successfulPath;
+
+      for (const path of pathsToTry) {
+        // Skip if path has duplicates
+        if (new Set(path).size !== path.length) continue;
+        
+        try {
+          amounts = await router.getAmountsOut(amountIn, path);
+          successfulPath = path;
+          break;
+        } catch (e) {
+          // Try next path
+          continue;
+        }
       }
 
-      const amounts = await router.getAmountsOut(amountIn, path);
+      if (!amounts || !successfulPath) {
+        throw new Error('No valid swap route found');
+      }
+
       const outputAmount = formatUnits(amounts[amounts.length - 1], toToken.decimals);
       setToAmount(outputAmount);
 
@@ -98,13 +124,7 @@ export const useSwap = () => {
       setPriceImpact(impact.toFixed(2));
     } catch (error: any) {
       console.error('Error calculating output:', error);
-      
-      // Check if it's a liquidity/path error
-      if (error.code === 'CALL_EXCEPTION' || error.message?.includes('execution reverted')) {
-        toast.error('No liquidity pool found for this token pair. Try a different route or token.');
-      } else {
-        toast.error('Failed to calculate swap amount. Please try again.');
-      }
+      toast.error('No liquidity available for this token pair');
       setToAmount('');
       setPriceImpact('0');
     } finally {
@@ -145,18 +165,36 @@ export const useSwap = () => {
       );
       const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes
 
-      // Create path
-      const path = [];
-      if (fromToken.address === TOKENS.BNB.address) {
-        path.push(WBNB_ADDRESS);
-      } else {
-        path.push(fromToken.address);
+      // Helper to create token address for path
+      const getTokenAddress = (token: typeof TOKENS[keyof typeof TOKENS]) => {
+        return token.address === TOKENS.BNB.address ? WBNB_ADDRESS : token.address;
+      };
+
+      const fromAddr = getTokenAddress(fromToken);
+      const toAddr = getTokenAddress(toToken);
+
+      // Try to find best path using same logic as calculateOutputAmount
+      const pathsToTry = [
+        [fromAddr, toAddr],
+        [fromAddr, TOKENS.USDT.address, toAddr],
+        [fromAddr, TOKENS.BUSD.address, toAddr],
+        [fromAddr, WBNB_ADDRESS, toAddr],
+      ];
+
+      let path;
+      for (const testPath of pathsToTry) {
+        if (new Set(testPath).size !== testPath.length) continue;
+        try {
+          await router.getAmountsOut(amountIn, testPath);
+          path = testPath;
+          break;
+        } catch (e) {
+          continue;
+        }
       }
-      
-      if (toToken.address === TOKENS.BNB.address) {
-        path.push(WBNB_ADDRESS);
-      } else {
-        path.push(toToken.address);
+
+      if (!path) {
+        throw new Error('No valid swap route found');
       }
 
       let tx;
