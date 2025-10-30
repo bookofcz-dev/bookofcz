@@ -96,10 +96,17 @@ export const useSwap = () => {
       const expectedRate = parseFloat(fromAmount) / parseFloat(outputAmount);
       const impact = Math.abs((expectedRate - 1) * 100);
       setPriceImpact(impact.toFixed(2));
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error calculating output:', error);
-      toast.error('Failed to calculate output amount');
+      
+      // Check if it's a liquidity/path error
+      if (error.code === 'CALL_EXCEPTION' || error.message?.includes('execution reverted')) {
+        toast.error('No liquidity pool found for this token pair. Try a different route or token.');
+      } else {
+        toast.error('Failed to calculate swap amount. Please try again.');
+      }
       setToAmount('');
+      setPriceImpact('0');
     } finally {
       setIsCalculating(false);
     }
