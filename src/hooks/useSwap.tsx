@@ -96,10 +96,20 @@ export const useSwap = () => {
       const outputAmount = formatUnits(amounts[amounts.length - 1], toToken.decimals);
       setToAmount(outputAmount);
 
-      // Calculate price impact (simplified)
-      const expectedRate = parseFloat(fromAmount) / parseFloat(outputAmount);
-      const impact = Math.abs((expectedRate - 1) * 100);
-      setPriceImpact(impact.toFixed(2));
+      // Calculate price impact by comparing with a small reference trade
+      try {
+        const referenceAmount = parseUnits('0.001', fromToken.decimals); // Small reference amount
+        const referenceAmounts = await router.getAmountsOut(referenceAmount, path);
+        
+        const referenceRate = parseFloat(formatUnits(referenceAmounts[referenceAmounts.length - 1], toToken.decimals)) / 0.001;
+        const actualRate = parseFloat(outputAmount) / parseFloat(fromAmount);
+        const impact = Math.abs(((actualRate - referenceRate) / referenceRate) * 100);
+        
+        setPriceImpact(impact.toFixed(2));
+      } catch (e) {
+        // If reference calculation fails, set impact to 0
+        setPriceImpact('0');
+      }
     } catch (error: any) {
       console.error('Error calculating output:', error);
       
