@@ -38,6 +38,92 @@ export type Database = {
         }
         Relationships: []
       }
+      governance_proposals: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string
+          id: string
+          metadata: Json | null
+          proposal_type: Database["public"]["Enums"]["proposal_type"]
+          quorum_required: number
+          status: Database["public"]["Enums"]["proposal_status"]
+          title: string
+          total_votes_against: number
+          total_votes_for: number
+          updated_at: string
+          voting_ends_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description: string
+          id?: string
+          metadata?: Json | null
+          proposal_type: Database["public"]["Enums"]["proposal_type"]
+          quorum_required?: number
+          status?: Database["public"]["Enums"]["proposal_status"]
+          title: string
+          total_votes_against?: number
+          total_votes_for?: number
+          updated_at?: string
+          voting_ends_at: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string
+          id?: string
+          metadata?: Json | null
+          proposal_type?: Database["public"]["Enums"]["proposal_type"]
+          quorum_required?: number
+          status?: Database["public"]["Enums"]["proposal_status"]
+          title?: string
+          total_votes_against?: number
+          total_votes_for?: number
+          updated_at?: string
+          voting_ends_at?: string
+        }
+        Relationships: []
+      }
+      governance_votes: {
+        Row: {
+          created_at: string
+          id: string
+          proposal_id: string
+          transaction_hash: string
+          vote_for: boolean
+          vote_power: number
+          voter_wallet: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          proposal_id: string
+          transaction_hash: string
+          vote_for: boolean
+          vote_power: number
+          voter_wallet: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          proposal_id?: string
+          transaction_hash?: string
+          vote_for?: boolean
+          vote_power?: number
+          voter_wallet?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "governance_votes_proposal_id_fkey"
+            columns: ["proposal_id"]
+            isOneToOne: false
+            referencedRelation: "governance_proposals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       marketplace_books: {
         Row: {
           approval_status: string
@@ -278,6 +364,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      close_expired_proposals: { Args: never; Returns: undefined }
       delete_book_as_admin: {
         Args: { _admin_wallet: string; _book_id: string }
         Returns: undefined
@@ -346,6 +433,12 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      proposal_status: "active" | "passed" | "rejected" | "expired"
+      proposal_type:
+        | "book_approval"
+        | "fee_structure"
+        | "platform_feature"
+        | "other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -474,6 +567,13 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      proposal_status: ["active", "passed", "rejected", "expired"],
+      proposal_type: [
+        "book_approval",
+        "fee_structure",
+        "platform_feature",
+        "other",
+      ],
     },
   },
 } as const

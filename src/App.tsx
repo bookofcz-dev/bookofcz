@@ -48,6 +48,7 @@ import CreatorDashboard from "./pages/CreatorDashboard";
 import BookDetail from "./pages/BookDetail";
 import MyLibrary from "./pages/MyLibrary";
 import Swap from "./pages/Swap";
+import Governance from "./pages/Governance";
 
 const queryClient = new QueryClient();
 
@@ -101,6 +102,7 @@ const App = () => (
             <Route path="/marketplace/dashboard" element={<CreatorDashboard />} />
             <Route path="/my-library" element={<MyLibrary />} />
             <Route path="/swap" element={<Swap />} />
+            <Route path="/governance" element={<Governance />} />
             <Route path="/admin" element={<AdminDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
