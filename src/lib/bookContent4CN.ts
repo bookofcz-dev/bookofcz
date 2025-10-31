@@ -1,6 +1,7 @@
 import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
 import czQuote11Portrait from "@/assets/cz-quote11-portrait.png";
 import czQuote12Portrait from "@/assets/cz-quote12-portrait.png";
+import czQuote14Portrait from "@/assets/cz-quote14-portrait.png";
 
 export interface BookPage {
   title: string;
@@ -72,7 +73,8 @@ export const bookContent4CN: BookPage[] = [
   },
   {
     title: "语录 14",
-    content: "\"种树最好的时间是20年前。第二好的时间是现在。\"\n\n开始永远不会太晚。今天就开始，无论你应该何时开始。"
+    content: "\"种树最好的时间是20年前。第二好的时间是现在。\"\n\n开始永远不会太晚。今天就开始，无论你应该何时开始。",
+    backgroundImage: czQuote14Portrait
   },
   {
     title: "语录 15",

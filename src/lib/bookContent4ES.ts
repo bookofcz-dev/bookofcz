@@ -1,6 +1,7 @@
 import czQuote10Portrait from "@/assets/cz-quote10-portrait.png";
 import czQuote11Portrait from "@/assets/cz-quote11-portrait.png";
 import czQuote12Portrait from "@/assets/cz-quote12-portrait.png";
+import czQuote14Portrait from "@/assets/cz-quote14-portrait.png";
 
 export interface BookPage {
   title: string;
