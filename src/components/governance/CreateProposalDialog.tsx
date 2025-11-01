@@ -43,13 +43,13 @@ export const CreateProposalDialog = ({ open, onOpenChange, onProposalCreated }: 
       const { error } = await supabase
         .from('governance_proposals')
         .insert({
+          title: formData.title,
           description: formData.description,
           proposal_type: formData.proposalType,
           created_by: account.toLowerCase(),
           voting_ends_at: votingEndsAt.toISOString(),
           quorum_required: parseFloat(formData.quorumRequired),
           status: 'active',
-          metadata: { title: formData.title },
         });
 
       if (error) throw error;
