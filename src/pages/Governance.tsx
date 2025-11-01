@@ -1,17 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Navbar } from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ProposalCard } from '@/components/governance/ProposalCard';
 import { VoteDialog } from '@/components/governance/VoteDialog';
+import { CreateProposalDialog } from '@/components/governance/CreateProposalDialog';
 import { useGovernance, type Proposal } from '@/hooks/useGovernance';
-import { Vote, TrendingUp, CheckCircle2, XCircle, Clock } from 'lucide-react';
+import { useAdminCheck } from '@/hooks/useAdminCheck';
+import { useWallet } from '@/contexts/WalletContext';
+import { Vote, TrendingUp, CheckCircle2, XCircle, Clock, Plus } from 'lucide-react';
 
 const Governance = () => {
-  const { proposals, isLoading } = useGovernance();
+  const { account } = useWallet();
+  const { proposals, isLoading, fetchProposals } = useGovernance();
+  const { isAdmin } = useAdminCheck(account || '');
   const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(null);
   const [voteDialogOpen, setVoteDialogOpen] = useState(false);
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
 
   const handleVote = (proposalId: string) => {
     const proposal = proposals.find(p => p.id === proposalId);
@@ -44,9 +50,15 @@ const Governance = () => {
                 <Vote className="w-12 h-12 text-primary" />
                 <h1 className="text-4xl md:text-5xl font-bold">BOCZ Governance</h1>
               </div>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
                 Your voice matters. Vote on marketplace decisions with your BOCZ tokens.
               </p>
+              {isAdmin && (
+                <Button onClick={() => setCreateDialogOpen(true)} size="lg">
+                  <Plus className="w-5 h-5 mr-2" />
+                  Create Proposal
+                </Button>
+              )}
             </div>
 
             {/* Stats */}
@@ -162,6 +174,12 @@ const Governance = () => {
           proposal={selectedProposal}
           open={voteDialogOpen}
           onOpenChange={setVoteDialogOpen}
+        />
+
+        <CreateProposalDialog
+          open={createDialogOpen}
+          onOpenChange={setCreateDialogOpen}
+          onProposalCreated={fetchProposals}
         />
       </div>
     </>
