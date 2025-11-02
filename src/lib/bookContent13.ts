@@ -18,7 +18,7 @@ This whitepaper outlines the four core utilities of the $BOCZ token and demonstr
     content: `**Token Name:** Book of CZ (BOCZ)
 **Blockchain:** Binance Smart Chain (BSC)
 **Token Standard:** BEP-20
-**Contract Address:** 0x6e2a5eA9a3cA6F6b7e0C6d3f2b1a0f9e8d7c6b5a
+**Contract Address:** 0x701bE97c604A35aB7BCF6C75cA6de3aba0704444
 
 **Core Philosophy:**
 The $BOCZ token is designed to create a self-sustaining ecosystem where knowledge sharing, content creation, decentralized trading, and community governance work in harmony. Every utility reinforces the others, creating network effects that benefit all stakeholders.`
