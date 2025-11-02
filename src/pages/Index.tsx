@@ -88,9 +88,21 @@ const Index = () => {
             </p>
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center md:justify-start px-4 md:px-0">
               <Button
-                onClick={() => navigate("/marketplace")}
+                onClick={() => navigate("/whitepaper")}
                 size="lg"
                 variant="gold"
+                className="gap-2 font-cta relative overflow-hidden group"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <BookOpen className="w-4 h-4" />
+                  Read Whitepaper
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary via-yellow-500 to-primary animate-[shimmer_2s_infinite] opacity-50" />
+              </Button>
+              <Button
+                onClick={() => navigate("/marketplace")}
+                size="lg"
+                variant="outline"
                 className="gap-2 font-cta"
               >
                 Explore Marketplace
@@ -106,14 +118,6 @@ const Index = () => {
               >
                 <BookOpen className="w-4 h-4" />
                 Book of CZ Collection
-              </Button>
-              <Button
-                onClick={() => navigate("/marketplace")}
-                size="lg"
-                variant="outline"
-                className="gap-2 font-cta"
-              >
-                Submit Your Book
               </Button>
             </div>
           </div>
