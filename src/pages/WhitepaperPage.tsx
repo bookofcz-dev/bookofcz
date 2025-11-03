@@ -37,7 +37,7 @@ const WhitepaperPage = () => {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
             <BookOpen className="w-8 h-8 text-primary" />
-            <h1 className="font-heading text-4xl md:text-5xl font-bold gold-shimmer bg-clip-text text-transparent">
+            <h1 className="font-heading text-4xl md:text-5xl font-bold text-primary">
               $BOCZ Whitepaper
             </h1>
           </div>
@@ -68,7 +68,7 @@ const WhitepaperPage = () => {
                 )}
                 
                 {/* Title */}
-                <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6 gold-shimmer bg-clip-text text-transparent">
+                <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6 text-primary">
                   {bookContent[currentPage].title}
                 </h2>
                 

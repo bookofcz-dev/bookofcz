@@ -80,7 +80,7 @@ const Index = () => {
 
           {/* Right: Title & CTAs */}
           <div className="text-center md:text-left order-2 md:order-none">
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 gold-shimmer bg-clip-text text-transparent">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 text-primary">
               BOOK OF CZ
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 md:mb-8 font-body px-4 md:px-0">
@@ -194,7 +194,7 @@ const Index = () => {
       {/* Book of CZ Collection Section */}
       <section id="collection" className="container mx-auto px-4 py-12 md:py-20 border-t border-border/40 mt-12 md:mt-20">
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 gold-shimmer bg-clip-text text-transparent px-4">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6 text-primary px-4">
             BOOK OF CZ COLLECTION
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-6 md:mb-8 px-4">
@@ -219,7 +219,7 @@ const Index = () => {
               />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Who is CZ?</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">Who is CZ?</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">From humble beginnings to building the world's largest cryptocurrency exchange.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -251,7 +251,7 @@ const Index = () => {
               />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">The Return</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">The Return</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">Witness the triumphant return of CZ and the rebirth of Binance Season.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -283,7 +283,7 @@ const Index = () => {
               />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">The Awakening</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">The Awakening</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">How $10M+ donation to Giggle Academy transformed CZ's perspective on meme coins.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -311,7 +311,7 @@ const Index = () => {
               <img src={book4Cover} alt="Book 4 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">44 Wisdom</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">44 Wisdom</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">Inspiring quotes from CZ that guide millions in their crypto journey.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -339,7 +339,7 @@ const Index = () => {
               <img src={book5Cover} alt="Book 5 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Love Story</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">Love Story</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">The uncharted romance of CZ and Yi He - the partnership that built Binance.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -367,7 +367,7 @@ const Index = () => {
               <img src={book6Cover} alt="Book 6 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Killing FUD</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">Killing FUD</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">How CZ's '4' philosophy and Proof of Reserves built unshakeable trust.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -395,7 +395,7 @@ const Index = () => {
               <img src={book7Cover} alt="Book 7 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Selfies</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">Selfies</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">20 memorable moments showing the human side of crypto.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -423,7 +423,7 @@ const Index = () => {
               <img src={book8Cover} alt="Book 8 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">CZ Bible</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">CZ Bible</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">Sacred wisdom and teachings from CZ's journey in cryptocurrency.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -451,7 +451,7 @@ const Index = () => {
               <img src={book9Cover} alt="Book 9 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Bitcoin Ed</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">Bitcoin Ed</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">CZ's vision for Bitcoin and the future of financial freedom.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -479,7 +479,7 @@ const Index = () => {
               <img src={book10Cover} alt="Book 10 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Giggle Academy</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">Giggle Academy</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">Revolutionizing education, making quality learning accessible to everyone.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -507,7 +507,7 @@ const Index = () => {
               <img src={book11Cover} alt="Book 11 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">Bitcoin vs Gold</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">Bitcoin vs Gold</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">CZ's perspective on Bitcoin versus Gold - the ultimate store of value showdown.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -535,7 +535,7 @@ const Index = () => {
               <img src={book12Cover} alt="Book 12 Cover" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
             </div>
             <div className="p-6">
-              <h3 className="font-heading text-xl font-bold mb-2 gold-shimmer bg-clip-text text-transparent">CZ's Pardon</h3>
+              <h3 className="font-heading text-xl font-bold mb-2 text-primary">CZ's Pardon</h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-2">The latest chapter in CZ's remarkable journey - a story of redemption.</p>
               <div className="flex items-center gap-2 mb-4">
                 <Eye className="h-3 w-3 text-primary" />
@@ -574,7 +574,7 @@ const Index = () => {
 
       {/* Roadmap Section */}
       <section id="roadmap" className="container mx-auto px-4 py-12 md:py-20 border-t border-border/40 mt-12 md:mt-20">
-        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 md:mb-16 gold-shimmer bg-clip-text text-transparent px-4">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 md:mb-16 text-primary px-4">
           ROADMAP
         </h2>
         
