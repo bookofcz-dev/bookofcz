@@ -35,7 +35,7 @@ export default function Marketplace() {
                 <img src={logo} alt="BookofCZ" className="h-40 w-auto relative" />
               </div>
             </div>
-            <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 gold-shimmer bg-clip-text text-transparent">
+            <h1 className="font-heading text-5xl md:text-7xl font-bold mb-6 text-primary">
               BOCZ Marketplace
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6 font-body">
