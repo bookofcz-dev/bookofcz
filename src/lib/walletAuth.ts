@@ -17,7 +17,11 @@ export async function createWalletAuthSession(
     
     console.log('🔐 Creating auth session for wallet:', walletAddress);
 
-    // Create anonymous Supabase session
+    // First, completely sign out any existing session
+    await supabase.auth.signOut();
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Create fresh anonymous Supabase session
     const { data: authData, error: authError } = await supabase.auth.signInAnonymously();
     
     if (authError) {
@@ -29,14 +33,19 @@ export async function createWalletAuthSession(
       return { success: false, error: 'No user or session created' };
     }
 
-    // Explicitly set the session to ensure it's available for RLS checks
-    await supabase.auth.setSession({
-      access_token: authData.session.access_token,
-      refresh_token: authData.session.refresh_token
-    });
+    console.log('📝 Auth session created, user_id:', authData.user.id);
 
-    // Small delay to ensure session context is established
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Wait for session to be fully established
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    // Verify session is accessible
+    const { data: sessionCheck } = await supabase.auth.getSession();
+    if (!sessionCheck.session || sessionCheck.session.user.id !== authData.user.id) {
+      console.error('Session verification failed');
+      return { success: false, error: 'Session not properly established' };
+    }
+
+    console.log('✅ Session verified, proceeding with wallet_sessions insert');
 
     // Store wallet address in secure table (not user_metadata)
     // Use wallet_address as conflict target to prevent duplicate sessions for same wallet
