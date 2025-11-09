@@ -25,9 +25,18 @@ export async function createWalletAuthSession(
       return { success: false, error: authError.message };
     }
 
-    if (!authData.user) {
-      return { success: false, error: 'No user created' };
+    if (!authData.user || !authData.session) {
+      return { success: false, error: 'No user or session created' };
     }
+
+    // Explicitly set the session to ensure it's available for RLS checks
+    await supabase.auth.setSession({
+      access_token: authData.session.access_token,
+      refresh_token: authData.session.refresh_token
+    });
+
+    // Small delay to ensure session context is established
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     // Store wallet address in secure table (not user_metadata)
     // Use wallet_address as conflict target to prevent duplicate sessions for same wallet
