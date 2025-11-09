@@ -202,12 +202,19 @@ export const useMarketplaceWallet = () => {
       // Create Supabase auth session for wallet
       const authResult = await createWalletAuthSession(signerAddress, browserProvider);
       if (!authResult.success) {
-        console.warn('⚠️ Failed to create auth session:', authResult.error);
+        console.error('❌ Failed to create auth session:', authResult.error);
+        // Clear state on auth failure
+        localStorage.removeItem('walletConnected');
+        setAccount(null);
+        setProvider(null);
+        setSigner(null);
+        setChainId(null);
         toast({
-          title: "Authentication Warning",
-          description: "Wallet connected but auth session failed. Some features may be limited.",
+          title: "Authentication Failed",
+          description: "Failed to create secure session. Please try reconnecting.",
           variant: "destructive",
         });
+        throw new Error('Authentication failed');
       }
 
       if (currentChainId !== BSC_CHAIN_ID && currentChainId !== BSC_TESTNET_CHAIN_ID) {

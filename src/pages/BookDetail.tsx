@@ -218,6 +218,36 @@ export default function BookDetail() {
 
     setPurchasing(true);
     try {
+      // Verify authenticated session and wallet_sessions record exists
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError || !session) {
+        toast.error('Please reconnect your wallet to continue');
+        disconnectWallet();
+        return;
+      }
+
+      // Verify wallet_sessions record exists for current session
+      const { data: walletSession, error: walletSessionError } = await supabase
+        .from('wallet_sessions')
+        .select('wallet_address')
+        .eq('user_id', session.user.id)
+        .maybeSingle();
+
+      if (walletSessionError || !walletSession) {
+        console.error('Wallet session not found:', walletSessionError);
+        toast.error('Session expired. Please reconnect your wallet');
+        disconnectWallet();
+        return;
+      }
+
+      // Verify wallet address matches
+      if (walletSession.wallet_address.toLowerCase() !== account.toLowerCase()) {
+        console.error('Wallet mismatch');
+        toast.error('Wallet address mismatch. Please reconnect your wallet');
+        disconnectWallet();
+        return;
+      }
       const platformWallet = '0x91A1A54b1420000864400909da92445f54A95d4c';
       const bookPriceUSDT = book.price_usdt || book.price_bnb; // Fallback to price_bnb for legacy books
       
