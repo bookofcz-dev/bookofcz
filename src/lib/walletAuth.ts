@@ -47,18 +47,12 @@ export async function createWalletAuthSession(
 
     console.log('✅ Session verified, proceeding with wallet_sessions insert');
 
-    // Store wallet address in secure table (not user_metadata)
-    // Use wallet_address as conflict target to prevent duplicate sessions for same wallet
-    const { error: walletError } = await supabase
-      .from('wallet_sessions')
-      .upsert({
-        user_id: authData.user.id,
-        wallet_address: walletAddress.toLowerCase(),
-        signature: signature,
-        updated_at: new Date().toISOString()
-      }, {
-        onConflict: 'wallet_address'
-      });
+    // Use security definer function to create wallet session (bypasses RLS)
+    const { error: walletError } = await supabase.rpc('create_wallet_session', {
+      _user_id: authData.user.id,
+      _wallet_address: walletAddress,
+      _signature: signature
+    });
 
     if (walletError) {
       console.error('Failed to store wallet session:', walletError);

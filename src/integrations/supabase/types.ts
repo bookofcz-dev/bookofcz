@@ -365,6 +365,10 @@ export type Database = {
     }
     Functions: {
       close_expired_proposals: { Args: never; Returns: undefined }
+      create_wallet_session: {
+        Args: { _signature: string; _user_id: string; _wallet_address: string }
+        Returns: undefined
+      }
       delete_book_as_admin: {
         Args: { _admin_wallet: string; _book_id: string }
         Returns: undefined
