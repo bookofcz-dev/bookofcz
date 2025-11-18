@@ -50,7 +50,28 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
   const { toast } = useToast();
   const { account } = useWallet();
 
-  const categories = ['crypto', 'binance', 'defi', 'nft', 'trading', 'education', 'technology'];
+  const categories = [
+    'fiction',
+    'non-fiction',
+    'business-finance',
+    'self-help-motivation',
+    'travel',
+    'technology',
+    'education',
+    'health-wellness',
+    'biographies',
+    'entrepreneurship',
+    'mindset-psychology',
+    'kids-teens',
+    'art-creativity',
+    'comics-graphic-novels',
+    'religion-philosophy',
+    'crypto',
+    'binance',
+    'defi',
+    'nft',
+    'trading'
+  ];
 
   useEffect(() => {
     if (book) {
@@ -255,7 +276,7 @@ export const EditBookDialog = ({ open, onOpenChange, book, onBookUpdated }: Edit
                 <SelectContent>
                   {categories.map((cat) => (
                     <SelectItem key={cat} value={cat} className="capitalize">
-                      {cat}
+                      {cat.replace(/-/g, ' ')}
                     </SelectItem>
                   ))}
                 </SelectContent>

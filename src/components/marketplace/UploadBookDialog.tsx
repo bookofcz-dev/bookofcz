@@ -31,7 +31,28 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { toast } = useToast();
 
-  const categories = ['crypto', 'binance', 'defi', 'nft', 'trading', 'education', 'technology'];
+  const categories = [
+    'fiction',
+    'non-fiction',
+    'business-finance',
+    'self-help-motivation',
+    'travel',
+    'technology',
+    'education',
+    'health-wellness',
+    'biographies',
+    'entrepreneurship',
+    'mindset-psychology',
+    'kids-teens',
+    'art-creativity',
+    'comics-graphic-novels',
+    'religion-philosophy',
+    'crypto',
+    'binance',
+    'defi',
+    'nft',
+    'trading'
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -235,7 +256,7 @@ export const UploadBookDialog = ({ open, onOpenChange, creatorWallet }: UploadBo
                 <SelectContent>
                   {categories.map((cat) => (
                     <SelectItem key={cat} value={cat} className="capitalize">
-                      {cat}
+                      {cat.replace(/-/g, ' ')}
                     </SelectItem>
                   ))}
                 </SelectContent>

@@ -16,7 +16,28 @@ export const bookUploadSchema = z.object({
     .min(10, 'Description must be at least 10 characters')
     .max(2000, 'Description must be less than 2000 characters'),
   
-  category: z.enum(['crypto', 'binance', 'defi', 'nft', 'trading', 'education', 'technology'], {
+  category: z.enum([
+    'fiction',
+    'non-fiction',
+    'business-finance',
+    'self-help-motivation',
+    'travel',
+    'technology',
+    'education',
+    'health-wellness',
+    'biographies',
+    'entrepreneurship',
+    'mindset-psychology',
+    'kids-teens',
+    'art-creativity',
+    'comics-graphic-novels',
+    'religion-philosophy',
+    'crypto',
+    'binance',
+    'defi',
+    'nft',
+    'trading'
+  ], {
     errorMap: () => ({ message: 'Please select a valid category' }),
   }),
   

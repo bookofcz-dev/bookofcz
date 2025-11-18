@@ -101,14 +101,36 @@ export default function Marketplace() {
           <div className="mb-12">
             <h2 className="font-heading text-3xl font-bold mb-6 gold-glow">Browse by Category</h2>
             <div className="flex flex-wrap gap-3">
-              {['all', 'crypto', 'binance', 'defi', 'nft', 'trading', 'education'].map((cat) => (
+              {[
+                'all',
+                'fiction',
+                'non-fiction',
+                'business-finance',
+                'self-help-motivation',
+                'travel',
+                'technology',
+                'education',
+                'health-wellness',
+                'biographies',
+                'entrepreneurship',
+                'mindset-psychology',
+                'kids-teens',
+                'art-creativity',
+                'comics-graphic-novels',
+                'religion-philosophy',
+                'crypto',
+                'binance',
+                'defi',
+                'nft',
+                'trading'
+              ].map((cat) => (
                 <Button
                   key={cat}
                   variant={selectedCategory === cat ? 'gold' : 'outline'}
                   onClick={() => setSelectedCategory(cat)}
                   className="capitalize font-cta"
                 >
-                  {cat}
+                  {cat.replace(/-/g, ' ')}
                 </Button>
               ))}
             </div>
